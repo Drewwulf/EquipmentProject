@@ -1,0 +1,369 @@
+﻿
+@{
+    ViewData["Title"] = "Редагувати товар";
+}
+
+<div class="product-edit-page">
+
+    <!-- Заголовок -->
+    <h2 class="product-edit-title">Редагувати товар</h2>
+
+
+    <!-- =========================
+         ОСНОВНА ІНФОРМАЦІЯ
+    ========================== -->
+
+    <section class="product-section">
+
+        <h3>Основна інформація</h3>
+
+        <!-- Назва -->
+        <div class="product-field">
+            <label for="productName">
+                Назва *
+            </label>
+
+            <input type="text"
+                   id="productName"
+                   name="Name"
+                   value="Шафа" />
+        </div>
+
+
+        <!-- Артикул + Ціна -->
+        <div class="product-grid">
+
+            <div class="product-field">
+
+                <label for="article">
+                    Артикул
+                </label>
+
+                <input type="text"
+                       id="article"
+                       name="Article"
+                       value="6755429" />
+
+            </div>
+
+
+            <div class="product-field">
+
+                <label for="price">
+                    Ціна (₴) *
+                </label>
+
+                <input type="number"
+                       id="price"
+                       name="Price"
+                       value="27500" />
+
+            </div>
+
+        </div>
+
+
+        <!-- Категорія + Підкатегорія -->
+        <div class="product-grid">
+
+            <div class="product-field">
+
+                <label for="category">
+                    Категорія
+                </label>
+
+                <select id="category"
+                        name="CategoryId">
+
+                    <option value="">Оберіть категорію</option>
+
+                    <option value="1" selected>
+                        Харчове обладнання
+                    </option>
+
+                    <option value="2">
+                        Холодильне обладнання
+                    </option>
+
+                    <option value="3">
+                        Пральне обладнання
+                    </option>
+
+                    <option value="4">
+                        Виробниче обладнання
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="product-field">
+
+                <label for="subcategory">
+                    Підкатегорія
+                </label>
+
+                <select id="subcategory"
+                        name="SubcategoryId">
+
+                    <option value="">
+                        Оберіть підкатегорію
+                    </option>
+
+                    <option value="1" selected>
+                        Шафи та столи
+                    </option>
+
+                    <option value="2">
+                        Стелажі
+                    </option>
+
+                    <option value="3">
+                        Мийки
+                    </option>
+
+                    <option value="4">
+                        Візки
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- Короткий опис -->
+        <div class="product-field">
+
+            <label for="shortDescription">
+                Короткий опис
+            </label>
+
+            <textarea id="shortDescription"
+                      name="ShortDescription"
+                      placeholder="Короткий опис для картки товару"></textarea>
+
+        </div>
+
+
+        <!-- Повний опис -->
+        <div class="product-field">
+
+            <label for="description">
+                Повний опис
+            </label>
+
+            <textarea id="description"
+                      name="Description"
+                      class="full-description"
+                      placeholder="Детальний опис товару"></textarea>
+
+        </div>
+
+
+        <!-- Checkbox -->
+        <div class="product-checkboxes">
+
+            <label class="checkbox-item">
+
+                <input type="checkbox"
+                       name="IsNew"
+                       checked />
+
+                <span>Новинка</span>
+
+            </label>
+
+
+            <label class="checkbox-item">
+
+                <input type="checkbox"
+                       name="IsRecommended" />
+
+                <span>Рекомендований</span>
+
+            </label>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         ЗОБРАЖЕННЯ
+    ========================== -->
+
+    <section class="product-section">
+
+        <h3>Зображення</h3>
+
+
+        <!-- Основне фото -->
+        <div class="image-block">
+
+            <label>
+                Основне фото
+            </label>
+
+            <label for="mainImage"
+                   class="outline-button">
+
+                <span>↥</span>
+                Завантажити
+
+            </label>
+
+            <input type="file"
+                   id="mainImage"
+                   name="MainImage"
+                   accept="image/*"
+                   hidden />
+
+        </div>
+
+
+        <!-- Галерея -->
+        <div class="image-block">
+
+            <label>
+                Галерея фотографій
+            </label>
+
+            <label for="galleryImages"
+                   class="outline-button">
+
+                <span>▧</span>
+                Додати фото
+
+            </label>
+
+            <input type="file"
+                   id="galleryImages"
+                   name="GalleryImages"
+                   accept="image/*"
+                   multiple
+                   hidden />
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         ТЕХНІЧНІ ХАРАКТЕРИСТИКИ
+    ========================== -->
+
+    <section class="product-section specifications-section">
+
+        <div class="section-header">
+
+            <h3>
+                Технічні характеристики
+            </h3>
+
+            <button type="button"
+                    class="add-button"
+                    id="addSpecification">
+
+                + Додати
+
+            </button>
+
+        </div>
+
+
+        <div id="specificationsContainer">
+
+            <p class="empty-specifications">
+                Характеристик поки немає. Додайте першу.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         КНОПКИ
+    ========================== -->
+
+    <div class="product-actions">
+
+        <button type="submit"
+                class="save-button">
+
+            <span>▣</span>
+            Зберегти товар
+
+        </button>
+
+
+        <button type="button"
+                class="cancel-button">
+
+            Скасувати
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    const addSpecificationButton =
+        document.getElementById("addSpecification");
+
+    const specificationsContainer =
+        document.getElementById("specificationsContainer");
+
+
+    addSpecificationButton.addEventListener("click", function () {
+
+        const emptyMessage =
+            specificationsContainer.querySelector(".empty-specifications");
+
+        if (emptyMessage) {
+            emptyMessage.remove();
+        }
+
+
+        const specification =
+            document.createElement("div");
+
+        specification.className =
+            "specification-row";
+
+
+        specification.innerHTML = `
+
+            <input type="text"
+                   class="specification-input"
+                   placeholder="Назва характеристики">
+
+
+            <input type="text"
+                   class="specification-input"
+                   placeholder="Значення">
+
+
+            <button type="button"
+                    class="delete-specification">
+                ×
+            </button>
+
+        `;
+
+
+        specificationsContainer.appendChild(specification);
+
+    });
+
+</script>
+
