@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var port = 5001;
+var port = 2000;
 
 builder.WebHost.UseUrls($"http://localhost:{port}");
 
