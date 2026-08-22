@@ -4,6 +4,7 @@ using EquipmentProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EquipmentProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260822063259_AddPriceToProduct")]
+    partial class AddPriceToProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,7 +70,7 @@ namespace EquipmentProject.Migrations
                     b.Property<int>("Articul")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("FullDescription")
@@ -98,7 +101,7 @@ namespace EquipmentProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SubcategoryId")
+                    b.Property<int>("SubcategoryId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -375,7 +378,9 @@ namespace EquipmentProject.Migrations
                 {
                     b.HasOne("EquipmentProject.Models.Subcategory", "Subcategory")
                         .WithMany("Products")
-                        .HasForeignKey("SubcategoryId");
+                        .HasForeignKey("SubcategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Subcategory");
                 });

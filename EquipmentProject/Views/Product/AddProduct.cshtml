@@ -1,7 +1,8 @@
-﻿
+﻿@model EquipmentProject.Models.ViewModels.ProductViewModel
 @{
     ViewData["Title"] = "Редагувати товар";
 }
+<form asp-controller="Product" asp-action="StartProduct">
 
 <div class="product-edit-page">
 
@@ -14,7 +15,6 @@
     ========================== -->
 
     <section class="product-section">
-
         <h3>Основна інформація</h3>
 
         <!-- Назва -->
@@ -23,10 +23,10 @@
                 Назва *
             </label>
 
-            <input type="text"
+                <input asp-for="ProductName" type="text"
                    id="productName"
-                   name="Name"
-                   value="Шафа" />
+                
+                    />
         </div>
 
 
@@ -39,10 +39,10 @@
                     Артикул
                 </label>
 
-                <input type="text"
+                <input asp-for="Articul" type="text"
                        id="article"
-                       name="Article"
-                       value="6755429" />
+                    
+                       />
 
             </div>
 
@@ -53,10 +53,10 @@
                     Ціна (₴) *
                 </label>
 
-                <input type="number"
+                <input asp-for="Price" type="number"
                        id="price"
-                       name="Price"
-                       value="27500" />
+                    
+                       />
 
             </div>
 
@@ -75,21 +75,21 @@
                 <select id="category"
                         name="CategoryId">
 
-                    <option value="">Оберіть категорію</option>
+                    <option >Оберіть категорію</option>
 
-                    <option value="1" selected>
+                    <option  selected>
                         Харчове обладнання
                     </option>
 
-                    <option value="2">
+                    <option >
                         Холодильне обладнання
                     </option>
 
-                    <option value="3">
+                    <option>
                         Пральне обладнання
                     </option>
 
-                    <option value="4">
+                    <option >
                         Виробниче обладнання
                     </option>
 
@@ -107,23 +107,23 @@
                 <select id="subcategory"
                         name="SubcategoryId">
 
-                    <option value="">
+                    <option>
                         Оберіть підкатегорію
                     </option>
 
-                    <option value="1" selected>
+                    <option  selected>
                         Шафи та столи
                     </option>
 
-                    <option value="2">
+                    <option >
                         Стелажі
                     </option>
 
-                    <option value="3">
+                    <option>
                         Мийки
                     </option>
 
-                    <option value="4">
+                    <option >
                         Візки
                     </option>
 
@@ -141,8 +141,8 @@
                 Короткий опис
             </label>
 
-            <textarea id="shortDescription"
-                      name="ShortDescription"
+            <textarea asp-for="ShortDescription" id="shortDescription"
+                  
                       placeholder="Короткий опис для картки товару"></textarea>
 
         </div>
@@ -155,8 +155,8 @@
                 Повний опис
             </label>
 
-            <textarea id="description"
-                      name="Description"
+            <textarea asp-for="FullDescription" id="description"
+                    
                       class="full-description"
                       placeholder="Детальний опис товару"></textarea>
 
@@ -168,8 +168,8 @@
 
             <label class="checkbox-item">
 
-                <input type="checkbox"
-                       name="IsNew"
+                <input asp-for="IsNew" type="checkbox"
+                       
                        checked />
 
                 <span>Новинка</span>
@@ -179,8 +179,8 @@
 
             <label class="checkbox-item">
 
-                <input type="checkbox"
-                       name="IsRecommended" />
+                <input asp-for="IsRecomended" type="checkbox"
+ />
 
                 <span>Рекомендований</span>
 
@@ -294,7 +294,7 @@
 
     <div class="product-actions">
 
-        <button type="submit"
+        <button  type="submit" method="posts"
                 class="save-button">
 
             <span>▣</span>
@@ -313,7 +313,7 @@
     </div>
 
 </div>
-
+</form>
 
 <script>
 
