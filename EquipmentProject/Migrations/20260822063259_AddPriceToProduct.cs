@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EquipmentProject.Migrations
 {
     /// <inheritdoc />
-    public partial class migraaattttt231 : Migration
+    public partial class AddPriceToProduct : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -207,6 +207,7 @@ namespace EquipmentProject.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Articul = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     SubcategoryId = table.Column<int>(type: "int", nullable: false),
                     ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),

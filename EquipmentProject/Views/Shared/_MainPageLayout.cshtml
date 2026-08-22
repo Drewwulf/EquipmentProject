@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EquipmentProject</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/nav.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Footer.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/EquipmentProject.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=settings" />
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+
+            <div class="brand">
+                <div class="brand-icon">
+                    <img src="/lib/developer_board_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png" />
+                </div>
+                <span>Наш магазин</span>
+            </div>
+
+            <div class="search">
+                <i class="bi bi-search"></i>
+                <input type="text" placeholder="Пошук обладнання...">
+            </div>
+
+            <div class="links">
+                <a href="#">Головна</a>
+                <a href="#">Про компанію</a>
+
+                <a href="#" class="catalog">
+                    Каталог
+                </a>
+
+                <a href="#" class="contacts">
+                    Контакти
+                </a>
+            </div>
+
+        </div>
+    </nav>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="site-footer">
+
+        <!-- Консультація -->
+        <div class="footer-consultation">
+            <div class="footer-consultation-content">
+                <div>
+                    <h2>Потрібна консультація?</h2>
+                    <p>
+                        Наші фахівці допоможуть підібрати обладнання під ваші виробничі задачі.
+                    </p>
+                </div>
+
+                <div class="footer-consultation-buttons">
+                    <a href="tel:+380441234567" class="footer-phone">
+                        +38 (044) 123-45-67
+                    </a>
+
+                    <a href="#" class="footer-contact-btn">
+                        Контакти
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Основна частина футера -->
+        <div class="footer-main">
+
+            <!-- Магазин -->
+            <div class="footer-column footer-brand">
+
+                <div class="footer-logo">
+                    <div class="footer-logo-icon">
+                        <img src="/lib/developer_board_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png" />
+                    </div>
+
+                    <span>Наш магазин</span>
+                </div>
+
+                <p>
+                    Обладнання для міні-виробництв, малого
+                    бізнесу та виробничих майстерень.
+                </p>
+
+            </div>
+
+
+            <!-- Навігація -->
+            <div class="footer-column">
+
+                <h3>НАВІГАЦІЯ</h3>
+
+                <a href="#">Головна</a>
+                <a href="#">Каталог</a>
+                <a href="#">Про компанію</a>
+                <a href="#">Контакти</a>
+
+            </div>
+
+
+            <!-- Контакти -->
+            <div class="footer-column">
+
+                <h3>КОНТАКТИ</h3>
+
+                <div class="footer-info">
+                    <i class="bi bi-geo-alt"></i>
+                    <span>м.Виноградів</span>
+                </div>
+
+                <div class="footer-info">
+                    <i class="bi bi-telephone"></i>
+                    <span>+38 (044) 123-45-67</span>
+                </div>
+
+                <div class="footer-info">
+                    <i class="bi bi-envelope"></i>
+                    <span>info@nash-magazin.ua</span>
+                </div>
+
+                <div class="footer-info">
+                    <i class="bi bi-clock"></i>
+                    <span>Пн–Пт: 9:00–18:00, Сб: 10:00–15:00</span>
+                </div>
+
+            </div>
+
+
+            <!-- Соціальні мережі -->
+            <div class="footer-column">
+
+                <h3>СОЦІАЛЬНІ МЕРЕЖІ</h3>
+
+                <div class="footer-socials">
+                    <a href="#" class="social-btn">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                    <a href="#" class="social-btn">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                    <a href="#" class="social-btn">
+                        <i class="bi bi-telegram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Нижня частина -->
+        <div class="footer-bottom">
+            <span>
+                © 2026 Наш магазин. Усі права захищені.
+            </span>
+        </div>
+
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

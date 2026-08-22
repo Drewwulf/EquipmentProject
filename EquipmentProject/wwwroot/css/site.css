@@ -475,3 +475,423 @@ body {
         flex-wrap: wrap;
     }
 }
+
+.product-edit-page {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 25px 14px 70px;
+    box-sizing: border-box;
+    color: #f2f5fa;
+    font-family: Arial, sans-serif;
+}
+
+
+.product-edit-title {
+    margin: 0 0 22px;
+    font-size: 22px;
+    font-weight: 600;
+    color: #f1f3f7;
+}
+
+
+/* =========================================
+   СЕКЦІЇ*/
+
+.product-section {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 22px 20px;
+    margin-bottom: 20px;
+    border: 1px solid #26354c;
+    background-color: #0c1423;
+}
+
+
+    .product-section h3 {
+        margin: 0 0 20px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #f1f3f7;
+    }
+
+
+/* =========================================
+   ПОЛЯ*/
+
+.product-field {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 17px;
+}
+
+
+    .product-field label {
+        margin-bottom: 8px;
+        font-size: 11px;
+        color: #9bb0cc;
+    }
+
+
+    /* =========================================
+   INPUT / SELECT / TEXTAREA*/
+
+    .product-field input,
+    .product-field select,
+    .product-field textarea {
+        width: 100%;
+        box-sizing: border-box;
+        border: 1px solid transparent;
+        outline: none;
+        background-color: #202f47;
+        color: #f3f6fa;
+        font-family: Arial, sans-serif;
+        font-size: 13px;
+        transition: all 0.15s ease;
+    }
+
+
+    .product-field input,
+    .product-field select {
+        height: 32px;
+        padding: 0 10px;
+    }
+
+
+    .product-field textarea {
+        min-height: 47px;
+        padding: 10px;
+        resize: vertical;
+    }
+
+
+    .product-field .full-description {
+        min-height: 95px;
+    }
+
+
+    /* =========================================
+   PLACEHOLDER*/
+
+    .product-field input::placeholder,
+    .product-field textarea::placeholder {
+        color: #7890ad;
+        opacity: 1;
+    }
+
+
+    /* =========================================
+   FOCUS*/
+
+    .product-field input:focus,
+    .product-field select:focus,
+    .product-field textarea:focus {
+        border-color: #315a91;
+        background-color: #23344f;
+    }
+
+
+    /* =========================================
+   SELECT*/
+
+    .product-field select {
+        cursor: pointer;
+        appearance: auto;
+    }
+
+
+/* =========================================
+   ДВА ПОЛЯ В РЯД*/
+
+.product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+
+/* =========================================
+   CHECKBOX*/
+
+.product-checkboxes {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    margin-top: 3px;
+}
+
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+    color: #f1f3f7;
+    font-size: 12px;
+}
+
+
+    .checkbox-item input {
+        width: 13px;
+        height: 13px;
+        margin: 0;
+        cursor: pointer;
+        accent-color: #4285f4;
+    }
+
+
+/* =========================================
+   ЗОБРАЖЕННЯ*/
+
+.image-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 19px;
+}
+
+
+    .image-block:last-child {
+        margin-bottom: 0;
+    }
+
+
+    .image-block > label:first-child {
+        margin-bottom: 8px;
+        font-size: 11px;
+        color: #9bb0cc;
+    }
+
+
+/* =========================================
+   КНОПКИ ЗАВАНТАЖЕННЯ*/
+
+.outline-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 34px;
+    padding: 0 13px;
+    box-sizing: border-box;
+    border: 1px solid #2d3d56;
+    background-color: transparent;
+    color: #e5eaf1;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+
+    .outline-button span {
+        margin-right: 6px;
+        font-size: 14px;
+    }
+
+
+    .outline-button:hover {
+        background-color: #172337;
+        border-color: #466383;
+    }
+
+
+/* =========================================
+   ТЕХНІЧНІ ХАРАКТЕРИСТИКИ*/
+
+.specifications-section {
+    min-height: 95px;
+}
+
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+
+    .section-header h3 {
+        margin: 0;
+    }
+
+
+/* =========================================
+   КНОПКА + ДОДАТИ*/
+
+.add-button {
+    height: 28px;
+    padding: 0 10px;
+    border: 1px solid #2d3d56;
+    background-color: transparent;
+    color: #e5eaf1;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+
+    .add-button:hover {
+        background-color: #172337;
+        border-color: #466383;
+    }
+
+
+/* =========================================
+   ПОВІДОМЛЕННЯ ПРО ВІДСУТНІСТЬ*/
+
+.empty-specifications {
+    margin: 15px 0 0;
+    font-size: 11px;
+    color: #8da2be;
+}
+
+
+
+.specification-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 35px;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+
+.specification-input {
+    width: 100%;
+    height: 32px;
+    box-sizing: border-box;
+    padding: 0 10px;
+    border: 1px solid transparent;
+    outline: none;
+    background-color: #202f47;
+    color: #f3f6fa;
+    font-size: 12px;
+}
+
+
+    .specification-input:focus {
+        border-color: #315a91;
+        background-color: #23344f;
+    }
+
+
+/* =========================================
+   ВИДАЛЕННЯ ХАРАКТЕРИСТИКИ*/
+
+.delete-specification {
+    height: 32px;
+    border: 1px solid #3a465a;
+    background-color: transparent;
+    color: #b8c3d1;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+
+    .delete-specification:hover {
+        background-color: #30202a;
+        border-color: #6d3a48;
+        color: #ffffff;
+    }
+
+
+/* =========================================
+   НИЖНІ КНОПКИ*/
+
+.product-actions {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding-top: 12px;
+    border-top: 1px solid #26354c;
+}
+
+
+/* =========================================
+   ЗБЕРЕГТИ*/
+
+.save-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 34px;
+    padding: 0 20px;
+    border: 1px solid #315eaa;
+    background-color: #1d4b9b;
+    color: #ffffff;
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.15s ease;
+}
+
+
+    .save-button:hover {
+        background-color: #255bb7;
+        border-color: #3c72ca;
+    }
+
+
+/* =========================================
+   СКАСУВАТИ*/
+
+.cancel-button {
+    height: 34px;
+    padding: 0 20px;
+    border: 1px solid #26354c;
+    background-color: transparent;
+    color: #d8dee8;
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.15s ease;
+}
+
+
+    .cancel-button:hover {
+        background-color: #121d2e;
+        border-color: #344760;
+    }
+
+
+/* =========================================
+   ADAPTIVE*/
+
+@media (max-width: 700px) {
+
+    .product-edit-page {
+        padding: 20px 10px 50px;
+    }
+
+
+    .product-section {
+        padding: 18px 15px;
+    }
+
+
+    .product-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+
+    .product-checkboxes {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+
+    .specification-row {
+        grid-template-columns: 1fr;
+    }
+
+
+    .delete-specification {
+        width: 100%;
+    }
+
+
+    .product-actions {
+        flex-wrap: wrap;
+    }
+}
