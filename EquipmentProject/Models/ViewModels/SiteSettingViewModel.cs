@@ -10,6 +10,7 @@
         public string SocialFacebook { get; set; }
         public string SocialInstagram { get; set; }
         public string SocialTelegram { get; set; }
-        
+
+        public List<Contact> Contacts { get; set; } = new List<Contact>();
     }
 }

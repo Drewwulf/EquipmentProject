@@ -170,6 +170,9 @@
 
 
     <script>
+        const contacts = @Html.Raw(Json.Serialize(Model.Contacts));
+
+        let siteind = contacts.length;
 
         const addSpecificationButton =
             document.getElementById("addSpecification");
@@ -178,101 +181,116 @@
             document.getElementById("specificationsContainer");
 
 
-        addSpecificationButton.addEventListener("click", function () {
+        // Виводимо існуючі контакти
+        for (let i = 0; i < contacts.length; i++) {
 
-            const emptyMessage =
-                specificationsContainer.querySelector(".empty-specifications");
-
-            if (emptyMessage) {
-                emptyMessage.remove();
-            }
-
+            const contact = contacts[i];
 
             const specification =
                 document.createElement("div");
 
-            specification.className =
-                "specification-row";
-
+            specification.className = "specification-row";
 
             specification.innerHTML = `
-                
-                    <section class="product-section">
+                <section class="product-section">
 
-            <h3>Загальна інформація</h3>
+                    <h3>Загальна інформація</h3>
 
-            <!-- Назва -->
-            <div class="product-field">
-                <label for="productName">
-                    Адреса
-                </label>
+                    <div class="product-field">
+                        <label>Адреса</label>
 
-                <input type="text"
-                       id="productName"
-                       name="Name"
-                       value="Шафа" />
-            </div>
+                        <input type="text"
+                               name="Contacts[${i}].Address"
+                               value="${contact.address ?? ''}" />
+                    </div>
 
-            <div class="product-field">
-                <label for="productName">
-                    Номер телефону
-                </label>
+                    <div class="product-field">
+                        <label>Номер телефону</label>
 
-                <input type="text"
-                       id="productName"
-                       name="Name"
-                       value="Шафа" />
-            </div>
-            
-            <div class="product-field">
-                <label for="productName">
-                Email
-                </label>
+                        <input type="text"
+                               name="Contacts[${i}].PhoneNumber"
+                               value="${contact.phoneNumber ?? ''}" />
+                    </div>
 
-                <input type="text"
-                       id="productName"
-                       name="Name"
-                       value="Шафа" />
-            </div>
+                    <div class="product-field">
+                        <label>Email</label>
 
+                        <input type="text"
+                               name="Contacts[${i}].Email"
+                               value="${contact.email ?? ''}" />
+                    </div>
 
-            <div class="product-field">
+                    <div class="product-field">
+                        <label>Графік роботи</label>
 
-                <label for="description">
-                Графік роботи
-                </label>
+                        <textarea name="Contacts[${i}].Schedule"
+                                  class="full-description">${contact.schedule ?? ''}</textarea>
+                    </div>
 
-                <textarea id="description"
-                          name="Description"
-                          class="full-description"
-                          placeholder="Детальний опис товару"></textarea>
+                    <button type="button"
+                            class="delete-specification">
+                        ×
+                    </button>
 
-            </div>
-
-
-  
-                <button type="button"
-                        class="delete-specification">
-                    ×
-                </button>
-
-
-                <button type="submit"
-                    class="save-button">
-
-                <span>▣</span>
-                Зберегти товар
-
-            </button>
-    
                 </section>
-
-
             `;
 
+            specificationsContainer.appendChild(specification);
+        }
+
+
+        // Додавання нового контакту
+        addSpecificationButton.addEventListener("click", function () {
+
+            const specification =
+                document.createElement("div");
+
+            specification.className = "specification-row";
+
+            specification.innerHTML = `
+                <section class="product-section">
+
+                    <h3>Загальна інформація</h3>
+
+                    <div class="product-field">
+                        <label>Адреса</label>
+
+                        <input type="text"
+                               name="Contacts[${siteind}].Address" />
+                    </div>
+
+                    <div class="product-field">
+                        <label>Номер телефону</label>
+
+                        <input type="text"
+                               name="Contacts[${siteind}].PhoneNumber" />
+                    </div>
+
+                    <div class="product-field">
+                        <label>Email</label>
+
+                        <input type="text"
+                               name="Contacts[${siteind}].Email" />
+                    </div>
+
+                    <div class="product-field">
+                        <label>Графік роботи</label>
+
+                        <textarea name="Contacts[${siteind}].Schedule"
+                                  class="full-description"></textarea>
+                    </div>
+
+                    <button type="button"
+                            class="delete-specification">
+                        ×
+                    </button>
+
+                </section>
+            `;
 
             specificationsContainer.appendChild(specification);
 
+            siteind++;
         });
 
     </script>
