@@ -18,8 +18,26 @@ namespace EquipmentProject.Controllers
         }
         public IActionResult AddProduct()
         {
-            return View();
-            
+            var p  = _context.Products.ToList().FirstOrDefault();
+            var model = new ProductViewModel
+            {
+                ProductName = p.ProductName,
+                Articul = p.Articul,
+                Price = p.Price,
+                ShortDescription = p.ShortDescription,
+                FullDescription = p.FullDescription,
+
+                IsNew = p.IsNew,
+                IsRecomended = p.IsRecomended,
+                IsDeleted = p.IsDeleted,
+
+                ImgPath = p.ImgPath,
+
+                TechnicalCharacteristics = p.TechnicalCharacteristics
+            };
+
+
+            return View(model);
         }
         [HttpPost]
         public IActionResult StartProduct(ProductViewModel Model)
@@ -34,7 +52,8 @@ namespace EquipmentProject.Controllers
                 FullDescription = Model.FullDescription,
                 IsNew = Model.IsNew,
                 IsRecomended = Model.IsRecomended,
-                ImgPath = "img.png"
+                ImgPath = "img.png",
+                TechnicalCharacteristics = Model.TechnicalCharacteristics
             };
 
             _context.Add(product);

@@ -316,6 +316,9 @@
 </form>
 
 <script>
+    const tcs = @Html.Raw(Json.Serialize(Model.TechnicalCharacteristics))
+
+    let siteind = tcs.length;
 
     const addSpecificationButton =
         document.getElementById("addSpecification");
@@ -323,6 +326,38 @@
     const specificationsContainer =
         document.getElementById("specificationsContainer");
 
+     for (let i = 0; i < tcs.length; i++) {
+        const tc = tcs[i];
+        
+        specification.className =
+            "specification-row";
+
+
+        specification.innerHTML = `
+
+            <input type="text"
+                   class="specification-input"
+                   value = "${tc.ParameterName ?? ''}"
+                   placeholder="Назва характеристики">
+
+
+            <input type="text"
+                   class="specification-input"
+                   value = "${tc.ParameterValue ?? ''}"
+                   placeholder="Значення">
+
+
+            <button type="button"
+                    class="delete-specification">
+                ×
+            </button>
+
+        `;
+
+
+        specificationsContainer.appendChild(specification);
+
+     }
 
     addSpecificationButton.addEventListener("click", function () {
 
@@ -345,11 +380,13 @@
 
             <input type="text"
                    class="specification-input"
+                   name="TechnicalCharacteristics[${siteind}].ParameterName"
                    placeholder="Назва характеристики">
 
 
             <input type="text"
                    class="specification-input"
+                   name="TechnicalCharacteristics[${siteind}].ParameterValue"
                    placeholder="Значення">
 
 
@@ -362,6 +399,8 @@
 
 
         specificationsContainer.appendChild(specification);
+
+        siteind++;
 
     });
 
