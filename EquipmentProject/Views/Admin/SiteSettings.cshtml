@@ -1,0 +1,296 @@
+﻿@model EquipmentProject.Models.ViewModels.SiteSettingViewModel
+    @{
+        ViewData["Title"] = "Редагувати товар";
+    }
+    <form asp-controller="Admin" asp-action="SetSettings" method="post">
+    <div class="product-edit-page">
+
+        <!-- Заголовок -->
+        <h2 class="product-edit-title">Редагувати товар</h2>
+
+
+        <!-- =========================
+         ОСНОВНА ІНФОРМАЦІЯ
+    ========================== -->
+     
+        <section class="product-section">
+
+            <h3>Загальна інформація</h3>
+
+            <!-- Назва -->
+            <div class="product-field">
+                <label for="productName">
+                    Назва магазину*
+                </label>
+
+                <input type="text"
+                       id="productName"
+                   value="@Model.ShopName" asp-for="ShopName" />
+            </div>
+
+            <div class="product-field">
+                <label for="productName">
+                    Заголовок банера (головна сторінка)
+                </label>
+
+                <input type="text"
+                       id="productName"
+                   value="@Model.HeaderInfo" asp-for="HeaderInfo" />
+            </div>
+            
+            <div class="product-field">
+                <label for="productName">
+                    Підзаголовок банера
+                </label>
+
+                <input type="text"
+                       id="productName"
+                   value="@Model.SubHeaderInfo" asp-for="SubHeaderInfo" />
+            </div>
+
+
+            <div class="product-field">
+
+                <label for="description">
+                    Текст *Про коммпанію*
+                </label>
+
+                <textarea id="description"
+                          class="full-description"
+                          placeholder="Детальний опис товару"
+                      value="@Model.ShopDesc" asp-for="ShopDesc"></textarea>
+
+            </div>
+
+
+  
+            <input type="hidden" asp-for="Id"/>
+
+
+    
+                </section>
+
+        <!-- =========================
+         ТЕХНІЧНІ ХАРАКТЕРИСТИКИ
+    ========================== -->
+
+        <section class="product-section ">
+
+            <div class="section-header">
+
+                <h3>
+                    Технічні характеристики
+                </h3>
+
+                <button type="button"
+                        class="add-button"
+                        id="addSpecification">
+
+                    + Додати
+
+                </button>
+
+            </div>
+
+
+            <div id="specificationsContainer">
+
+                <p class="empty-specifications">
+                    Характеристик поки немає. Додайте першу.
+                </p>
+
+            </div>
+
+        </section>
+
+        <section class="product-section">
+       
+                <h3>Соціальна мережа</h3>
+
+
+                <div class="product-field">
+                    <label for="productName">
+                        Facebook
+                    </label>
+
+                    <input type="text"
+                           id="productName"
+                   value="@Model.SocialFacebook" asp-for="SocialFacebook" />
+                </div>
+
+                <div class="product-field">
+                    <label for="productName">
+                        Instagram
+                    </label>
+
+                    <input type="text"
+                           id="productName"
+                   value="@Model.SocialInstagram" asp-for="SocialInstagram">
+                </div>
+
+                <div class="product-field">
+                    <label for="productName">
+                        Telegram
+                    </label>
+
+                    <input type="text"
+                           id="productName"
+                       value="@Model.SocialTelegram" asp-for="SocialTelegram" />
+                </div>
+
+        </section>
+
+
+
+        <div class="product-actions">
+
+            <button type="submit"
+                    class="save-button">
+
+                <span>▣</span>
+                Зберегти товар
+
+            </button>
+
+
+            <button type="button"
+                    class="cancel-button">
+
+                Скасувати
+
+            </button>
+
+
+
+
+        </div>
+
+    </div>
+    </form>
+
+
+    <script>
+        const contacts = @Html.Raw(Json.Serialize(Model.Contacts));
+
+        let siteind = contacts.length;
+
+        const addSpecificationButton =
+            document.getElementById("addSpecification");
+
+        const specificationsContainer =
+            document.getElementById("specificationsContainer");
+
+
+        // Виводимо існуючі контакти
+        for (let i = 0; i < contacts.length; i++) {
+             
+            const contact = contacts[i];
+
+            const specification =
+                document.createElement("div");
+
+            specification.className = "specification-row";
+
+            specification.innerHTML = `
+                <section class="product-section">
+
+                    <h3>Загальна інформація</h3>
+
+                    <div class="product-field">
+                        <label>Адреса</label>
+
+                        <input type="text"
+                               name="Contacts[${i}].Address"
+                               value="${contact.address ?? ''}" />
+                    </div>
+
+                    <div class="product-field">
+                        <label>Номер телефону</label>
+
+                        <input type="text"
+                               name="Contacts[${i}].PhoneNumber"
+                               value="${contact.phoneNumber ?? ''}" />
+                    </div>
+
+                    <div class="product-field">
+                        <label>Email</label>
+
+                        <input type="text"
+                               name="Contacts[${i}].Email"
+                               value="${contact.email ?? ''}" />
+                    </div>
+
+                    <div class="product-field">
+                        <label>Графік роботи</label>
+
+                        <textarea name="Contacts[${i}].Schedule"
+                                  class="full-description">${contact.schedule ?? ''}</textarea>
+                    </div>
+
+                    <button type="button"
+                            class="delete-specification">
+                        ×
+                    </button>
+
+                </section>
+            `;
+
+            specificationsContainer.appendChild(specification);
+        }
+
+
+        // Додавання нового контакту
+        addSpecificationButton.addEventListener("click", function () {
+
+            const specification =
+                document.createElement("div");
+
+            specification.className = "specification-row";
+
+            specification.innerHTML = `
+                <section class="product-section">
+
+                    <h3>Загальна інформація</h3>
+
+                    <div class="product-field">
+                        <label>Адреса</label>
+
+                        <input type="text"
+                               name="Contacts[${siteind}].Address" />
+                    </div>
+
+                    <div class="product-field">
+                        <label>Номер телефону</label>
+
+                        <input type="text"
+                               name="Contacts[${siteind}].PhoneNumber" />
+                    </div>
+
+                    <div class="product-field">
+                        <label>Email</label>
+
+                        <input type="text"
+                               name="Contacts[${siteind}].Email" />
+                    </div>
+
+                    <div class="product-field">
+                        <label>Графік роботи</label>
+
+                        <textarea name="Contacts[${siteind}].Schedule"
+                                  class="full-description"></textarea>
+                    </div>
+
+                    <button type="button"
+                            class="delete-specification">
+                        ×
+                    </button>
+
+                </section>
+            `;
+
+            specificationsContainer.appendChild(specification);
+
+            siteind++;
+        });
+
+    </script>

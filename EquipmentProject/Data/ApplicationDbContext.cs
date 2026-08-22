@@ -17,7 +17,8 @@ namespace EquipmentProject.Data
         public DbSet<Subcategory> Subcategories { get; set; }
         public DbSet<TechnicalCharacteristic> TechnicalCharacteristics { get; set; }
 
-        
+        public DbSet<SiteSettings> SiteSettings { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
     }
 }
 
