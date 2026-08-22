@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EquipmentProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260808080848_migraaattttt231")]
-    partial class migraaattttt231
+    [Migration("20260822064917_AddPriceToProduct2")]
+    partial class AddPriceToProduct2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,7 +70,7 @@ namespace EquipmentProject.Migrations
                     b.Property<int>("Articul")
                         .HasColumnType("int");
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("FullDescription")
@@ -90,6 +90,9 @@ namespace EquipmentProject.Migrations
                     b.Property<bool>("IsRecomended")
                         .HasColumnType("bit");
 
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -98,7 +101,7 @@ namespace EquipmentProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SubcategoryId")
+                    b.Property<int?>("SubcategoryId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -375,9 +378,7 @@ namespace EquipmentProject.Migrations
                 {
                     b.HasOne("EquipmentProject.Models.Subcategory", "Subcategory")
                         .WithMany("Products")
-                        .HasForeignKey("SubcategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SubcategoryId");
 
                     b.Navigation("Subcategory");
                 });
