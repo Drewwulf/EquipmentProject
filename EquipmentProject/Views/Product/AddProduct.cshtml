@@ -316,48 +316,46 @@
 </form>
 
 <script>
-    const tcs = @Html.Raw(Json.Serialize(Model.TechnicalCharacteristics))
-
-    let siteind = tcs.length;
-
+   
+    let siteind = 0;
     const addSpecificationButton =
         document.getElementById("addSpecification");
 
     const specificationsContainer =
         document.getElementById("specificationsContainer");
 
-     for (let i = 0; i < tcs.length; i++) {
-        const tc = tcs[i];
+     // for (let i = 0; i < tcs.length; i++) {
+     //    const tc = tcs[i];
         
-        specification.className =
-            "specification-row";
+     //    specification.className =
+     //        "specification-row";
 
 
-        specification.innerHTML = `
+     //    specification.innerHTML = `
 
-            <input type="text"
-                   class="specification-input"
-                   value = "${tc.ParameterName ?? ''}"
-                   placeholder="Назва характеристики">
-
-
-            <input type="text"
-                   class="specification-input"
-                   value = "${tc.ParameterValue ?? ''}"
-                   placeholder="Значення">
+     //        <input type="text"
+     //               class="specification-input"
+     //               value = "${tc.ParameterName ?? ''}"
+     //               placeholder="Назва характеристики">
 
 
-            <button type="button"
-                    class="delete-specification">
-                ×
-            </button>
-
-        `;
+     //        <input type="text"
+     //               class="specification-input"
+     //               value = "${tc.ParameterValue ?? ''}"
+     //               placeholder="Значення">
 
 
-        specificationsContainer.appendChild(specification);
+     //        <button type="button"
+     //                class="delete-specification">
+     //            ×
+     //        </button>
 
-     }
+     //    `;
+
+
+     //    specificationsContainer.appendChild(specification);
+
+     // }
 
     addSpecificationButton.addEventListener("click", function () {
 
@@ -380,13 +378,13 @@
 
             <input type="text"
                    class="specification-input"
-                   name="TechnicalCharacteristics[${siteind}].ParameterName"
+                   name="TechnicalCharacteristics[${siteind}].ParamentrName"
                    placeholder="Назва характеристики">
 
 
             <input type="text"
                    class="specification-input"
-                   name="TechnicalCharacteristics[${siteind}].ParameterValue"
+                   name="TechnicalCharacteristics[${siteind}].ParamentValue"
                    placeholder="Значення">
 
 
