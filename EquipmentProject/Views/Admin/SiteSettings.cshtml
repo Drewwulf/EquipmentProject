@@ -12,63 +12,63 @@
         <!-- =========================
          ОСНОВНА ІНФОРМАЦІЯ
     ========================== -->
-     
         <section class="product-section">
 
             <h3>Загальна інформація</h3>
 
-            <!-- Назва -->
+            <!-- Назва магазину -->
             <div class="product-field">
-                <label for="productName">
+                <label for="shopName">
                     Назва магазину*
                 </label>
 
                 <input type="text"
-                       id="productName"
-                   value="@Model.ShopName" asp-for="ShopName" />
+                       id="shopName"
+                       asp-for="ShopName"
+                       required />
             </div>
 
+            <!-- Заголовок -->
             <div class="product-field">
-                <label for="productName">
-                    Заголовок банера (головна сторінка)
+                <label for="headerInfo">
+                    Заголовок банера (головна сторінка)*
                 </label>
 
                 <input type="text"
-                       id="productName"
-                   value="@Model.HeaderInfo" asp-for="HeaderInfo" />
+                       id="headerInfo"
+                       asp-for="HeaderInfo"
+                       required />
             </div>
-            
+
+            <!-- Підзаголовок -->
             <div class="product-field">
-                <label for="productName">
+                <label for="subHeaderInfo">
                     Підзаголовок банера
                 </label>
 
                 <input type="text"
-                       id="productName"
-                   value="@Model.SubHeaderInfo" asp-for="SubHeaderInfo" />
+                       id="subHeaderInfo"
+                       asp-for="SubHeaderInfo" />
             </div>
 
-
+            <!-- Опис -->
             <div class="product-field">
 
-                <label for="description">
-                    Текст *Про коммпанію*
+                <label for="shopDesc">
+                    Текст *Про компанію*
                 </label>
 
-                <textarea id="description"
+                <textarea id="shopDesc"
                           class="full-description"
-                          placeholder="Детальний опис товару"
-                      value="@Model.ShopDesc" asp-for="ShopDesc"></textarea>
+                          placeholder="Детальний опис магазину"
+                          asp-for="ShopDesc"
+                          required></textarea>
 
             </div>
 
+            <input type="hidden" asp-for="Id" />
 
-  
-            <input type="hidden" asp-for="Id"/>
-
-
-    
-                </section>
+        </section>
 
         <!-- =========================
          ТЕХНІЧНІ ХАРАКТЕРИСТИКИ
