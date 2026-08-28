@@ -16,9 +16,20 @@
                     @Model.HeaderInfo
                 </h1>
 
-                <p>
-                    @Model.SubHeaderInfo
-                </p>
+                @{
+                    if (Model.SubHeaderInfo == null)
+                    {
+                        <p>
+
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                        @Model.SubHeaderInfo
+                        </p>
+                    }
+                }
 
                 <div class="hero-buttons">
 
