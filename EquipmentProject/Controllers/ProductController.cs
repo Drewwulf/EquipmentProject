@@ -86,7 +86,7 @@ namespace EquipmentProject.Controllers
 
             _context.Add(product);
             _context.SaveChanges();
-            return RedirectToAction("AddProdcut");
+            return RedirectToAction("AddProduct");
 
         }
     }
