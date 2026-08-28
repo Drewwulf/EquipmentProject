@@ -1,10 +1,15 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+@{
+    var siteSettings = Context.SiteSettings.Include(site => site.Contacts)
+.OrderByDescending(s => s.Id)
+.First();
+}
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - EquipmentProject</title>
+    <title>@siteSettings.ShopName - EquipmentProject</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -26,7 +31,7 @@
                 <div class="brand-icon">
                     <img src="/lib/developer_board_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png" />
                 </div>
-                <span>Наш магазин</span>
+                <span>@siteSettings.ShopName</span>
             </div>
 
             <div class="search">
@@ -55,12 +60,7 @@
         </main>
     </div>
     <footer class="site-footer">
-        @{
-            var siteSettings =Context.SiteSettings.Include(site => site.Contacts)
-    .OrderByDescending(s => s.Id)
-    .First();
-        }
-
+       
         <!-- Консультація -->
         <div class="footer-consultation">
             <div class="footer-consultation-content">
