@@ -18,7 +18,35 @@ namespace EquipmentProject.Controllers
         }
         public IActionResult AddProduct()
         {
-            var p  = _context.Products.ToList().FirstOrDefault();
+
+           
+
+                var p  = _context.Products.ToList().FirstOrDefault();
+            if (p == null)
+            {
+                var siteconf = new Product
+                {
+                    ProductName = "",
+                    Articul = 123,
+                    Price = 123,
+                    ShortDescription = "",
+                    FullDescription = "",
+
+                    IsNew = false,
+                    IsRecomended = false,
+                    IsDeleted = false,
+
+                    ImgPath = "12w3",
+
+                    
+                };
+
+                _context.Products.Add(siteconf);
+                _context.SaveChanges();
+
+
+                return RedirectToAction("AddProduct");
+            }
             var model = new ProductViewModel
             {
                 ProductName = p.ProductName,
