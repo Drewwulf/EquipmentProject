@@ -24,8 +24,7 @@ namespace MyMvcApp.Controllers
         public async Task<IActionResult> Category()
         {
             var categories = await _context.Categories
-                .OrderBy(x => x.Order)
-                .ThenBy(x => x.Id)
+                .Where(x => !x.IsDeleted)
                 .ToListAsync();
 
             return View(categories);
@@ -39,7 +38,7 @@ namespace MyMvcApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var categories = await _context.Categories
+                var categories = await _context.Categories.Where(x => !x.IsDeleted)
                     .OrderBy(x => x.Order)
                     .ToListAsync();
 
@@ -57,7 +56,7 @@ namespace MyMvcApp.Controllers
             {
                 ProductName = model.ProductName,
                 ShortDescription = model.ShortDescription,
-                ImgPath = imagePath,
+                ImgPath = "////",
                 Order = model.Order
             };
 
@@ -76,7 +75,7 @@ namespace MyMvcApp.Controllers
         // GET: редагування
         public async Task<IActionResult> Edit(int id)
         {
-            var category = await _context.Categories
+            var category = await _context.Categories.Where(x => !x.IsDeleted)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (category == null)
@@ -93,7 +92,7 @@ namespace MyMvcApp.Controllers
 
             ViewBag.EditMode = true;
 
-            var categories = await _context.Categories
+            var categories = await _context.Categories.Where(x => !x.IsDeleted)
                 .OrderBy(x => x.Order)
                 .ToListAsync();
 
@@ -116,7 +115,7 @@ namespace MyMvcApp.Controllers
 
             if (!ModelState.IsValid)
             {
-                var categories = await _context.Categories
+                var categories = await _context.Categories.Where(x => !x.IsDeleted)
                     .OrderBy(x => x.Order)
                     .ToListAsync();
 
@@ -146,20 +145,22 @@ namespace MyMvcApp.Controllers
         }
 
 
-        // POST: видалення
+        // POST: м'яке видалення
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            var category = await _context.Categories
+            var category = await _context.Categories.Where(x => !x.IsDeleted)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (category == null)
                 return NotFound();
 
-            DeleteImage(category.ImgPath);
+            // М'яке видалення
+            category.IsDeleted = true;
 
-            _context.Categories.Remove(category);
+            // Позначаємо об'єкт як змінений
+            _context.Categories.Update(category);
 
             await _context.SaveChangesAsync();
 
