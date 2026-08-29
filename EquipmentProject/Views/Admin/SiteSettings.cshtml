@@ -148,7 +148,7 @@
                     class="save-button">
 
                 <span>▣</span>
-                Зберегти товар
+                Зберегти налаштування
 
             </button>
 
@@ -201,7 +201,7 @@
 
                         <input type="text"
                                name="Contacts[${i}].Address"
-                               value="${contact.address ?? ''}" />
+                               value="${contact.address ?? ''}" required />
                     </div>
 
                     <div class="product-field">
@@ -209,7 +209,7 @@
 
                         <input type="text"
                                name="Contacts[${i}].PhoneNumber"
-                               value="${contact.phoneNumber ?? ''}" />
+                               value="${contact.phoneNumber ?? ''}" required />
                     </div>
 
                     <div class="product-field">
@@ -217,14 +217,14 @@
 
                         <input type="text"
                                name="Contacts[${i}].Email"
-                               value="${contact.email ?? ''}" />
+                               value="${contact.email ?? ''}" required />
                     </div>
 
                     <div class="product-field">
                         <label>Графік роботи</label>
 
                         <textarea name="Contacts[${i}].Schedule"
-                                  class="full-description">${contact.schedule ?? ''}</textarea>
+                                  class="full-description" required>${contact.schedule ?? ''}</textarea>
                     </div>
 
                     <button type="button"
@@ -256,28 +256,28 @@
                         <label>Адреса</label>
 
                         <input type="text"
-                               name="Contacts[${siteind}].Address" />
+                               name="Contacts[${siteind}].Address" required/>
                     </div>
 
                     <div class="product-field">
                         <label>Номер телефону</label>
 
                         <input type="text"
-                               name="Contacts[${siteind}].PhoneNumber" />
+                               name="Contacts[${siteind}].PhoneNumber" required/>
                     </div>
 
                     <div class="product-field">
                         <label>Email</label>
 
                         <input type="text"
-                               name="Contacts[${siteind}].Email" />
+                               name="Contacts[${siteind}].Email" required/>
                     </div>
 
                     <div class="product-field">
                         <label>Графік роботи</label>
 
                         <textarea name="Contacts[${siteind}].Schedule"
-                                  class="full-description"></textarea>
+                                  class="full-description" required ></textarea>
                     </div>
 
                     <button type="button"
