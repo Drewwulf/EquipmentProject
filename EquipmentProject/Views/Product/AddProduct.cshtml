@@ -13,184 +13,181 @@
     <!-- =========================
          ОСНОВНА ІНФОРМАЦІЯ
     ========================== -->
+        <section class="product-section">
+            <h3>Основна інформація</h3>
 
-    <section class="product-section">
-        <h3>Основна інформація</h3>
-
-        <!-- Назва -->
-        <div class="product-field">
-            <label for="productName">
-                Назва *
-            </label>
-
-                <input asp-for="ProductName" type="text"
-                   id="productName"
-                
-                    />
-        </div>
-
-
-        <!-- Артикул + Ціна -->
-        <div class="product-grid">
-
+            <!-- Назва -->
             <div class="product-field">
-
-                <label for="article">
-                    Артикул
+                <label for="productName">
+                    Назва *
                 </label>
 
-                <input asp-for="Articul" type="text"
-                       id="article"
-                    
-                       />
+                <input asp-for="ProductName"
+                       type="text"
+                       id="productName"
+                       required />
+            </div>
+
+
+            <!-- Артикул + Ціна -->
+            <div class="product-grid">
+
+                <div class="product-field">
+
+                    <label for="article">
+                        Артикул *
+                    </label>
+
+                    <input asp-for="Articul"
+                           type="text"
+                           id="article"
+                           required />
+
+                </div>
+
+
+                <div class="product-field">
+
+                    <label for="price">
+                        Ціна (₴) *
+                    </label>
+
+                    <input asp-for="Price"
+                           type="number"
+                           id="price"
+                           required />
+
+                </div>
 
             </div>
 
 
-            <div class="product-field">
+            <!-- Категорія + Підкатегорія -->
+            <div class="product-grid">
 
-                <label for="price">
-                    Ціна (₴) *
-                </label>
+                <div class="product-field">
 
-                <input asp-for="Price" type="number"
-                       id="price"
-                    
-                       />
+                    <label for="category">
+                        Категорія *
+                    </label>
 
-            </div>
+                    <select id="category"
+                            name="CategoryId"
+                            required>
 
-        </div>
+                        <option value="">Оберіть категорію</option>
 
+                        <option value="1" selected>
+                            Харчове обладнання
+                        </option>
 
-        <!-- Категорія + Підкатегорія -->
-        <div class="product-grid">
+                        <option value="2">
+                            Холодильне обладнання
+                        </option>
 
-            <div class="product-field">
+                        <option value="3">
+                            Пральне обладнання
+                        </option>
 
-                <label for="category">
-                    Категорія
-                </label>
+                        <option value="4">
+                            Виробниче обладнання
+                        </option>
 
-                <select id="category"
-                        name="CategoryId">
+                    </select>
 
-                    <option >Оберіть категорію</option>
-
-                    <option  selected>
-                        Харчове обладнання
-                    </option>
-
-                    <option >
-                        Холодильне обладнання
-                    </option>
-
-                    <option>
-                        Пральне обладнання
-                    </option>
-
-                    <option >
-                        Виробниче обладнання
-                    </option>
-
-                </select>
-
-            </div>
+                </div>
 
 
-            <div class="product-field">
+                <div class="product-field">
 
-                <label for="subcategory">
-                    Підкатегорія
-                </label>
+                    <label for="subcategory">
+                        Підкатегорія *
+                    </label>
 
-                <select id="subcategory"
-                        name="SubcategoryId">
+                    <select id="subcategory"
+                            name="SubcategoryId"
+                            required>
 
-                    <option>
-                        Оберіть підкатегорію
-                    </option>
+                        <option value="">Оберіть підкатегорію</option>
 
-                    <option  selected>
-                        Шафи та столи
-                    </option>
+                        <option value="1" selected>
+                            Шафи та столи
+                        </option>
 
-                    <option >
-                        Стелажі
-                    </option>
+                        <option value="2">
+                            Стелажі
+                        </option>
 
-                    <option>
-                        Мийки
-                    </option>
+                        <option value="3">
+                            Мийки
+                        </option>
 
-                    <option >
-                        Візки
-                    </option>
+                        <option value="4">
+                            Візки
+                        </option>
 
-                </select>
+                    </select>
+
+                </div>
 
             </div>
 
-        </div>
+
+            <!-- Короткий опис -->
+            <div class="product-field">
+
+                <label for="shortDescription">
+                    Короткий опис *
+                </label>
+
+                <textarea asp-for="ShortDescription"
+                          id="shortDescription"
+                          placeholder="Короткий опис для картки товару"
+                          required></textarea>
+
+            </div>
 
 
-        <!-- Короткий опис -->
-        <div class="product-field">
+            <!-- Повний опис -->
+            <div class="product-field">
 
-            <label for="shortDescription">
-                Короткий опис
-            </label>
+                <label for="description">
+                    Повний опис
+                </label>
 
-            <textarea asp-for="ShortDescription" id="shortDescription"
-                  
-                      placeholder="Короткий опис для картки товару"></textarea>
+                <textarea asp-for="FullDescription"
+                          id="description"
+                          class="full-description"
+                          placeholder="Детальний опис товару"></textarea>
 
-        </div>
-
-
-        <!-- Повний опис -->
-        <div class="product-field">
-
-            <label for="description">
-                Повний опис
-            </label>
-
-            <textarea asp-for="FullDescription" id="description"
-                    
-                      class="full-description"
-                      placeholder="Детальний опис товару"></textarea>
-
-        </div>
+            </div>
 
 
-        <!-- Checkbox -->
-        <div class="product-checkboxes">
+            <!-- Checkbox -->
+            <div class="product-checkboxes">
 
-            <label class="checkbox-item">
+                <label class="checkbox-item">
 
-                <input asp-for="IsNew" type="checkbox"
-                       
-                       checked />
+                    <input asp-for="IsNew"
+                           type="checkbox" />
 
-                <span>Новинка</span>
+                    <span>Новинка</span>
 
-            </label>
-
-
-            <label class="checkbox-item">
-
-                <input asp-for="IsRecomended" type="checkbox"
- />
-
-                <span>Рекомендований</span>
-
-            </label>
-
-        </div>
-
-    </section>
+                </label>
 
 
+                <label class="checkbox-item">
+
+                    <input asp-for="IsRecomended"
+                           type="checkbox" />
+
+                    <span>Рекомендований</span>
+
+                </label>
+
+            </div>
+
+        </section>
 
     <!-- =========================
          ЗОБРАЖЕННЯ
@@ -316,13 +313,46 @@
 </form>
 
 <script>
-
+   
+    let siteind = 0;
     const addSpecificationButton =
         document.getElementById("addSpecification");
 
     const specificationsContainer =
         document.getElementById("specificationsContainer");
 
+     // for (let i = 0; i < tcs.length; i++) {
+     //    const tc = tcs[i];
+        
+     //    specification.className =
+     //        "specification-row";
+
+
+     //    specification.innerHTML = `
+
+     //        <input type="text"
+     //               class="specification-input"
+     //               value = "${tc.ParameterName ?? ''}"
+     //               placeholder="Назва характеристики">
+
+
+     //        <input type="text"
+     //               class="specification-input"
+     //               value = "${tc.ParameterValue ?? ''}"
+     //               placeholder="Значення">
+
+
+     //        <button type="button"
+     //                class="delete-specification">
+     //            ×
+     //        </button>
+
+     //    `;
+
+
+     //    specificationsContainer.appendChild(specification);
+
+     // }
 
     addSpecificationButton.addEventListener("click", function () {
 
@@ -345,11 +375,13 @@
 
             <input type="text"
                    class="specification-input"
+                   name="TechnicalCharacteristics[${siteind}].ParamentName"
                    placeholder="Назва характеристики">
 
 
             <input type="text"
                    class="specification-input"
+                   name="TechnicalCharacteristics[${siteind}].ParamentValue"
                    placeholder="Значення">
 
 
@@ -362,6 +394,8 @@
 
 
         specificationsContainer.appendChild(specification);
+
+        siteind++;
 
     });
 

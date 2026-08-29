@@ -9,7 +9,7 @@
         public string? ImgPath { get; set; }
         public int Order {  get; set;
         }
-        public List<Subcategory> Subcategories { get; set; }
+        public List<Subcategory> Subcategories { get; set; } = new List<Subcategory>();
 
 
 

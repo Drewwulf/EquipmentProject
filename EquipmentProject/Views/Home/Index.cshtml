@@ -1,8 +1,69 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@model EquipmentProject.Models.ViewModels.SiteSettingViewModel
+<section class="hero-section">
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <div class="hero-grid">
+
+        <!-- Ліва частина -->
+        <div class="hero-content">
+            <div class="hero-text">
+
+                <div class="hero-line"></div>
+
+                <h1>
+                    @Model.HeaderInfo
+                </h1>
+
+                @{
+                    if (Model.SubHeaderInfo == null)
+                    {
+                        <p>
+
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                        @Model.SubHeaderInfo
+                        </p>
+                    }
+                }
+
+                <div class="hero-buttons">
+
+                    <a href="/catalog" class="hero-btn hero-btn-primary">
+                        Переглянути каталог
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             width="24"
+                             height="24"
+                             viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="2"
+                             stroke-linecap="round"
+                             stroke-linejoin="round">
+                            <path d="M5 12h14"></path>
+                            <path d="m12 5 7 7-7 7"></path>
+                        </svg>
+                    </a>
+
+                    <a href="/contacts" class="hero-btn hero-btn-outline">
+                        Зв'язатися з нами
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Права частина -->
+        <div class="hero-image">
+            <img src="https://media.base44.com/images/public/6a514bf0d884202ac5c64fbb/fb3ce28b1_generated_fcf57e95.png"
+                 alt="Промислове обладнання">
+        </div>
+
+    </div>
+</section>

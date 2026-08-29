@@ -1,4 +1,6 @@
+using EquipmentProject.Data;
 using EquipmentProject.Models;
+using EquipmentProject.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,9 +8,25 @@ namespace EquipmentProject.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext _context;
+        public HomeController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
-            return View();
+            var category = _context.SiteSettings.OrderByDescending(s => s.Id).First(); ;
+            var categories = new SiteSettingViewModel
+            {
+                ShopName = category.ShopName,
+                ShopDesc = category.ShopDesc,
+                HeaderInfo = category.HeaderInfo,
+                SubHeaderInfo = category.SubHeaderInfo,
+                SocialFacebook = category.SocialFacebook,
+                SocialInstagram = category.SocialInstagram,
+                SocialTelegram = category.SocialTelegram
+            };
+            return View(categories);
         }
 
         public IActionResult Privacy()
