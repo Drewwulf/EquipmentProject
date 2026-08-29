@@ -1,7 +1,9 @@
-﻿@{
+﻿```cshtml
+@{
     ViewData["Title"] = "Home Page";
 }
 @model EquipmentProject.Models.ViewModels.SiteSettingViewModel
+
 <section class="hero-section">
 
     <div class="hero-grid">
@@ -26,7 +28,7 @@
                     else
                     {
                         <p>
-                        @Model.SubHeaderInfo
+                            @Model.SubHeaderInfo
                         </p>
                     }
                 }
@@ -67,3 +69,30 @@
 
     </div>
 </section>
+
+<section class="categories-section">
+
+    <div class="categories-container">
+
+        <div class="categories-list">
+
+            @foreach (var category in ((IEnumerable<EquipmentProject.Models.Category>)ViewBag.Categories)
+                            .Where(x => !x.IsDeleted)
+                            .OrderBy(x => x.Order))
+            {
+                <a asp-controller="Product"
+                       asp-action="Category"
+                       asp-route-id="@category.Id"
+                       class="category-item">
+
+                    @category.ProductName
+
+                </a>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+```

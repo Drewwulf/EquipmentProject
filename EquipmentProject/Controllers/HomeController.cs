@@ -16,6 +16,7 @@ namespace EquipmentProject.Controllers
         public IActionResult Index()
         {
             var category = _context.SiteSettings.OrderByDescending(s => s.Id).First(); ;
+
             var categories = new SiteSettingViewModel
             {
                 ShopName = category.ShopName,
@@ -26,6 +27,10 @@ namespace EquipmentProject.Controllers
                 SocialInstagram = category.SocialInstagram,
                 SocialTelegram = category.SocialTelegram
             };
+            ViewBag.Categories = _context.Categories
+     .Where(x => !x.IsDeleted)
+     .OrderBy(x => x.Order)
+     .ToList();
             return View(categories);
         }
 
