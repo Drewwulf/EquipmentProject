@@ -895,3 +895,31 @@ body {
         flex-wrap: wrap;
     }
 }
+
+
+
+
+.category-list-actions {
+    display: flex;
+    gap: 5px;
+    height: 32px;
+}
+
+.edit-category-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #3a465a;
+    background-color: transparent;
+    color: #b8c3d1;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+    .edit-category-button:hover {
+        background-color: #172337;
+        border-color: #466383;
+        color: #ffffff;
+    }
