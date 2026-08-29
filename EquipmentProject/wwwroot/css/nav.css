@@ -4,7 +4,7 @@
     top: 0;
     width: 255px;
     height: 100vh;
-    background-color: #0B1220;
+    background-color: #f1c44e;
     border-right: 1px solid #273143;
     display: flex;
     flex-direction: column;
@@ -14,14 +14,18 @@
 .sidebar-logo {
     width: 32px;
     height: 32px;
-    background-color: #2864E8;
+    background-color: #e77713;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: #1b0f0d;
     font-size: 16px;
     padding: 20px;
 }
+
+    .sidebar-logo img {
+        filter: invert(1)
+    }
 
 .sidebar-menu {
     padding: 20px 15px;
@@ -31,13 +35,21 @@
     font-weight: 700;
 }
 
+.sidebar-link span {
+    color: #1b0f0d;
+}
+
+.sidebar-link img{
+    filter:invert(1);
+}
+
 .sidebar-link {
     height: 41px;
     display: flex;
     align-items: center;
     gap: 14px;
     padding: 0 13px;
-    color: #91A1B8;
+    color: #1b0f0d;
     text-decoration: none;
     font-size: 14px;
     transition: all 0.15s ease;
@@ -53,18 +65,17 @@
 
     .sidebar-link:hover {
         color: #FFFFFF;
-        background-color: #151F31;
+        background-color: #e77713;
     }
     /* Active */
 
     .sidebar-link.active {
-        background-color: #2864E8;
-        color: #FFFFFF;
+        background-color: #e77713;
         font-weight: 600;
     }
 
         .sidebar-link.active:hover {
-            background-color: #2864E8;
+            background-color: #a6540c;
         }
 
 .sidebar-bottom {
@@ -81,12 +92,10 @@
     padding: 30px;
 }
 
-.sidebar-link span{
-    color: #FFFFFF;
-}
+
 .sidebar-header {
     display: flex;
-    color: #FFFFFF;
+    color: #1b0f0d;
     padding: 26px;
     border-bottom: 1px solid #273143;
 }
@@ -138,14 +147,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #111827;
+    background: #e77713;
     color: white;
     font-size: 1.9rem;
 }
 
-.brand-icon img{
-    width: 70%;
-}
+    .brand-icon img {
+        filter: invert(1);
+        width: 70%;
+    }
 
 
 /* ПОШУК */
@@ -209,8 +219,8 @@
     .links .catalog {
         margin-left: 8px;
         width: 91px;
-        background: #2864e8;
-        color: white;
+        background: #e77713;
+        color: #1b0f0d;
     }
 
 
@@ -226,17 +236,17 @@
     /* HOVER */
 
     .links a:hover {
-        color: #2864e8;
+        color: #a6540c;
     }
 
     .links .catalog:hover {
-        color: white;
-        background: #1f55cf;
+        color: #1b0f0d;
+        background: #a6540c;
     }
 
     .links .contacts:hover {
-        color: white;
-        background: #111827;
+        color: #1b0f0d;
+        background: #a6540c;
     }
 
 

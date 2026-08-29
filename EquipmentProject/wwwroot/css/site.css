@@ -491,7 +491,7 @@ body {
     margin: 0 0 22px;
     font-size: 22px;
     font-weight: 600;
-    color: #f1f3f7;
+    color: #1b0f0d;
 }
 
 
@@ -503,16 +503,17 @@ body {
     box-sizing: border-box;
     padding: 22px 20px;
     margin-bottom: 20px;
-    border: 1px solid #26354c;
-    background-color: #0c1423;
+    border-radius: 20px;
+    border:0;
+    background-color: #f1c44e;
 }
 
 
     .product-section h3 {
         margin: 0 0 20px;
-        font-size: 14px;
+        font-size: 17px;
         font-weight: 600;
-        color: #f1f3f7;
+        color: #1b0f0d;
     }
 
 
@@ -529,8 +530,8 @@ body {
 
     .product-field label {
         margin-bottom: 8px;
-        font-size: 11px;
-        color: #9bb0cc;
+        font-size: 14px;
+        color: #1b0f0d;
     }
 
 
@@ -544,8 +545,8 @@ body {
         box-sizing: border-box;
         border: 1px solid transparent;
         outline: none;
-        background-color: #202f47;
-        color: #f3f6fa;
+        background-color: #f8eec7;
+        color: #1b0f0d;
         font-family: Arial, sans-serif;
         font-size: 13px;
         transition: all 0.15s ease;
@@ -556,6 +557,7 @@ body {
     .product-field select {
         height: 32px;
         padding: 0 10px;
+        border-radius: 10px;
     }
 
 
@@ -563,6 +565,7 @@ body {
         min-height: 47px;
         padding: 10px;
         resize: vertical;
+        border-radius: 10px;
     }
 
 
@@ -576,8 +579,8 @@ body {
 
     .product-field input::placeholder,
     .product-field textarea::placeholder {
-        color: #7890ad;
-        opacity: 1;
+        color: #1b0f0d;
+        opacity: 0.8;
     }
 
 
@@ -588,7 +591,7 @@ body {
     .product-field select:focus,
     .product-field textarea:focus {
         border-color: #315a91;
-        background-color: #23344f;
+        background-color: #ffe896;
     }
 
 
@@ -659,8 +662,8 @@ body {
 
     .image-block > label:first-child {
         margin-bottom: 8px;
-        font-size: 11px;
-        color: #9bb0cc;
+        font-size: 14px;
+        color: #1b0f0d;
     }
 
 
@@ -674,9 +677,10 @@ body {
     height: 34px;
     padding: 0 13px;
     box-sizing: border-box;
-    border: 1px solid #2d3d56;
-    background-color: transparent;
-    color: #e5eaf1;
+    border-radius: 10px;
+    border:0;
+    background-color: #e77713;
+    color: #1b0f0d;
     font-size: 12px;
     cursor: pointer;
     transition: all 0.15s ease;
@@ -690,7 +694,7 @@ body {
 
 
     .outline-button:hover {
-        background-color: #172337;
+        background-color: #a6540c;
         border-color: #466383;
     }
 
@@ -722,17 +726,18 @@ body {
 .add-button {
     height: 28px;
     padding: 0 10px;
-    border: 1px solid #2d3d56;
-    background-color: transparent;
-    color: #e5eaf1;
-    font-size: 12px;
+    border: 0;
+    border-radius:10px;
+    background-color: #e77713;
+    color: #1b0f0d;
+    font-size: 14px;
     cursor: pointer;
     transition: all 0.15s ease;
 }
 
 
     .add-button:hover {
-        background-color: #172337;
+        background-color: #a6540c;
         border-color: #466383;
     }
 
@@ -742,8 +747,8 @@ body {
 
 .empty-specifications {
     margin: 15px 0 0;
-    font-size: 11px;
-    color: #8da2be;
+    font-size: 13px;
+    color: #1b0f0d;
 }
 
 
@@ -818,9 +823,10 @@ body {
     gap: 6px;
     height: 34px;
     padding: 0 20px;
-    border: 1px solid #315eaa;
-    background-color: #1d4b9b;
-    color: #ffffff;
+    border-radius: 10px;
+    border: 0;
+    background-color: #e77713;
+    color: #1b0f0d;
     font-size: 12px;
     cursor: pointer;
     transition: 0.15s ease;
@@ -828,7 +834,7 @@ body {
 
 
     .save-button:hover {
-        background-color: #255bb7;
+        background-color: #a6540c;
         border-color: #3c72ca;
     }
 
@@ -839,9 +845,10 @@ body {
 .cancel-button {
     height: 34px;
     padding: 0 20px;
-    border: 1px solid #26354c;
-    background-color: transparent;
-    color: #d8dee8;
+    border-radius:10px;
+    border:0;
+    background-color: #e77713;
+    color: #1b0f0d;
     font-size: 12px;
     cursor: pointer;
     transition: 0.15s ease;
@@ -849,7 +856,7 @@ body {
 
 
     .cancel-button:hover {
-        background-color: #121d2e;
+        background-color: #a6540c;
         border-color: #344760;
     }
 
