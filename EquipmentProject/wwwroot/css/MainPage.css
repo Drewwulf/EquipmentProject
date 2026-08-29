@@ -39,7 +39,7 @@
 .hero-line {
     width: 64px;
     height: 2px;
-    background: #2864e8;
+    background: #e77713;
     margin-bottom: 24px;
 }
 
@@ -98,12 +98,12 @@
 /* Перша кнопка */
 
 .hero-btn-primary {
-    background: #2864e8;
-    color: #ffffff;
+    background: #e77713;
+    color: #1b0f0d;
 }
 
     .hero-btn-primary:hover {
-        background: #d99d00;
+        background: #a6540c;
     }
 
 
