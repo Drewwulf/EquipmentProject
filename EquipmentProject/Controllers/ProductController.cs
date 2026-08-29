@@ -62,6 +62,11 @@ namespace EquipmentProject.Controllers
                 ImgPath = p.ImgPath,
 
                 TechnicalCharacteristics = p.TechnicalCharacteristics
+                ,
+                Categories = _context.Categories.Where(x => !x.IsDeleted).ToList()
+
+
+
             };
 
 
@@ -75,6 +80,7 @@ namespace EquipmentProject.Controllers
             {
                 ProductName = Model.ProductName,
                 Articul = Model.Articul,
+                CategoryId = Model.CategoryId,
                 Price = Model.Price,
                 ShortDescription = Model.ShortDescription,
                 FullDescription = Model.FullDescription,
