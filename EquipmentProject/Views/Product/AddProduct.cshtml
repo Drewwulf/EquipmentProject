@@ -71,27 +71,21 @@
                         Категорія *
                     </label>
 
+
+                    
+                    
+                               
                     <select id="category"
-                            name="CategoryId"
+                            asp-for="CategoryId"
                             required>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <option value="@category.Id">@category.ProductName</option>
 
-                        <option value="">Оберіть категорію</option>
+                        }
 
-                        <option value="1" selected>
-                            Харчове обладнання
-                        </option>
-
-                        <option value="2">
-                            Холодильне обладнання
-                        </option>
-
-                        <option value="3">
-                            Пральне обладнання
-                        </option>
-
-                        <option value="4">
-                            Виробниче обладнання
-                        </option>
+                   
+                       
 
                     </select>
 
