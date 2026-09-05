@@ -37,10 +37,17 @@
 
 .sidebar-link span {
     color: #1b0f0d;
+    font-weight:700;
 }
 
 .sidebar-link img{
     filter:invert(1);
+}
+
+.sidebar-link button{
+    font-weight: 700;
+    font-size: 17px;
+
 }
 
 .sidebar-link {
@@ -70,12 +77,12 @@
     /* Active */
 
     .sidebar-link.active {
-        background-color: #e77713;
+        
         font-weight: 600;
     }
 
         .sidebar-link.active:hover {
-            background-color: #a6540c;
+            background-color: #e77713;
         }
 
 .sidebar-bottom {
