@@ -124,7 +124,7 @@
                 var emails = new List<string>();
                 var schedules = new List<string>();
 
-                foreach (var contact in siteSettings.Contacts)
+                foreach (var contact in siteSettings.Contacts.Where(c => c.isdeleted != true))
                 {
                     addresses.Add(contact.Address);
                     phones.Add(contact.PhoneNumber);

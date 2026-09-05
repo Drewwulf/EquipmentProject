@@ -153,13 +153,12 @@
             </button>
 
 
-            <button type="button"
+            <button type="button" asp-route-id="@Model."
                     class="cancel-button">
 
                 Скасувати
 
             </button>
-
 
 
 
@@ -185,6 +184,10 @@
         for (let i = 0; i < contacts.length; i++) {
              
             const contact = contacts[i];
+
+            if (contact.isdeleted == false){
+
+            console.log(contact.isdeleted)
 
             const specification =
                 document.createElement("div");
@@ -227,15 +230,16 @@
                                   class="full-description" required>${contact.schedule ?? ''}</textarea>
                     </div>
 
-                    <button type="button"
-                            class="delete-specification">
+                    <a 
+                            href="/Admin/DeleteContacts/${i + 1}"
+        class="delete-specification">
                         ×
-                    </button>
+                    </a>
 
                 </section>
             `;
 
-            specificationsContainer.appendChild(specification);
+            specificationsContainer.appendChild(specification);}
         }
 
 
@@ -280,10 +284,7 @@
                                   class="full-description" required ></textarea>
                     </div>
 
-                    <button type="button"
-                            class="delete-specification">
-                        ×
-                    </button>
+                    
 
                 </section>
             `;

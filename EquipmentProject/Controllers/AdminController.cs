@@ -77,5 +77,13 @@ namespace EquipmentProject.Controllers
 
             return RedirectToAction("SiteSettings");
         }
+        [HttpGet]
+        public IActionResult DeleteContacts(int id)
+        {
+            var ctd = _context.Contacts.Find(id);
+            ctd.isdeleted = true;
+            _context.SaveChanges();
+            return RedirectToAction("SiteSettings");
+        }
     }
 }
