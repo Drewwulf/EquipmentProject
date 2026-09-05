@@ -30,11 +30,11 @@
 }
 
 .hero-text {
-    max-width: 580px;
+    max-width: 580px;=
 }
 
 
-/* Жовта/основна лінія */
+/* Основна лінія */
 
 .hero-line {
     width: 64px;
@@ -153,63 +153,78 @@
 ========================= */
 
 .category-bar {
-    border-top: 1px solid #e5e7eb;
-    border-bottom: 1px solid #e5e7eb;
-    background: #f5f5f5;
+    width: 100%;
+    border-top: 1px solid #dfe4ea;
+    border-bottom: 1px solid #dfe4ea;
+    background: #f3f6f9;
     overflow: hidden;
 }
 
 
+/* =========================
+   CATEGORY CONTAINER
+========================= */
+
 .category-container {
     max-width: 1440px;
+    min-height: 36px;
     margin: 0 auto;
-    padding: 12px 32px;
+    padding: 0 32px;
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 30px;
     overflow-x: auto;
+    scrollbar-width: none;
 }
 
 
-    /* Категорія */
+    /* Прибираємо scrollbar Chrome */
+
+    .category-container::-webkit-scrollbar {
+        display: none;
+    }
+
+
+    /* =========================
+   CATEGORY ITEM
+========================= */
 
     .category-container a {
+        position: relative;
         display: flex;
         align-items: center;
         gap: 8px;
+        padding-left: 11px;
         white-space: nowrap;
         text-decoration: none;
-        font-size: 14px;
-        color: rgba(23, 28, 38, 0.7);
+        font-size: 16px;
+        font-weight: 400;
+        color: #526176;
         transition: color 0.2s ease;
     }
 
 
-        .category-container a:hover {
-            color: #f5b400;
-        }
-
-
-        /* Крапка */
+        /* =========================
+   CATEGORY DOT
+========================= */
 
         .category-container a span {
-            width: 6px;
-            height: 6px;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 5px;
             flex-shrink: 0;
-            background: #f5b400;
+            background: #2864e8;
             border-radius: 50%;
         }
 
 
-    /* =========================
-   SCROLLBAR
+        /* =========================
+   CATEGORY HOVER
 ========================= */
 
-    .category-container::-webkit-scrollbar {
-        height: 4px;
-    }
-
-    .category-container::-webkit-scrollbar-thumb {
-        background: #c7c7c7;
-        border-radius: 10px;
-    }
+        .category-container a:hover {
+            color: #2864e8;
+        }
