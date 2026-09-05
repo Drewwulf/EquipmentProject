@@ -93,6 +93,214 @@
     font-weight: 600;
     transition: all 0.25s ease;
 }
+.new-products-section {
+    width: 100%;
+    background: #FFF3C4;
+    padding: 90px 20px 100px;
+}
+
+.new-products-container {
+    width: 100%;
+    max-width: none;
+    padding: 0 8%;
+}
+
+/* Заголовок */
+
+.section-heading {
+    margin-bottom: 55px;
+}
+
+.section-line {
+    width: 48px;
+    height: 2px;
+    background: #e77713;
+    margin-bottom: 20px;
+}
+
+.section-heading h2 {
+    margin: 0;
+    font-size: 38px;
+    line-height: 1.1;
+    font-weight: 700;
+    color: #061b3a;
+}
+
+/* Сітка */
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+/* Карточка */
+
+.product-card {
+    min-width: 0;
+}
+
+/* Фото */
+
+.product-image-box {
+    width: 100%;
+    height: 325px;
+    position: relative;
+    overflow: hidden;
+    background: #f6f7f8;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.35s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.03);
+}
+
+/* Новинка */
+
+.product-badge {
+    position: absolute;
+    top: 13px;
+    left: 13px;
+    padding: 6px 11px;
+    background: #e77713;
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    z-index: 2;
+}
+
+/* Якщо фото немає */
+
+.no-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    color: #6b7e99;
+}
+
+/* Текст */
+
+.product-content {
+    padding-top: 24px;
+}
+
+.product-article {
+    display: block;
+    margin-bottom: 10px;
+    color: #60738f;
+    font-size: 12px;
+    letter-spacing: 0.2px;
+}
+
+.product-title {
+    color: #03152f;
+    font-size: 17px;
+    line-height: 1.4;
+    font-weight: 700;
+    margin: 0 0 8px;
+}
+
+.product-description {
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 0;
+    min-height: 48px;
+}
+
+/* Низ */
+
+.product-bottom {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.product-price {
+    color: #020b1c;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: monospace;
+}
+
+.product-details {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #e77713;
+    font-size: 14px;
+    transition: gap 0.25s ease, color 0.25s ease;
+}
+
+    .product-details span {
+        font-size: 20px;
+        line-height: 1;
+    }
+
+    .product-details:hover {
+        gap: 13px;
+        color: #003ac7;
+    }
+
+/* Планшет */
+
+@media (max-width: 1000px) {
+
+    .new-products-section {
+        padding: 70px 30px;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .product-image-box {
+        height: 300px;
+    }
+}
+
+/* Телефон */
+
+@media (max-width: 650px) {
+
+    .new-products-section {
+        padding: 55px 20px;
+    }
+
+    .section-heading {
+        margin-bottom: 35px;
+    }
+
+        .section-heading h2 {
+            font-size: 30px;
+        }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+        gap: 45px;
+    }
+
+    .product-image-box {
+        height: 300px;
+    }
+
+    .product-description {
+        min-height: auto;
+    }
+}
 
 
 /* Перша кнопка */

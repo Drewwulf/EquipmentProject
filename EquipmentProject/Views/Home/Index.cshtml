@@ -67,3 +67,55 @@
 
     </div>
 </section>
+<section class="new-products-section">
+    
+    <div class="new-products-container">
+
+        <div class="section-heading">
+            <div class="section-line"></div>
+            <h2>Нові товари</h2>
+        </div>
+
+        <div class="products-grid">
+
+            <!-- Товар 1 -->
+            @foreach (var product in Model.Products)
+            {
+                
+            
+            <div class="product-card">
+
+                <div class="product-image-box">
+                    <span class="product-badge">НОВИНКА</span>
+
+                    <div class="no-image">
+                        Фото відсутнє
+                    </div>
+                </div>
+
+                <div class="product-content">
+                    <span class="product-article">Арт.@product.Articul</span>
+
+                    <h3 class="product-title">
+                            @product.ProductName
+                    </h3>
+
+                    <p class="product-description">
+                            @product.ShortDescription
+                    </p>
+
+                    <div class="product-bottom">
+                        <span class="product-price">
+                                @product.Price
+                        </span>
+
+                        <a href="#" class="product-details">
+                                Детальніше
+                            <span>→</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            }
+</section>

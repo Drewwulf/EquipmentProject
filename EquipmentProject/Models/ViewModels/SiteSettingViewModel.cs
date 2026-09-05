@@ -12,5 +12,6 @@
         public string SocialTelegram { get; set; }
 
         public List<Contact> Contacts { get; set; } = new List<Contact>();
+        public List<Product> Products { get; set; } = new List<Product>();
     }
 }
