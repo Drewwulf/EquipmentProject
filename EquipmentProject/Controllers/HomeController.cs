@@ -1,6 +1,7 @@
 using EquipmentProject.Data;
 using EquipmentProject.Models;
 using EquipmentProject.Models.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -15,6 +16,8 @@ namespace EquipmentProject.Controllers
         }
         public IActionResult Index()
         {
+    
+
             var category = _context.SiteSettings.OrderByDescending(s => s.Id).First(); ;
             var categories = new SiteSettingViewModel
             {
@@ -28,6 +31,8 @@ namespace EquipmentProject.Controllers
             };
             return View(categories);
         }
+
+   
 
         public IActionResult Privacy()
         {
