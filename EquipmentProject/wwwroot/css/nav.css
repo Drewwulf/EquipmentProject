@@ -70,12 +70,12 @@
     /* Active */
 
     .sidebar-link.active {
-        background-color: #e77713;
+        
         font-weight: 600;
     }
 
         .sidebar-link.active:hover {
-            background-color: #a6540c;
+            background-color: #e77713;
         }
 
 .sidebar-bottom {
