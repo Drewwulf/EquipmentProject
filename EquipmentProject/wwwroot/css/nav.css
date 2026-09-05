@@ -44,6 +44,12 @@
     filter:invert(1);
 }
 
+.sidebar-link button{
+    font-weight: 700;
+    font-size: 17px;
+
+}
+
 .sidebar-link {
     height: 41px;
     display: flex;
