@@ -1,14 +1,18 @@
 ﻿using EquipmentProject.Data;
 using EquipmentProject.Models;
 using EquipmentProject.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EquipmentProject.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private ApplicationDbContext _context;
+
+        
         public AdminController(ApplicationDbContext context)
         {
             _context = context;
