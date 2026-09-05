@@ -19,6 +19,7 @@ html {
 
 body {
     margin-bottom: 60px;
+    
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
@@ -73,8 +74,7 @@ body {
     .product-section h3 {
         margin: 0 0 20px;
         font-size: 14px;
-        font-weight: 600;
-        color: #f1f3f7;
+        color: #1b0f0d;
     }
 
 
@@ -512,7 +512,7 @@ body {
     .product-section h3 {
         margin: 0 0 20px;
         font-size: 17px;
-        font-weight: 600;
+        
         color: #1b0f0d;
     }
 
@@ -768,8 +768,8 @@ body {
     padding: 0 10px;
     border: 1px solid transparent;
     outline: none;
-    background-color: #202f47;
-    color: #f3f6fa;
+    background-color: #e77713;
+    color: #1b0f0d;
     font-size: 12px;
 }
 
