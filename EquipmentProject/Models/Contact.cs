@@ -8,6 +8,7 @@
         public string Email { get; set; }
         public string Schedule { get; set; }
         public int SiteSettingId { get; set; }
+        public bool isdeleted { get; set; }
 
         public SiteSettings siteSettings = new SiteSettings();
     }
