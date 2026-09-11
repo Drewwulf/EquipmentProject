@@ -310,17 +310,17 @@
     color: #1b0f0d;
 }
 
-    .hero-btn-primary:hover {
-        background: #a6540c;
-    }
+.hero-btn-primary:hover {
+    background: #d99d00;
+}
 
 
-    /* Стрілка */
+/* Стрілка */
 
-    .hero-btn-primary svg {
-        width: 16px;
-        height: 16px;
-    }
+.hero-btn-primary svg {
+    width: 16px;
+    height: 16px;
+}
 
 
 /* Друга кнопка */
@@ -331,10 +331,10 @@
     background: transparent;
 }
 
-    .hero-btn-outline:hover {
-        background: #171c26;
-        color: #ffffff;
-    }
+.hero-btn-outline:hover {
+    background: #171c26;
+    color: #ffffff;
+}
 
 
 /* =========================
@@ -348,12 +348,12 @@
     min-height: 300px;
 }
 
-    .hero-image img {
-        width: 100%;
-        height: 100%;
-        display: block;
-        object-fit: cover;
-    }
+.hero-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
 
 
 /* =========================
@@ -379,45 +379,332 @@
 }
 
 
-    /* Категорія */
+/* Категорія */
 
-    .category-container a {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        white-space: nowrap;
-        text-decoration: none;
-        font-size: 14px;
-        color: rgba(23, 28, 38, 0.7);
-        transition: color 0.2s ease;
-    }
-
-
-        .category-container a:hover {
-            color: #f5b400;
-        }
+.category-container a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    text-decoration: none;
+    font-size: 14px;
+    color: rgba(23, 28, 38, 0.7);
+    transition: color 0.2s ease;
+}
 
 
-        /* Крапка */
-
-        .category-container a span {
-            width: 6px;
-            height: 6px;
-            flex-shrink: 0;
-            background: #f5b400;
-            border-radius: 50%;
-        }
+.category-container a:hover {
+    color: #f5b400;
+}
 
 
-    /* =========================
+/* Крапка */
+
+.category-container a span {
+    width: 6px;
+    height: 6px;
+    flex-shrink: 0;
+    background: #f5b400;
+    border-radius: 50%;
+}
+
+
+/* =========================
+   SUBCATEGORIES
+========================= */
+
+/* Головний контейнер */
+
+.subcategories-container {
+    min-height: 100vh;
+    background: #0d1523;
+    padding: 20px 26px;
+    color: #ffffff;
+}
+
+
+/* Верхня частина */
+
+.subcategories-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 36px;
+}
+
+
+.subcategories-header h1 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 700;
+    color: #f1f1f1;
+}
+
+
+.subcategories-header p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #8f9bae;
+}
+
+
+/* =========================
+   ADD BUTTON
+========================= */
+
+.add-subcategory-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 18px;
+    background: #3974d8;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+
+.add-subcategory-btn:hover {
+    background: #4b86eb;
+}
+
+
+.add-subcategory-btn span {
+    font-size: 23px;
+    line-height: 15px;
+}
+
+
+/* =========================
+   SUBCATEGORY TABLE
+========================= */
+
+.subcategory-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+
+/* Сама таблиця */
+
+.subcategory-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #111a2a;
+    border: 1px solid #29384e;
+}
+
+
+/* Верхня частина таблиці */
+
+.subcategory-table thead {
+    background: #151f30;
+}
+
+
+.subcategory-table th {
+    padding: 15px 16px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 600;
+    color: #8f9bae;
+    border-bottom: 1px solid #29384e;
+}
+
+
+/* Рядки */
+
+.subcategory-table tbody tr {
+    transition: 0.2s;
+}
+
+
+.subcategory-table tbody tr:hover {
+    background: #141f31;
+}
+
+
+/* Комірки */
+
+.subcategory-table td {
+    padding: 14px 16px;
+    font-size: 14px;
+    color: #d8dee8;
+    border-bottom: 1px solid #29384e;
+    vertical-align: middle;
+}
+
+
+/* Останній рядок */
+
+.subcategory-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================
+   TABLE CONTENT
+========================= */
+
+/* Назва */
+
+.subcategory-name {
+    font-weight: 600;
+    color: #f1f1f1 !important;
+    white-space: nowrap;
+}
+
+
+/* Категорія */
+
+.subcategory-table td:nth-child(2) {
+    color: #4c8dff;
+    white-space: nowrap;
+}
+
+
+/* Опис */
+
+.subcategory-description {
+    max-width: 500px;
+    color: #8f9bae !important;
+}
+
+
+/* Порядок */
+
+.subcategory-order {
+    width: 100px;
+    color: #8f9bae !important;
+    text-align: center;
+}
+
+
+/* =========================
+   ACTIONS
+========================= */
+
+/* Колонка дій */
+
+.actions-header {
+    width: 100px;
+    text-align: right !important;
+}
+
+
+.subcategory-actions {
+    width: 100px;
+    text-align: right !important;
+    white-space: nowrap;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+}
+
+
+/* Загальна кнопка дії */
+
+.subcategory-action {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    background: transparent;
+
+    color: #91a0b5;
+    cursor: pointer;
+
+    text-decoration: none;
+
+    transition: 0.2s;
+}
+
+
+/* SVG */
+
+.subcategory-action svg {
+    width: 18px;
+    height: 18px;
+}
+
+
+/* Олівець */
+
+.edit-action:hover {
+    background: #202c3d;
+    color: #4c8dff;
+}
+
+
+/* Відро */
+
+.delete-action:hover {
+    background: #302124;
+    color: #ef5350;
+}
+
+
+/* Форма видалення */
+
+.delete-form {
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+
+/* =========================
+   NO SUBCATEGORIES
+========================= */
+
+.no-subcategories {
+    padding: 30px;
+    text-align: center;
+
+    border: 1px solid #29384e;
+    background: #111a2a;
+
+    color: #8f9bae;
+    font-size: 14px;
+}
+
+
+/* =========================
    SCROLLBAR
 ========================= */
 
-    .category-container::-webkit-scrollbar {
-        height: 4px;
-    }
+.category-container::-webkit-scrollbar {
+    height: 4px;
+}
 
-    .category-container::-webkit-scrollbar-thumb {
-        background: #c7c7c7;
-        border-radius: 10px;
-    }
+
+.category-container::-webkit-scrollbar-thumb {
+    background: #c7c7c7;
+    border-radius: 10px;
+}
+
+
+/* Скролбар таблиці */
+
+.subcategory-table-wrapper::-webkit-scrollbar {
+    height: 5px;
+}
+
+
+.subcategory-table-wrapper::-webkit-scrollbar-thumb {
+    background: #29384e;
+    border-radius: 10px;
+}
+
+
+.subcategory-table-wrapper::-webkit-scrollbar-track {
+    background: #0d1523;
+}
