@@ -249,9 +249,10 @@
                                    class="edit-category-button"
                                    title="Редагувати">
 
-                                ✎
+                    <!-- Назва та опис -->
+                    <div class="specification-content">
 
-                            </a>
+                        
 
                             <form asp-controller="Category"
                                   asp-action="Delete"
@@ -259,32 +260,46 @@
                                   method="post"
                                   onsubmit="return confirm('Ви впевнені, що хочете видалити цю категорію?');">
 
-                                @Html.AntiForgeryToken()
+                    <!-- Дії -->
+                    <div class="category-list-actions">
 
-                                <button type="submit"
-                                        class="delete-specification"
-                                        title="Видалити">
+                        <a asp-controller="Category"
+                           asp-action="Edit"
+                           asp-route-id="@category.Id"
+                           class="edit-category-button"
+                           title="Редагувати">
+                            ✎
+                        </a>
 
-                                    ×
+                        <form asp-controller="Category"
+                              asp-action="Delete"
+                              asp-route-id="@category.Id"
+                              method="post"
+                              onsubmit="return confirm('Ви впевнені, що хочете видалити цю категорію?');">
 
-                                </button>
+                            @Html.AntiForgeryToken()
 
-                            </form>
+                            <button type="submit"
+                                    class="delete-specification"
+                                    title="Видалити">
+                                ×
+                            </button>
 
-                        </div>
+                        </form>
 
                     </div>
-                }
+
+                </div>
             }
-            else
-            {
-                <p class="empty-specifications">
-                    Категорій поки немає. Створіть першу категорію.
-                </p>
-            }
+        }
+        else
+        {
+            <p class="empty-specifications">
+                Категорій поки немає. Створіть першу категорію.
+            </p>
+        }
 
-        </div>
+    </div>
 
-    </section>
-
+</section>
 </div>

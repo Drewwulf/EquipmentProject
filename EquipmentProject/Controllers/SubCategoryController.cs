@@ -35,7 +35,26 @@ namespace EquipmentProject.Controllers
             return View(model);
         }
 
-    
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var subcategory = await _context.Subcategories.Where(x => !x.IsDeleted)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (subcategory == null)
+                return NotFound();
+
+            // М'яке видалення
+            subcategory.IsDeleted = true;
+
+            // Позначаємо об'єкт як змінений
+            _context.Subcategories.Update(subcategory);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
 
         [HttpGet]
         public IActionResult Edit(int id)
