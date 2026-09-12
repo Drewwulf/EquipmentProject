@@ -76,7 +76,7 @@
 
         @foreach (var category in ViewBag.Categories)
         {
-            <a asp-controller="Product"
+            <a asp-controller="Product" 
                    asp-action="Category"
                    asp-route-id="@category.Id">
 
@@ -132,7 +132,9 @@
                                 @product.Price
                         </span>
 
-                        <a href="#" class="product-details">
+                        <a asp-controller="Home" 
+                   asp-action="ProductInfo"
+                   asp-route-id="@product.Id" class="product-details">
                                 Детальніше
                             <span>→</span>
                         </a>
