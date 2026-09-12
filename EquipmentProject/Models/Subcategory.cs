@@ -11,6 +11,8 @@
         public string ImgPath { get; set; }
         public int Order {  get; set; }
 
+        public int CategoriesId { get; set; }
+
         public Category Categories { get; set; }
         public List<Product> Products { get; set; }
     }

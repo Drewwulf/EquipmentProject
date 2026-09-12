@@ -2,7 +2,9 @@
 using EquipmentProject.Models;
 using EquipmentProject.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace EquipmentProject.Controllers
 {
@@ -26,12 +28,14 @@ namespace EquipmentProject.Controllers
             var model = new SubCategoryViewModel
             {
                 Categories = category,
-                Subcategories = subcat
+                Subcategories = subcat,
+                View = "Create"
             };
 
             return View(model);
         }
 
+    
 
         [HttpGet]
         public IActionResult Edit(int id)
@@ -53,6 +57,7 @@ namespace EquipmentProject.Controllers
                 IsDeleted = subcategory.IsDeleted,
                 ImgPath = subcategory.ImgPath,
                 Order = subcategory.Order,
+                View = "Edit",
 
                 Categories = _context.Categories
                     .Where(c => !c.IsDeleted)
@@ -71,17 +76,7 @@ namespace EquipmentProject.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(SubCategoryViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                model.Categories = _context.Categories
-                    .Where(c => !c.IsDeleted)
-                    .ToList();
-
-                model.Subcategories = _context.Subcategories.ToList();
-
-                return View("Index", model);
-            }
+        { 
 
             var subcategory = await _context.Subcategories
                 .FirstOrDefaultAsync(s => s.Id == model.Id);
@@ -139,6 +134,45 @@ namespace EquipmentProject.Controllers
 
             await _context.SaveChangesAsync();
 
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Create(SubCategoryViewModel model)
+        {
+
+            var uploadsFolder = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "wwwroot",
+                    "uploads",
+                    "subcategories"
+                );
+
+            Directory.CreateDirectory(uploadsFolder);
+
+            var fileName = Guid.NewGuid().ToString() + 
+                           Path.GetExtension(model.MainImage.FileName);
+
+            var filePath = Path.Combine(uploadsFolder, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await model.MainImage.CopyToAsync(stream);
+            }
+
+            var ImgPaths = "/uploads/subcategories/" + fileName;
+
+            var subcategory = new Subcategory
+            {
+                NameSubcategory = model.NameSubcategory,
+                CategoriesId = model.CategoryId,
+                ShortDescription = model.ShortDescription,
+                Order = model.Order,
+                ImgPath = ImgPaths,
+                IsDeleted =false
+            };
+
+            _context.Subcategories.Add(subcategory);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
     }
