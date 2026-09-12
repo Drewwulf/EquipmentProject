@@ -3,6 +3,7 @@ using EquipmentProject.Models;
 using EquipmentProject.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace EquipmentProject.Controllers
@@ -51,6 +52,20 @@ namespace EquipmentProject.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public IActionResult ProductInfo(int id)
+        {
+            var product = _context.Products
+                .Include(x => x.Subcategory)
+                .Include(x => x.TechnicalCharacteristics)
+                .FirstOrDefault(x => x.Id == id && !x.IsDeleted);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
         }
     }
 }

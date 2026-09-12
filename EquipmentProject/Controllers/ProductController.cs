@@ -3,6 +3,8 @@ using EquipmentProject.Models;
 using EquipmentProject.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol.Resources;
 
 namespace EquipmentProject.Controllers
 {
@@ -98,5 +100,8 @@ namespace EquipmentProject.Controllers
             return RedirectToAction("AddProduct");
 
         }
-    }
+        
+
+          
+}
 }
