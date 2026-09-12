@@ -1,12 +1,12 @@
 ﻿@model EquipmentProject.Models.ViewModels.SiteSettingViewModel
     @{
-        ViewData["Title"] = "Редагувати товар";
+        ViewData["Title"] = "Налаштування";
     }
     <form asp-controller="Admin" asp-action="SetSettings" method="post">
     <div class="product-edit-page">
 
         <!-- Заголовок -->
-        <h2 class="product-edit-title">Редагувати товар</h2>
+        <h2 class="product-edit-title">Налаштувати сайт</h2>
 
 
         <!-- =========================
@@ -79,7 +79,7 @@
             <div class="section-header">
 
                 <h3>
-                    Технічні характеристики
+                    Додаткова інформація
                 </h3>
 
                 <button type="button"
@@ -94,10 +94,6 @@
 
 
             <div id="specificationsContainer">
-
-                <p class="empty-specifications">
-                    Характеристик поки немає. Додайте першу.
-                </p>
 
             </div>
 
@@ -153,13 +149,12 @@
             </button>
 
 
-            <button type="button"
+            <button type="button" asp-route-id="@Model."
                     class="cancel-button">
 
                 Скасувати
 
             </button>
-
 
 
 
@@ -185,6 +180,10 @@
         for (let i = 0; i < contacts.length; i++) {
              
             const contact = contacts[i];
+
+            if (contact.isdeleted == false){
+
+            console.log(contact.isdeleted)
 
             const specification =
                 document.createElement("div");
@@ -227,15 +226,16 @@
                                   class="full-description" required>${contact.schedule ?? ''}</textarea>
                     </div>
 
-                    <button type="button"
-                            class="delete-specification">
+                    <a 
+                            href="/Admin/DeleteContacts/${i + 1}"
+        class="delete-specification">
                         ×
-                    </button>
+                    </a>
 
                 </section>
             `;
 
-            specificationsContainer.appendChild(specification);
+            specificationsContainer.appendChild(specification);}
         }
 
 
@@ -280,10 +280,7 @@
                                   class="full-description" required ></textarea>
                     </div>
 
-                    <button type="button"
-                            class="delete-specification">
-                        ×
-                    </button>
+                    
 
                 </section>
             `;

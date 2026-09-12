@@ -1,14 +1,18 @@
 ﻿using EquipmentProject.Data;
 using EquipmentProject.Models;
 using EquipmentProject.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EquipmentProject.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private ApplicationDbContext _context;
+
+        
         public AdminController(ApplicationDbContext context)
         {
             _context = context;
@@ -71,6 +75,14 @@ namespace EquipmentProject.Controllers
             _context.Add(siteconf);
             _context.SaveChanges();
 
+            return RedirectToAction("SiteSettings");
+        }
+        [HttpGet]
+        public IActionResult DeleteContacts(int id)
+        {
+            var ctd = _context.Contacts.Find(id);
+            ctd.isdeleted = true;
+            _context.SaveChanges();
             return RedirectToAction("SiteSettings");
         }
     }

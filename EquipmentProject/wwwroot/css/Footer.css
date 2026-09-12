@@ -4,7 +4,7 @@
 
 .site-footer {
     width: 100%;
-    background: #101828;
+    background: #f1c44e;
     color: #ffffff;
     font-family: Arial, sans-serif;
 }
@@ -33,16 +33,24 @@
     margin: 0 0 16px;
     font-size: 34px;
     font-weight: 700;
-    color: #ffffff;
+    color: #1b0f0d;
 }
 
 .footer-consultation p {
     margin: 0;
     max-width: 650px;
-    color: #9aa8bc;
+    color: #1b0f0d;
     font-size: 17px;
     line-height: 1.6;
 }
+
+.footer-logo-icon {
+    background: #e77713!important;
+}
+
+    .footer-logo-icon img {
+        filter: invert(1)
+    }
 
 
 /* =========================
@@ -71,23 +79,23 @@
 }
 
 .footer-phone {
-    background: #2864e8;
-    color: #ffffff;
+    background: #e77713;
+    color: #1b0f0d;
 }
 
     .footer-phone:hover {
-        background: #1d54ca;
-        color: #ffffff;
+        background: #a6540c;
+        color: #1b0f0d;
     }
 
 .footer-contact-btn {
     border: 1px solid #4a5568;
-    color: #ffffff;
+    color: #1b0f0d;
 }
 
     .footer-contact-btn:hover {
-        background: #ffffff;
-        color: #101828;
+        background: #a6540c;
+        color: #1b0f0d;
     }
 
 
@@ -118,11 +126,15 @@
 
     .footer-column h3 {
         margin: 0 0 25px;
-        color: #66758b;
+        color: #1b0f0d;
         font-size: 14px;
         font-weight: 600;
         letter-spacing: 0.5px;
     }
+
+.footer-info span {
+    color: #1b0f0d;
+}
 
 
 /* =========================
@@ -138,6 +150,7 @@
 
     .footer-logo span {
         font-size: 20px;
+        color: #1b0f0d;
         font-weight: 700;
     }
 
@@ -155,7 +168,7 @@
 .footer-brand p {
     max-width: 340px;
     margin: 0;
-    color: #9aa8bc;
+    color: #1b0f0d;
     font-size: 14px;
     line-height: 1.7;
 }
@@ -167,7 +180,7 @@
 
 .footer-column > a {
     margin-bottom: 17px;
-    color: #ffffff;
+    color: #1b0f0d;
     text-decoration: none;
     font-size: 14px;
     transition: 0.2s;
@@ -215,16 +228,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #202b3d;
-    color: #ffffff;
+    background: #e77713;
+    color: #1b0f0d;
     text-decoration: none;
     font-size: 17px;
     transition: 0.25s;
 }
 
     .social-btn:hover {
-        background: #2864e8;
-        color: #ffffff;
+        background: #a6540c;
+        color: #1b0f0d;
+    }
+
+    .social-btn i {
+        filter: invert(1);
     }
 
 
@@ -328,6 +345,7 @@
             max-width: 100%;
         }
 
+    
 
     /* BOTTOM */
 

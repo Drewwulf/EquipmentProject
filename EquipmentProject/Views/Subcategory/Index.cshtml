@@ -1,0 +1,312 @@
+﻿```cshtml
+@model EquipmentProject.Models.ViewModels.SubCategoryViewModel
+
+@{
+    ViewData["Title"] = "Підкатегорії";
+}
+
+<div class="product-edit-page">
+
+    <h2 class="product-edit-title">
+        @(Model.Id == 0 ? "Додати підкатегорію" : "Редагувати підкатегорію")
+    </h2>
+
+    <form asp-controller="SubCategory"
+          asp-action="Edit"
+          method="post"
+          enctype="multipart/form-data">
+
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="SubcategoryId" />
+        <input type="hidden" asp-for="ImgPath" />
+
+        <section class="product-section">
+
+            <h3>Основна інформація</h3>
+
+
+            <!-- Категорія -->
+
+            <div class="product-field">
+
+                <label for="category">
+                    Категорія *
+                </label>
+
+                <select id="category"
+                        asp-for="CategoryId"
+                        required>
+
+                    <option value="">
+                        Оберіть категорію
+                    </option>
+
+                    @foreach (var category in Model.Categories.Where(c => !c.IsDeleted))
+                    {
+                        <option value="@category.Id">
+                            @category.ProductName
+                        </option>
+                    }
+
+                </select>
+
+            </div>
+
+
+            <!-- Назва -->
+
+            <div class="product-field">
+
+                <label for="productName">
+                    Назва *
+                </label>
+
+                <input type="text"
+                       id="productName"
+                       asp-for="NameSubcategory"
+                       required />
+
+            </div>
+
+
+            <!-- Опис -->
+
+            <div class="product-field">
+
+                <label for="description">
+                    Опис
+                </label>
+
+                <textarea id="description"
+                          asp-for="ShortDescription"
+                          class="full-description"
+                          placeholder="Детальний опис підкатегорії">
+                </textarea>
+
+            </div>
+
+
+            <!-- Зображення -->
+
+            <div class="product-field">
+
+                <label>
+                    Зображення
+                </label>
+
+                @if (!string.IsNullOrEmpty(Model.ImgPath))
+                {
+                    <div class="current-image">
+
+                        <img src="@Model.ImgPath"
+                             alt="@Model.NameSubcategory"
+                             width="200" />
+
+                    </div>
+                }
+
+                <label for="mainImage"
+                       class="outline-button">
+
+                    <span>↥</span>
+                    Завантажити
+
+                </label>
+
+                <input type="file"
+                       id="mainImage"
+                       asp-for="MainImage"
+                       accept="image/*"
+                       hidden />
+
+            </div>
+
+
+            <!-- Порядок -->
+
+            <div class="product-field">
+
+                <label for="order">
+                    Порядок
+                </label>
+
+                <input type="number"
+                       id="order"
+                       asp-for="Order"
+                       required />
+
+            </div>
+
+
+            <!-- Кнопки -->
+
+            <div class="product-actions">
+
+                <button type="submit"
+                        class="save-button">
+
+                    <span>▣</span>
+                    Зберегти підкатегорію
+
+                </button>
+
+                <a asp-controller="SubCategory"
+                   asp-action="Index"
+                   class="cancel-button">
+
+                    Скасувати
+
+                </a>
+
+            </div>
+
+        </section>
+
+    </form>
+
+
+    <!-- СПИСОК ПІДКАТЕГОРІЙ -->
+
+    <div class="subcategories-container">
+
+        <div class="subcategories-header">
+
+            <div>
+
+                <h1>Підкатегорії</h1>
+
+                <p>
+                    Керування підкатегоріями та прив'язка до категорій
+                </p>
+
+            </div>
+
+        </div>
+
+
+        @if (Model.Subcategories != null && Model.Subcategories.Any())
+        {
+            foreach (var sc in Model.Subcategories.Where(x => !x.IsDeleted))
+            {
+                <div class="subcategory-container">
+
+
+                    <!-- Фото -->
+
+                    <div class="subcategory-container-image">
+
+                        @if (!string.IsNullOrEmpty(sc.ImgPath))
+                        {
+                            <img src="@sc.ImgPath"
+                                 alt="@sc.NameSubcategory" />
+                        }
+                        else
+                        {
+                            <span class="no-image">
+                                Немає фото
+                            </span>
+                        }
+
+                    </div>
+
+
+                    <!-- Інформація -->
+
+                    <div class="subcategory-container-info">
+
+                        <h3>
+                            @sc.NameSubcategory
+                        </h3>
+
+                        <p>
+                            @sc.ShortDescription
+                        </p>
+
+                    </div>
+
+
+                    <!-- Кнопки -->
+
+                    <div class="subcategory-container-buttons">
+
+
+                        <!-- DELETE -->
+
+                        <button type="button"
+                                class="subcategory-icon-btn delete-btn">
+
+                            <svg viewBox="0 0 18 18"
+                                 xmlns="http://www.w3.org/2000/svg">
+
+                                <path d="M4.91666667,14.8888889
+                                         C4.91666667,15.3571429 5.60416667,16
+                                         6.0625,16 L12.9375,16
+                                         C13.3958333,16 14.0833333,15.3571429
+                                         14.0833333,14.8888889
+                                         L14.0833333,6 L4.91666667,6
+                                         L4.91666667,14.8888889 Z
+                                         M15,3.46500003
+                                         L12.5555556,3.46500003
+                                         L11.3333333,2
+                                         L7.66666667,2
+                                         L6.44444444,3.46500003
+                                         L4,3.46500003
+                                         L4,4.93000007
+                                         L15,4.93000007 Z"
+                                      fill="currentColor" />
+
+                            </svg>
+
+                        </button>
+
+
+                        <!-- EDIT -->
+
+                        <a asp-controller="SubCategory"
+                           asp-action="Edit"
+                           asp-route-id="@sc.Id"
+                           class="subcategory-icon-btn">
+
+                            <svg viewBox="0 0 18 18"
+                                 xmlns="http://www.w3.org/2000/svg">
+
+                                <path d="M2.25,12.9378906
+                                         L2.25,15.75
+                                         L5.06210943,15.75
+                                         L13.3559575,7.45615192
+                                         L10.5438481,4.64404249
+                                         L2.25,12.9378906 Z
+
+                                         M15.5306555,5.28145396
+                                         C15.8231148,4.98899458
+                                         15.8231148,4.5165602
+                                         15.8231148,4.5165602
+                                         L13.7758992,2.46934454
+                                         C13.4834398,2.17688515
+                                         13.0110054,2.17688515
+                                         12.718546,2.46934454
+                                         L11.3462366,3.84165394
+                                         L14.1583461,6.65376337
+                                         L15.5306555,5.28145396 Z"
+                                      fill="currentColor" />
+
+                            </svg>
+
+                        </a>
+
+                    </div>
+
+                </div>
+            }
+        }
+        else
+        {
+            <p>
+                Підкатегорій поки немає.
+            </p>
+        }
+
+    </div>
+
+</div>
+```

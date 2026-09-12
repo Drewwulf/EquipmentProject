@@ -1,12 +1,15 @@
 ﻿using EquipmentProject.Data;
 using EquipmentProject.Models;
 using EquipmentProject.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EquipmentProject.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProductController : Controller
     {
+        
         private ApplicationDbContext _context;
         public ProductController(ApplicationDbContext context)
         {

@@ -1,6 +1,7 @@
 using EquipmentProject.Data;
 using EquipmentProject.Models;
 using EquipmentProject.Models.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -15,10 +16,15 @@ namespace EquipmentProject.Controllers
         }
         public IActionResult Index()
         {
-            var category = _context.SiteSettings.OrderByDescending(s => s.Id).First(); ;
+            var category = _context.SiteSettings.OrderByDescending(s => s.Id).First();
+            var news = _context.Products.Where(p => p.IsNew == true).ToList();
+
+
+
 
             var categories = new SiteSettingViewModel
             {
+                Products = news,
                 ShopName = category.ShopName,
                 ShopDesc = category.ShopDesc,
                 HeaderInfo = category.HeaderInfo,
@@ -33,6 +39,8 @@ namespace EquipmentProject.Controllers
      .ToList();
             return View(categories);
         }
+
+   
 
         public IActionResult Privacy()
         {
