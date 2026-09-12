@@ -18,6 +18,8 @@
 
         public int Order { get; set; }
 
+        public string View { get; set; }
+
         public IFormFile MainImage { get; set; }
 
         public List<Subcategory> Subcategories { get; set; }
