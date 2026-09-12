@@ -1,16 +1,10 @@
-﻿/* =========================
-   HERO SECTION
-========================= */
+
 
 .hero-section {
     background: #ffffff;
     width: 100%;
 }
 
-
-/* =========================
-   MAIN HERO
-========================= */
 
 .hero-grid {
     display: grid;
@@ -19,10 +13,6 @@
 }
 
 
-/* =========================
-   LEFT CONTENT
-========================= */
-
 .hero-content {
     display: flex;
     align-items: center;
@@ -30,11 +20,11 @@
 }
 
 .hero-text {
-    max-width: 580px;
+    max-width: 580px;=
 }
 
 
-/* Жовта/основна лінія */
+/* Основна лінія */
 
 .hero-line {
     width: 64px;
@@ -68,9 +58,6 @@
 }
 
 
-/* =========================
-   BUTTONS
-========================= */
 
 .hero-buttons {
     display: flex;
@@ -556,25 +543,66 @@
 ========================= */
 
 .category-bar {
-    border-top: 1px solid #e5e7eb;
-    border-bottom: 1px solid #e5e7eb;
-    background: #f5f5f5;
+    width: 100%;
+    border-top: 1px solid #dfe4ea;
+    border-bottom: 1px solid #dfe4ea;
+    background: #f3f6f9;
     overflow: hidden;
 }
 
 
+/* =========================
+   CATEGORY CONTAINER
+========================= */
+
 .category-container {
     max-width: 1440px;
+    min-height: 36px;
     margin: 0 auto;
-    padding: 12px 32px;
+    padding: 0 32px;
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 30px;
     overflow-x: auto;
+    scrollbar-width: none;
 }
 
 
-/* Категорія */
+    /* Прибираємо scrollbar Chrome */
+
+    .category-container::-webkit-scrollbar {
+        display: none;
+    }
+
+
+
+    .category-container a {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding-left: 11px;
+        white-space: nowrap;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 400;
+        color: #526176;
+        transition: color 0.2s ease;
+    }
+
+
+        .category-container a span {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 5px;
+            flex-shrink: 0;
+            background: #2864e8;
+            border-radius: 50%;
+        }
+
 
 .category-container a {
     display: flex;
@@ -604,9 +632,6 @@
 }
 
 
-/* =========================
-   SUBCATEGORIES
-========================= */
 
 /* Головний контейнер */
 
@@ -643,9 +668,7 @@
 }
 
 
-/* =========================
-   ADD BUTTON
-========================= */
+
 
 .add-subcategory-btn {
     display: flex;
@@ -671,10 +694,6 @@
     line-height: 15px;
 }
 
-
-/* =========================
-   SUBCATEGORY TABLE
-========================= */
 
 .subcategory-table-wrapper {
     width: 100%;
@@ -739,10 +758,6 @@
 }
 
 
-/* =========================
-   TABLE CONTENT
-========================= */
-
 /* Назва */
 
 .subcategory-name {
@@ -779,7 +794,6 @@
 
 /* =========================
    ACTIONS
-========================= */
 
 /* Колонка дій */
 
@@ -856,10 +870,6 @@
 }
 
 
-/* =========================
-   NO SUBCATEGORIES
-========================= */
-
 .no-subcategories {
     padding: 30px;
     text-align: center;
@@ -871,10 +881,6 @@
     font-size: 14px;
 }
 
-
-/* =========================
-   SCROLLBAR
-========================= */
 
 .category-container::-webkit-scrollbar {
     height: 4px;

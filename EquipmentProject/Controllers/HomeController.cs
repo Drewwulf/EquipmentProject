@@ -33,6 +33,10 @@ namespace EquipmentProject.Controllers
                 SocialInstagram = category.SocialInstagram,
                 SocialTelegram = category.SocialTelegram
             };
+            ViewBag.Categories = _context.Categories
+     .Where(x => !x.IsDeleted)
+     .OrderBy(x => x.Order)
+     .ToList();
             return View(categories);
         }
 
