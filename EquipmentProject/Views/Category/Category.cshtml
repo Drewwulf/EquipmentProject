@@ -268,89 +268,89 @@
 
     <section class="product-section specifications-section">
 
-        <div class="section-header">
+    <div class="section-header">
 
-            <h3>
-                Категорії
-            </h3>
+        <h3>
+            Категорії
+        </h3>
 
-        </div>
+    </div>
 
+    <div id="categoriesContainer">
 
-        <div id="categoriesContainer">
-
-            @if (Model.Any(x => !x.IsDeleted))
+        @if (Model.Any(x => !x.IsDeleted))
+        {
+            @foreach (var category in Model.Where(x => !x.IsDeleted))
             {
-                @foreach (var category in Model.Where(x => !x.IsDeleted))
-                {
-                    <div class="specification-row">
+                <div class="specification-row">
 
+                    <!-- Фото -->
+                    <div class="subcategory-container-image">
+                        @if (!string.IsNullOrEmpty(category.ImgPath))
+                        {
+                            <img src="~/lib/local_shipping_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png"
+                                 alt="@category.ProductName" />
+                        }
+                        else
+                        {
+                            <span class="no-image">
+                                Немає фото
+                            </span>
+                        }
+                    </div>
 
-                        <!-- Назва -->
+                    <!-- Назва та опис -->
+                    <div class="specification-content">
 
-                        <h3 type="text"
-                               class="specification-input"
-                             >@category.ProductName
-                               </h3>
+                        
 
-                        <!-- Опис -->
-
-                        <p type="text"
-                               class="specification-input"
-                               >
-                    @category.ShortDescription
-                               </p>
-
-
-
-
-                        <!-- Дії -->
-
-                        <div class="category-list-actions">
-
-                            <a asp-controller="Category"
-                                   asp-action="Edit"
-                                   asp-route-id="@category.Id"
-                                   class="edit-category-button"
-                                   title="Редагувати">
-
-                                ✎
-
-                            </a>
-
-
-                            <form asp-controller="Category"
-                                  asp-action="Delete"
-                                  asp-route-id="@category.Id"
-                                  method="post"
-                                  onsubmit="return confirm('Ви впевнені, що хочете видалити цю категорію?');">
-
-                                @Html.AntiForgeryToken()
-
-                                <button type="submit"
-                                        class="delete-specification"
-                                        title="Видалити">
-
-                                    ×
-
-                                </button>
-
-                            </form>
-
-                        </div>
+                             <div class="subcategory-container-info">
+                        <h3 >@category.ProductName</h3>
+                        <p >@category.ShortDescription</p>
+                    </div>
 
                     </div>
-                }
+
+                    <!-- Дії -->
+                    <div class="category-list-actions">
+
+                        <a asp-controller="Category"
+                           asp-action="Edit"
+                           asp-route-id="@category.Id"
+                           class="edit-category-button"
+                           title="Редагувати">
+                            ✎
+                        </a>
+
+                        <form asp-controller="Category"
+                              asp-action="Delete"
+                              asp-route-id="@category.Id"
+                              method="post"
+                              onsubmit="return confirm('Ви впевнені, що хочете видалити цю категорію?');">
+
+                            @Html.AntiForgeryToken()
+
+                            <button type="submit"
+                                    class="delete-specification"
+                                    title="Видалити">
+                                ×
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
             }
-            else
-            {
-                <p class="empty-specifications">
-                    Категорій поки немає. Створіть першу категорію.
-                </p>
-            }
+        }
+        else
+        {
+            <p class="empty-specifications">
+                Категорій поки немає. Створіть першу категорію.
+            </p>
+        }
 
-        </div>
+    </div>
 
-    </section>
-
+</section>
 </div>
