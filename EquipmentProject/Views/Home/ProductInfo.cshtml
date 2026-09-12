@@ -1,16 +1,17 @@
-﻿@model EquipmentProject.Models.Product
+﻿
+@model EquipmentProject.Models.Product
 
 @{
     ViewData["Title"] = Model.ProductName;
 }
 
-<div class="product-page">
+<div class="product-view-page">
 
     <!-- =========================
          BREADCRUMBS
     ========================= -->
 
-    <div class="product-breadcrumbs">
+    <div class="product-view-breadcrumbs">
 
         <a asp-controller="Home"
            asp-action="Index">
@@ -54,11 +55,11 @@
          PRODUCT
     ========================= -->
 
-    <div class="product-content">
+    <div class="product-view-content">
 
         <!-- ФОТО -->
 
-        <div class="product-image">
+        <div class="product-view-image">
 
             @if (!string.IsNullOrWhiteSpace(Model.ImgPath))
             {
@@ -67,7 +68,7 @@
             }
             else
             {
-                <div class="no-photo">
+                <div class="product-view-no-photo">
 
                     <svg xmlns="http://www.w3.org/2000/svg"
                          width="42"
@@ -104,11 +105,11 @@
 
         <!-- ІНФОРМАЦІЯ -->
 
-        <div class="product-info">
+        <div class="product-view-info">
 
             <!-- Артикул -->
 
-            <div class="product-articul">
+            <div class="product-view-articul">
 
                 <span>Артикул:</span>
 
@@ -119,34 +120,34 @@
 
             <!-- Назва -->
 
-            <h1 class="product-title">
+            <h1 class="product-view-title">
                 @Model.ProductName
             </h1>
 
 
-            <div class="product-separator"></div>
+            <div class="product-view-separator"></div>
 
 
             <!-- Ціна -->
 
-            <div class="product-price">
+            <div class="product-view-price">
                 @Model.Price.ToString("N0") ₴
             </div>
 
-            <div class="product-price-note">
+            <div class="product-view-price-note">
                 Ціна вказана за умови самовивозу зі складу
             </div>
 
 
-            <div class="product-separator"></div>
+            <div class="product-view-separator"></div>
 
 
             <!-- КНОПКИ -->
 
-            <div class="product-buttons">
+            <div class="product-view-buttons">
 
                 <a href="/contacts"
-                   class="product-button product-button-main">
+                   class="product-view-button product-view-button-main">
 
                     <svg xmlns="http://www.w3.org/2000/svg"
                          width="17"
@@ -178,7 +179,7 @@
 
 
                 <a href="/contacts"
-                   class="product-button product-button-outline">
+                   class="product-view-button product-view-button-outline">
 
                     Залишити запит
 
@@ -195,28 +196,56 @@
          DESCRIPTION
     ========================= -->
 
-    @if (!string.IsNullOrWhiteSpace(Model.ShortDescription) ||
-         !string.IsNullOrWhiteSpace(Model.FullDescription))
-    {
-        <div class="product-description">
 
-            @if (!string.IsNullOrWhiteSpace(Model.ShortDescription))
-            {
-                <h2>Про товар</h2>
 
-                <p>
-                    @Model.ShortDescription
-                </p>
-            }
 
-            @if (!string.IsNullOrWhiteSpace(Model.FullDescription))
-            {
-                <div>
-                    @Html.Raw(Model.FullDescription)
-                </div>
-            }
+
+@if (!string.IsNullOrWhiteSpace(Model.FullDescription) || Model.TechnicalCharacteristics.Any())
+{
+    <div class="product-view-details">
+
+        <!-- Детальний опис -->
+        <div class="product-view-full-description">
+
+            <div class="product-view-section-title">
+                Детальний опис
+            </div>
+
+            <div class="product-view-description-content">
+                @Html.Raw(Model.FullDescription)
+            </div>
 
         </div>
-    }
 
-</div>
+        <!-- Технічні характеристики -->
+        <div class="product-view-specifications">
+
+            <div class="product-view-section-title">
+                Технічні характеристики
+            </div>
+
+            <table class="product-view-spec-table">
+
+                <tbody>
+
+                @foreach (var item in Model.TechnicalCharacteristics)
+                {
+                    <tr>
+                        <td class="product-view-spec-name">
+                            @item.ParamentName
+                        </td>
+
+                        <td class="product-view-spec-value">
+                            @item.ParamentValue
+                        </td>
+                    </tr>
+                }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+}
