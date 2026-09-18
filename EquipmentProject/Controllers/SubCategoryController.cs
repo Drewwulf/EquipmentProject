@@ -194,5 +194,19 @@ namespace EquipmentProject.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetSubcategory(int categoryid)
+        {
+            var subcategories = await _context.Subcategories
+                .Where(s => s.CategoriesId == categoryid && !s.IsDeleted)
+                .Select(s => new
+                {
+                    s.Id,
+                    s.NameSubcategory
+                })
+                .ToListAsync();
+            return Json(subcategories);
+        }
     }
 }

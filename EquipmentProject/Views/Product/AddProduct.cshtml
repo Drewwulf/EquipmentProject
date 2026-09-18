@@ -102,23 +102,7 @@
                             name="SubcategoryId"
                             required>
 
-                        <option value="">Оберіть підкатегорію</option>
-
-                        <option value="1" selected>
-                            Шафи та столи
-                        </option>
-
-                        <option value="2">
-                            Стелажі
-                        </option>
-
-                        <option value="3">
-                            Мийки
-                        </option>
-
-                        <option value="4">
-                            Візки
-                        </option>
+                        <option value="">Спочатку оберіть категорію</option>
 
                     </select>
 
@@ -383,6 +367,35 @@
 
         siteind++;
 
+    });
+
+    document.getElementById('category').addEventListener('change', async function() {
+        const categoryId = this.value;
+        const subcategorySelect = document.getElementById('subcategory');
+
+        subcategorySelect.innerHTML = '<option value="">Оберіть підкатегорію</option>';
+
+        if (!categoryId) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`/Products/GetSubcategories?categoryId=${categoryId}`);
+
+            if (!response.ok) throw new Error('Помилка сервера');
+
+            const subcategories = await response.json();
+
+            subcategories.forEach(sub => {
+                const option = document.createElement('option');
+                option.value = sub.id;    
+                option.textContent = sub.name; 
+                subcategorySelect.appendChild(option);
+            });
+
+        } catch (error) {
+            console.error('Не вдалося завантажити підкатегорії:', error);
+        }
     });
 
 </script>
