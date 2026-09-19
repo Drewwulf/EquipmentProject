@@ -115,7 +115,7 @@ namespace EquipmentProject.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    return RedirectToAction("SiteSettings", "Admin");
                 }
                 if (result.RequiresTwoFactor)
                 {
