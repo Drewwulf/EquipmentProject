@@ -8,7 +8,6 @@ using System.Diagnostics;
 
 namespace EquipmentProject.Controllers
 {
-{
     public class HomeController : Controller
     {
         private ApplicationDbContext _context;
