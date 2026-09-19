@@ -42,7 +42,7 @@
     line-height: 1.05;
     font-weight: 700;
     letter-spacing: -1.5px;
-    color: #171c26;
+    color: #061b3a;
 }
 
 
@@ -173,6 +173,236 @@
 
 .why-us-header {
     margin-bottom: 45px;
+}
+
+/* ================================
+   ПОПУЛЯРНІ КАТЕГОРІЇ
+================================ */
+
+.popular-categories {
+    width: 100%;
+    background: #ffffff;
+    padding: 40px 0px 55px;
+    box-sizing: border-box;
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+.categories-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 38px;
+}
+
+    .categories-header > div {
+        display: flex;
+        flex-direction: column;
+    }
+
+.categories-line {
+    display: block;
+    width: 38px;
+    height: 2px;
+    background: #e77713;
+    margin-bottom: 14px;
+}
+
+.categories-header h2 {
+    margin: 0;
+    font-size: 28px;
+    line-height: 1.2;
+    font-weight: 700;
+    color: #061b3a;
+}
+
+.all-categories {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #061b3a;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    transition: 0.2s ease;
+}
+
+    .all-categories span {
+        font-size: 18px;
+        line-height: 1;
+    }
+
+    .all-categories:hover {
+        color: #a6540c;
+    }
+
+
+/* ================================
+   GRID
+================================ */
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+
+/* ================================
+   CARD
+================================ */
+
+.category-card {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    min-height: 265px;
+    border-radius:4px;
+    overflow: hidden;
+    text-decoration: none;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+    .category-card:hover {
+        transform: translateY(-3px);
+    }
+
+
+/* ================================
+   ПЕРШІ 3 КАРТКИ
+================================ */
+
+.category-gradient {
+    background: linear-gradient( to bottom, #edf1f5 0%, #d2d6da 35%, #73777b 68%, #18191a 100% );
+}
+
+
+/* ================================
+   КАРТКИ З ФОТО
+================================ */
+
+.category-image {
+    background-size: cover;
+    background-color: #555;
+    background-position: center;
+}
+
+.category-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient( to bottom, rgba(0, 0, 0, 0.05) 15%, rgba(0, 0, 0, 0.12) 35%, rgba(0, 0, 0, 0.55) 75%, rgba(0, 0, 0, 0.9) 100% );
+}
+
+
+/* ================================
+   CONTENT
+================================ */
+
+.category-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 0 20px 20px;
+    box-sizing: border-box;
+    color: #061b3a;
+}
+
+    .category-content h3 {
+        margin: 0 0 7px;
+        font-size: 16px;
+        line-height: 1.25;
+        font-weight: 700;
+        color: #061b3a;
+    }
+
+    .category-content p {
+        display: inline;
+        margin: 0;
+        color: #061b3a;
+        font-size: 11px;
+        line-height: 1.5;
+    }
+
+        .category-content p + p {
+            display: block;
+            margin-top: 9px;
+            font-weight: 500;
+        }
+
+.category-arrow {
+    margin-left: 5px;
+    font-size: 17px;
+    line-height: 1;
+    color: #061b3a;
+}
+
+
+/* ================================
+   ВИСОТА КАРТОК
+================================ */
+
+.categories-grid .category-card:nth-child(-n+3) {
+    min-height: 265px;
+}
+
+.categories-grid .category-card:nth-child(n+4) {
+    min-height: 265px;
+}
+
+
+/* ================================
+   TABLET
+================================ */
+
+@media (max-width: 900px) {
+
+    .popular-categories {
+        padding: 35px 30px 45px;
+    }
+
+    .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 600px) {
+
+    .popular-categories {
+        padding: 30px 18px 40px;
+    }
+
+    .categories-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+        .categories-header h2 {
+            font-size: 24px;
+        }
+
+    .all-categories {
+        margin-bottom: 0;
+    }
+
+    .categories-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .category-card {
+        min-height: 250px !important;
+    }
 }
 
 .why-us-line {
