@@ -251,5 +251,37 @@ namespace MyMvcApp.Controllers
                 System.IO.File.Delete(filePath);
             }
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Restore(int id)
+        {
+            var category = await _context.Categories
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            category.IsDeleted = false;
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("DeletedData", "Admin"); }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetSubcategories(int categoryid)
+        {
+            var subcategories = await _context.Subcategories
+                .Where(s => s.CategoriesId == categoryid && !s.IsDeleted)
+                .Select(s => new
+                {
+                    s.Id,
+                    s.NameSubcategory
+                })
+                .ToListAsync();
+            return Json(subcategories);        }
     }
 }
