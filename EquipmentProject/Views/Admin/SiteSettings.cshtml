@@ -2,7 +2,7 @@
     @{
         ViewData["Title"] = "Налаштування";
     }
-    <form asp-controller="Admin" asp-action="SetSettings" method="post">
+    <form asp-controller="Admin" asp-action="SetSettings" method="post"  enctype="multipart/form-data">
     <div class="product-edit-page">
 
         <!-- Заголовок -->
@@ -98,6 +98,31 @@
             </div>
 
         </section>
+        <!-- Why We -->
+        <section class="product-section ">
+
+            <div class="section-header">
+
+                <h3>
+                    Додаткова інформація
+                </h3>
+
+                <button type="button"
+                        class="add-button"
+                        id="addSpecificationForWWS">
+
+                    + Додати
+
+                </button>
+
+            </div>
+
+
+            <div id="specificationsContainerForWWS">
+
+            </div>
+
+        </section>
 
         <section class="product-section">
        
@@ -164,130 +189,289 @@
     </form>
 
 
-    <script>
-        const contacts = @Html.Raw(Json.Serialize(Model.Contacts));
-
-        let siteind = contacts.length;
-
-        const addSpecificationButton =
-            document.getElementById("addSpecification");
-
-        const specificationsContainer =
-            document.getElementById("specificationsContainer");
+<script>
+    const contacts = @Html.Raw(Json.Serialize(Model.Contacts));
+    const wws = @Html.Raw(Json.Serialize(Model.WhyWes));
 
 
-        // Виводимо існуючі контакти
-        for (let i = 0; i < contacts.length; i++) {
-             
-            const contact = contacts[i];
+    let siteind = contacts.length;
+    let siteindfwws = wws.length;
 
-            if (contact.isdeleted == false){
 
-            console.log(contact.isdeleted)
 
-            const specification =
-                document.createElement("div");
+    const addSpecificationButton =
+        document.getElementById("addSpecification");
 
-            specification.className = "specification-row";
+    const specificationsContainer =
+        document.getElementById("specificationsContainer");
 
-            specification.innerHTML = `
-                <section class="product-section">
 
-                    <h3>Загальна інформація</h3>
+    for (let i = 0; i < contacts.length; i++) {
 
-                    <div class="product-field">
-                        <label>Адреса</label>
+        const contact = contacts[i];
 
-                        <input type="text"
-                               name="Contacts[${i}].Address"
-                               value="${contact.address ?? ''}" required />
-                    </div>
+        if (contact.isdeleted === true) {
+            continue;
+        }
 
-                    <div class="product-field">
-                        <label>Номер телефону</label>
+        const specification = document.createElement("div");
 
-                        <input type="text"
-                               name="Contacts[${i}].PhoneNumber"
-                               value="${contact.phoneNumber ?? ''}" required />
-                    </div>
+        specification.className = "specification-row";
 
-                    <div class="product-field">
-                        <label>Email</label>
+        specification.innerHTML = `
+            <section class="product-section">
 
-                        <input type="text"
-                               name="Contacts[${i}].Email"
-                               value="${contact.email ?? ''}" required />
-                    </div>
+                <h3>Контактна інформація</h3>
 
-                    <div class="product-field">
-                        <label>Графік роботи</label>
+                <div class="product-field">
+                    <label>Адреса</label>
 
-                        <textarea name="Contacts[${i}].Schedule"
-                                  class="full-description" required>${contact.schedule ?? ''}</textarea>
-                    </div>
+                    <input
+                        type="text"
+                        name="Contacts[${i}].Address"
+                        value="${contact.address ?? ''}"
+                        required />
+                </div>
 
-                    <a 
-                            href="/Admin/DeleteContacts/${i + 1}"
-        class="delete-specification">
-                        ×
-                    </a>
 
-                </section>
+                <div class="product-field">
+                    <label>Номер телефону</label>
+
+                    <input
+                        type="text"
+                        name="Contacts[${i}].PhoneNumber"
+                        value="${contact.phoneNumber ?? ''}"
+                        required />
+                </div>
+
+
+                <div class="product-field">
+                    <label>Email</label>
+
+                    <input
+                        type="text"
+                        name="Contacts[${i}].Email"
+                        value="${contact.email ?? ''}"
+                        required />
+                </div>
+
+
+                <div class="product-field">
+                    <label>Графік роботи</label>
+
+                    <textarea
+                        name="Contacts[${i}].Schedule"
+                        class="full-description"
+                        required>${contact.schedule ?? ''}</textarea>
+                </div>
+
+
+                <a
+                    href="/Admin/DeleteContacts/${contact.id}"
+                    class="delete-specification">
+                    ×
+                </a>
+
+            </section>
+        `;
+
+        specificationsContainer.appendChild(specification);
+    }
+
+
+    addSpecificationButton.addEventListener("click", function () {
+
+        const specification = document.createElement("div");
+
+        specification.className = "specification-row";
+
+        specification.innerHTML = `
+            <section class="product-section">
+
+                <h3>Контактна інформація</h3>
+
+                <div class="product-field">
+                    <label>Адреса</label>
+
+                    <input
+                        type="text"
+                        name="Contacts[${siteind}].Address"
+                        required />
+                </div>
+
+
+                <div class="product-field">
+                    <label>Номер телефону</label>
+
+                    <input
+                        type="text"
+                        name="Contacts[${siteind}].PhoneNumber"
+                        required />
+                </div>
+
+
+                <div class="product-field">
+                    <label>Email</label>
+
+                    <input
+                        type="text"
+                        name="Contacts[${siteind}].Email"
+                        required />
+                </div>
+
+
+                <div class="product-field">
+                    <label>Графік роботи</label>
+
+                    <textarea
+                        name="Contacts[${siteind}].Schedule"
+                        class="full-description"
+                        required></textarea>
+                </div>
+
+            </section>
+        `;
+
+        specificationsContainer.appendChild(specification);
+
+        siteind++;
+    });
+
+
+
+    const addSpecificationButtonForWWS =
+        document.getElementById("addSpecificationForWWS");
+
+    const specificationsContainerForWWS =
+        document.getElementById("specificationsContainerForWWS");
+
+
+    for (let i = 0; i < wws.length; i++) {
+
+        const whyWe = wws[i];
+
+        const specification = document.createElement("div");
+
+        specification.className = "specification-row";
+
+
+        let imageHtml = "";
+
+        if (whyWe.imgPath) {
+
+            imageHtml = `
+                <img
+                    src="${whyWe.imgPath}"
+                    style="
+                        max-width: 200px;
+                        max-height: 150px;
+                        object-fit: contain;
+                        display: block;
+                        margin-bottom: 10px;
+                    "
+                />
             `;
-
-            specificationsContainer.appendChild(specification);}
         }
 
 
-        // Додавання нового контакту
-        addSpecificationButton.addEventListener("click", function () {
+        specification.innerHTML = `
+            <section class="product-section">
 
-            const specification =
-                document.createElement("div");
+                <h3>Why We</h3>
 
-            specification.className = "specification-row";
 
-            specification.innerHTML = `
-                <section class="product-section">
+                <div class="product-field">
+                    <label>Заголовок</label>
 
-                    <h3>Загальна інформація</h3>
+                    <input
+                        type="text"
+                        name="WhyWes[${i}].Title"
+                        value="${whyWe.title ?? ''}"
+                        required />
+                </div>
 
-                    <div class="product-field">
-                        <label>Адреса</label>
 
-                        <input type="text"
-                               name="Contacts[${siteind}].Address" required/>
-                    </div>
+                <div class="product-field">
+                    <label>Опис</label>
 
-                    <div class="product-field">
-                        <label>Номер телефону</label>
+                    <textarea
+                        name="WhyWes[${i}].Description"
+                        class="full-description"
+                        required>${whyWe.description ?? ''}</textarea>
+                </div>
 
-                        <input type="text"
-                               name="Contacts[${siteind}].PhoneNumber" required/>
-                    </div>
 
-                    <div class="product-field">
-                        <label>Email</label>
+                <div class="product-field">
 
-                        <input type="text"
-                               name="Contacts[${siteind}].Email" required/>
-                    </div>
+                    <label>Зображення</label>
 
-                    <div class="product-field">
-                        <label>Графік роботи</label>
+                    ${imageHtml}
 
-                        <textarea name="Contacts[${siteind}].Schedule"
-                                  class="full-description" required ></textarea>
-                    </div>
+                    <input
+                        type="file"
+                        name="WhyWes[${i}].MainImage"
+                        accept="image/*" />
 
-                    
+                </div>
 
-                </section>
-            `;
+            </section>
+        `;
 
-            specificationsContainer.appendChild(specification);
+        specificationsContainerForWWS.appendChild(specification);
+    }
 
-            siteind++;
-        });
+    addSpecificationButtonForWWS.addEventListener("click", function () {
 
-    </script>
+        const specification = document.createElement("div");
+
+        specification.className = "specification-row";
+
+
+        specification.innerHTML = `
+            <section class="product-section">
+
+                <h3>Why We</h3>
+
+
+                <div class="product-field">
+                    <label>Заголовок</label>
+
+                    <input
+                        type="text"
+                        name="WhyWes[${siteindfwws}].Title"
+                        required />
+                </div>
+
+
+                <div class="product-field">
+                    <label>Опис</label>
+
+                    <textarea
+                        name="WhyWes[${siteindfwws}].Description"
+                        class="full-description"
+                        required></textarea>
+                </div>
+
+
+                <div class="product-field">
+
+                    <label>Зображення</label>
+
+                    <input
+                        type="file"
+                        name="WhyWes[${siteindfwws}].MainImage"
+                        accept="image/*"
+                        required />
+
+                </div>
+
+            </section>
+        `;
+
+
+        specificationsContainerForWWS.appendChild(specification);
+
+        siteindfwws++;
+    });
+
+</script>

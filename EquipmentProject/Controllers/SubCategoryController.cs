@@ -1,6 +1,7 @@
 ﻿using EquipmentProject.Data;
 using EquipmentProject.Models;
 using EquipmentProject.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace EquipmentProject.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class SubCategoryController : Controller
     {
         private readonly ApplicationDbContext _context;

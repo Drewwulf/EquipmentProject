@@ -30,7 +30,8 @@ namespace EquipmentProject.Controllers
                     SocialFacebook = "",
                     SocialInstagram = "",
                     SocialTelegram = "",
-                    Contacts = new List<Contact>()
+                    Contacts = new List<Contact>(),
+                    WhyWes = new List<WhyWe>()
                 };
 
                 _context.Add(siteconf);
@@ -38,7 +39,7 @@ namespace EquipmentProject.Controllers
 
 
                 return RedirectToAction("SiteSettings");
-            }var siteSettings = _context.SiteSettings.Include(site=>site.Contacts)
+            }var siteSettings = _context.SiteSettings.Include(site=>site.Contacts).Include(site=>site.WhyWes)
     .OrderByDescending(s => s.Id)
     .First();
 
@@ -52,31 +53,86 @@ namespace EquipmentProject.Controllers
                 SocialFacebook = siteSettings.SocialFacebook,
                 SocialInstagram = siteSettings.SocialInstagram,
                 SocialTelegram = siteSettings.SocialTelegram,
-                Contacts = siteSettings.Contacts
+                Contacts = siteSettings.Contacts,
+                WhyWes = siteSettings.WhyWes
             };
 
             return View(model);
         }
         [HttpPost]
-        public IActionResult SetSettings(SiteSettingViewModel siteSettings)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SetSettings(SiteSettingViewModel siteSettings)
         {
-            var siteconf = new SiteSettings
+            var siteconf = await _context.SiteSettings
+                .Include(x => x.Contacts)
+                .Include(x => x.WhyWes)
+                .FirstOrDefaultAsync();
+
+            if (siteconf == null)
             {
-                ShopName = siteSettings.ShopName,
-                ShopDesc = siteSettings.ShopDesc,
-                HeaderInfo = siteSettings.HeaderInfo,
-                SubHeaderInfo = siteSettings.SubHeaderInfo,
-                SocialFacebook = siteSettings.SocialFacebook,
-                SocialInstagram = siteSettings.SocialInstagram,
-                SocialTelegram = siteSettings.SocialTelegram,
-                Contacts = siteSettings.Contacts
-            };
+                siteconf = new SiteSettings();
 
-            _context.Add(siteconf);
-            _context.SaveChanges();
+                _context.SiteSettings.Add(siteconf);
+            }
 
-            return RedirectToAction("SiteSettings");
+            siteconf.ShopName = siteSettings.ShopName;
+            siteconf.ShopDesc = siteSettings.ShopDesc;
+            siteconf.HeaderInfo = siteSettings.HeaderInfo;
+            siteconf.SubHeaderInfo = siteSettings.SubHeaderInfo;
+
+            siteconf.SocialFacebook = siteSettings.SocialFacebook;
+            siteconf.SocialInstagram = siteSettings.SocialInstagram;
+            siteconf.SocialTelegram = siteSettings.SocialTelegram;
+
+            siteconf.Contacts = siteSettings.Contacts;
+
+            if (siteSettings.WhyWes != null)
+            {
+                var uploadsFolder = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "wwwroot",
+                    "uploads",
+                    "whywes"
+                );
+
+                Directory.CreateDirectory(uploadsFolder);
+
+                foreach (var whyWe in siteSettings.WhyWes)
+                {
+                    if (whyWe.MainImage != null &&
+                        whyWe.MainImage.Length > 0)
+                    {
+                        var fileName =
+                            Guid.NewGuid().ToString() +
+                            Path.GetExtension(
+                                whyWe.MainImage.FileName
+                            );
+
+                        var filePath = Path.Combine(
+                            uploadsFolder,
+                            fileName
+                        );
+
+                        using (var stream = new FileStream(
+                            filePath,
+                            FileMode.Create))
+                        {
+                            await whyWe.MainImage.CopyToAsync(stream);
+                        }
+
+                        whyWe.ImgPath =
+                            "/uploads/whywes/" + fileName;
+                    }
+                }
+
+                siteconf.WhyWes = siteSettings.WhyWes;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(SiteSettings));
         }
+
         [HttpGet]
         public IActionResult DeleteContacts(int id)
         {
