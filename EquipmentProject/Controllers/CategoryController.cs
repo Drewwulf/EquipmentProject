@@ -222,5 +222,19 @@ namespace MyMvcApp.Controllers
                 System.IO.File.Delete(filePath);
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetSubcategories(int categoryid)
+        {
+            var subcategories = await _context.Subcategories
+                .Where(s => s.CategoriesId == categoryid && !s.IsDeleted)
+                .Select(s => new
+                {
+                    s.Id,
+                    s.NameSubcategory
+                })
+                .ToListAsync();
+            return Json(subcategories);
+        }
     }
 }
