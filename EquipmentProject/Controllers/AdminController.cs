@@ -141,5 +141,24 @@ namespace EquipmentProject.Controllers
             _context.SaveChanges();
             return RedirectToAction("SiteSettings");
         }
+        public async Task<IActionResult> DeletedData()
+        {
+            var model = new DeletedDataViewModel
+            {
+                Categories = await _context.Categories
+                    .Where(x => x.IsDeleted)
+                    .ToListAsync(),
+
+                Subcategories = await _context.Subcategories
+                    .Where(x => x.IsDeleted)
+                    .ToListAsync(),
+
+                Products = await _context.Products
+                    .Where(x => x.IsDeleted)
+                    .ToListAsync()
+            };
+
+            return View(model);
+        }
     }
 }

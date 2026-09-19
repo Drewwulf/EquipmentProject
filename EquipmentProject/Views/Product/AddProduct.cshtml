@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Редагувати товар";
 }
-<form asp-controller="Product" asp-action="StartProduct">
+<form asp-controller="Product" asp-action="StartProduct" method="post" enctype="multipart/form-data">
 
 <div class="product-edit-page">
 
@@ -177,27 +177,28 @@
 
 
         <!-- Основне фото -->
-        <div class="image-block">
+            <!-- Зображення -->
+            <div class="product-field">
+                <label>Зображення</label>
 
-            <label>
-                Основне фото
-            </label>
+                @if (!string.IsNullOrEmpty(Model.ImgPath))
+                {
+                    <div class="current-image">
+                        <img src="@Model.ImgPath" alt="@Model.ProductName" width="200" />
+                    </div>
+                }
 
-            <label for="mainImage"
-                   class="outline-button">
+                <label for="mainImage" class="outline-button">
+                    <span>↥</span> Завантажити
+                </label>
 
-                <span>↥</span>
-                Завантажити
-
-            </label>
-
-            <input type="file"
-                   id="mainImage"
-                   name="MainImage"
-                   accept="image/*"
-                   hidden />
-
-        </div>
+                <input type="file"
+                       id="mainImage"
+                       asp-for="MainImage"
+                       accept="image/*"
+                       hidden
+                       required />
+            </div>
 
 
         <!-- Галерея -->

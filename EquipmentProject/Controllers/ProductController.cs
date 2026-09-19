@@ -78,8 +78,29 @@ namespace EquipmentProject.Controllers
             return View(model);
         }
         [HttpPost]
-        public IActionResult StartProduct(ProductViewModel Model)
+        public async Task<IActionResult> StartProduct(ProductViewModel Model)
         {
+            var uploadsFolder = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "wwwroot",
+                    "uploads",
+                    "product"
+                );
+
+            Directory.CreateDirectory(uploadsFolder);
+
+            var fileName = Guid.NewGuid().ToString() + 
+                           Path.GetExtension(Model.MainImage.FileName);
+
+            var filePath = Path.Combine(uploadsFolder, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await Model.MainImage.CopyToAsync(stream);
+            }
+
+            var ImgPaths = "/uploads/product/" + fileName;
+
 
             var product = new Product
             {
@@ -91,7 +112,7 @@ namespace EquipmentProject.Controllers
                 FullDescription = Model.FullDescription,
                 IsNew = Model.IsNew,
                 IsRecomended = Model.IsRecomended,
-                ImgPath = "img.png",
+                ImgPath = ImgPaths,
                 TechnicalCharacteristics = Model.TechnicalCharacteristics
             };
 
@@ -100,8 +121,26 @@ namespace EquipmentProject.Controllers
             return RedirectToAction("AddProduct");
 
         }
-        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Restore(int id)
+        {
+            var product = await _context.Products
+                .FirstOrDefaultAsync(x => x.Id == id);
 
-          
-}
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            product.IsDeleted = false;
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("DeletedData", "Admin");
+        }
+
+
+
+    }
 }

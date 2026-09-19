@@ -19,7 +19,7 @@ namespace EquipmentProject.Controllers
         {
             var category = _context.SiteSettings.OrderByDescending(s => s.Id).Include(site=>site.WhyWes).First();
             var news = _context.Products.Where(p => p.IsNew == true).ToList();
-
+            var famous = _context.Categories.Where(s => s.IsDeleted==false).ToList();
 
 
 
@@ -34,6 +34,7 @@ namespace EquipmentProject.Controllers
                 SocialInstagram = category.SocialInstagram,
                 SocialTelegram = category.SocialTelegram,
                 WhyWes = category.WhyWes
+                Categories = famous
             };
             ViewBag.Categories = _context.Categories
      .Where(x => !x.IsDeleted)

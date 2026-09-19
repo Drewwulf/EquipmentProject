@@ -210,5 +210,23 @@ namespace EquipmentProject.Controllers
                 .ToListAsync();
             return Json(subcategories);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Restore(int id)
+        {
+            var subcategory = await _context.Subcategories
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (subcategory == null)
+            {
+                return NotFound();
+            }
+
+            subcategory.IsDeleted = false;
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("DeletedData", "Admin");
+        }
     }
 }

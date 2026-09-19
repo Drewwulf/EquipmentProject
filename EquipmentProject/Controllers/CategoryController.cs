@@ -4,6 +4,7 @@ using EquipmentProject.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 
 namespace MyMvcApp.Controllers
@@ -27,9 +28,15 @@ namespace MyMvcApp.Controllers
         {
             var categories = await _context.Categories
                 .Where(x => !x.IsDeleted)
+                .OrderBy(x => x.Order)
                 .ToListAsync();
 
-            return View(categories);
+            var model = new CategoryViewModel
+            {
+                Categories = categories
+            };
+
+            return View(model);
         }
 
 
@@ -49,6 +56,28 @@ namespace MyMvcApp.Controllers
 
             string? imagePath = null;
 
+            var uploadsFolder = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "wwwroot",
+                    "uploads",
+                    "subcategories"
+                );
+
+            Directory.CreateDirectory(uploadsFolder);
+
+            var fileName = Guid.NewGuid().ToString() +
+                           Path.GetExtension(model.MainImage.FileName);
+
+            var filePath = Path.Combine(uploadsFolder, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await model.MainImage.CopyToAsync(stream);
+            }
+
+            var ImgPaths = "/uploads/subcategories/" + fileName;
+
+
             if (model.ImgPath != null)
             {
                 imagePath = await SaveImage(model.ImgPath);
@@ -58,7 +87,7 @@ namespace MyMvcApp.Controllers
             {
                 ProductName = model.ProductName,
                 ShortDescription = model.ShortDescription,
-                ImgPath = "////",
+                ImgPath = ImgPaths,
                 Order = model.Order
             };
 
@@ -223,6 +252,25 @@ namespace MyMvcApp.Controllers
             }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Restore(int id)
+        {
+            var category = await _context.Categories
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            category.IsDeleted = false;
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("DeletedData", "Admin"); }
+
+
         [HttpGet]
         public async Task<IActionResult> GetSubcategories(int categoryid)
         {
@@ -234,7 +282,6 @@ namespace MyMvcApp.Controllers
                     s.NameSubcategory
                 })
                 .ToListAsync();
-            return Json(subcategories);
-        }
+            return Json(subcategories);        }
     }
 }

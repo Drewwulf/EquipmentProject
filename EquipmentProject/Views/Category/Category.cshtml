@@ -1,33 +1,21 @@
 ﻿
-@using EquipmentProject.Models.ViewModels
-@model List<EquipmentProject.Models.Category>
+@model EquipmentProject.Models.ViewModels.CategoryViewModel
 
 @{
     ViewData["Title"] = "Категорії";
 
     bool editMode = ViewBag.EditMode == true;
-    EquipmentProject.Models.Category editCategory =
-        ViewBag.EditCategory as EquipmentProject.Models.Category;
 }
 
 <div class="product-edit-page">
-
-    <!-- =========================================
-         ЗАГОЛОВОК
-    ========================================== -->
 
     <h2 class="product-edit-title">
         Керування категоріями
     </h2>
 
-
-    <!-- =========================================
-         ОСНОВНА ІНФОРМАЦІЯ
-    ========================================== -->
-
     <section class="product-section">
 
-        @if (editMode && editCategory != null)
+        @if (editMode)
         {
             <h3>Редагування категорії</h3>
 
@@ -38,102 +26,65 @@
 
                 @Html.AntiForgeryToken()
 
-                <input type="hidden"
-                       name="Id"
-                       value="@editCategory.Id" />
-
+                <input asp-for="Id" type="hidden" />
 
                 <!-- Назва -->
-
                 <div class="product-field">
-
-                    <label for="categoryName">
+                    <label asp-for="ProductName">
                         Назва *
                     </label>
 
-                    <input type="text"
+                    <input asp-for="ProductName"
                            id="categoryName"
-                           name="ProductName"
-                           value="@editCategory.ProductName"
                            placeholder="Наприклад: Харчове обладнання"
                            required />
-
                 </div>
-
-
-                <!-- Опис -->
-
                 <div class="product-field">
-
-                    <label for="categoryDescription">
+                    <label asp-for="ShortDescription">
                         Опис
                     </label>
 
-                    <textarea id="categoryDescription"
-                              name="ShortDescription"
-                              placeholder="Короткий опис категорії">@editCategory.ShortDescription</textarea>
-
+                    <textarea asp-for="ShortDescription"
+                              id="categoryDescription"
+                              placeholder="Короткий опис категорії"></textarea>
                 </div>
 
-
                 <!-- Порядок -->
-
                 <div class="product-field">
-
-                    <label for="categoryOrder">
+                    <label asp-for="Order">
                         Порядок
                     </label>
 
-                    <input type="number"
+                    <input asp-for="Order"
                            id="categoryOrder"
-                           name="Order"
-                           value="@editCategory.Order" />
-
+                           type="number" />
                 </div>
 
+                <!-- Поточне зображення -->
+                <div class="product-field">
+                    <label>Зображення</label>
 
-                <!-- Зображення -->
-
-                <div class="image-block">
-
-                    <label>
-                        Зображення
-                    </label>
-
-                    @if (!string.IsNullOrEmpty(editCategory.ImgPath))
+                    @if (!string.IsNullOrEmpty(Model.ImgPath))
                     {
                         <div class="current-image">
-
-                            <img src="@editCategory.ImgPath"
-                                 alt="@editCategory.ProductName"
-                                 style="width: 100px; height: 70px; object-fit: cover;" />
-
-                            <span>
-                                Поточне зображення
-                            </span>
-
+                            <img src="@Model.ImgPath"
+                                 alt="@Model.ProductName"
+                                 width="200" />
                         </div>
                     }
 
-                    <label for="categoryImage"
-                           class="outline-button">
-
-                        <span>↥</span>
-                        Завантажити
-
+                    <label for="mainImage" class="outline-button">
+                        <span>↥</span> Завантажити нове
                     </label>
 
-                    <input type="file"
-                           id="categoryImage"
-                           name="Image"
+                    <input asp-for="MainImage"
+                           id="mainImage"
+                           type="file"
                            accept="image/*"
                            hidden />
-
                 </div>
 
-
                 <!-- Кнопки -->
-
                 <div class="product-actions">
 
                     <button type="submit"
@@ -144,8 +95,14 @@
 
                     </button>
 
-                  
-                    
+                    <a asp-controller="Category"
+                       asp-action="Category"
+                       class="cancel-button">
+
+                        Скасувати
+
+                    </a>
+
                 </div>
 
             </form>
@@ -161,60 +118,51 @@
 
                 @Html.AntiForgeryToken()
 
-
                 <!-- Назва -->
-
                 <div class="product-field">
 
-                    <label for="categoryName">
+                    <label asp-for="ProductName">
                         Назва *
                     </label>
 
-                    <input type="text"
+                    <input asp-for="ProductName"
                            id="categoryName"
-                           name="ProductName"
                            placeholder="Наприклад: Харчове обладнання"
                            required />
 
                 </div>
 
-
                 <!-- Опис -->
-
                 <div class="product-field">
 
-                    <label for="categoryDescription">
+                    <label asp-for="ShortDescription">
                         Опис
                     </label>
 
-                    <textarea id="categoryDescription"
-                              name="ShortDescription"
+                    <textarea asp-for="ShortDescription"
+                              id="categoryDescription"
                               placeholder="Короткий опис категорії"></textarea>
 
                 </div>
 
-
                 <!-- Порядок -->
-
                 <div class="product-field">
 
-                    <label for="categoryOrder">
+                    <label asp-for="Order">
                         Порядок
                     </label>
 
-                    <input type="number"
+                    <input asp-for="Order"
                            id="categoryOrder"
-                           name="Order"
+                           type="number"
                            value="0" />
 
                 </div>
 
-
                 <!-- Зображення -->
-
                 <div class="image-block">
 
-                    <label>
+                    <label asp-for="MainImage">
                         Зображення
                     </label>
 
@@ -226,17 +174,15 @@
 
                     </label>
 
-                    <input type="file"
+                    <input asp-for="MainImage"
                            id="categoryImage"
-                           name="Image"
+                           type="file"
                            accept="image/*"
                            hidden />
 
                 </div>
 
-
                 <!-- Кнопки -->
-
                 <div class="product-actions">
 
                     <button type="submit"
@@ -260,97 +206,74 @@
         }
 
     </section>
-
-
-    <!-- =========================================
-         СПИСОК КАТЕГОРІЙ
-    ========================================== -->
-
     <section class="product-section specifications-section">
 
-    <div class="section-header">
+        <div class="section-header">
+            <h3>Категорії</h3>
+        </div>
 
-        <h3>
-            Категорії
-        </h3>
+        <div id="categoriesContainer">
 
-    </div>
-
-    <div id="categoriesContainer">
-
-        @if (Model.Any(x => !x.IsDeleted))
-        {
-            @foreach (var category in Model.Where(x => !x.IsDeleted))
+            @if (Model.Categories != null &&
+                 Model.Categories.Any(x => !x.IsDeleted))
             {
-                <div class="specification-row">
+                @foreach (var category in Model.Categories
+                    .Where(x => !x.IsDeleted)
+                    .OrderBy(x => x.Order))
+                {
+                    <div class="specification-row">
 
-                    <!-- Фото -->
-                    <div class="subcategory-container-image">
-                        @if (!string.IsNullOrEmpty(category.ImgPath))
-                        {
-                            <img src="~/lib/local_shipping_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png"
-                                 alt="@category.ProductName" />
-                        }
-                        else
-                        {
-                            <span class="no-image">
-                                Немає фото
-                            </span>
-                        }
-                    </div>
+                        <!-- Назва -->
+                        <h3 class="specification-input">
+                            @category.ProductName
+                        </h3>
 
-                    <!-- Назва та опис -->
-                    <div class="specification-content">
+                        <!-- Опис -->
+                        <p class="specification-input">
+                            @category.ShortDescription
+                        </p>
 
-                        
+                        <!-- Дії -->
+                        <div class="category-list-actions">
 
-                             <div class="subcategory-container-info">
-                        <h3 >@category.ProductName</h3>
-                        <p >@category.ShortDescription</p>
-                    </div>
+                            <a asp-controller="Category"
+                               asp-action="Edit"
+                               asp-route-id="@category.Id"
+                               class="edit-category-button"
+                               title="Редагувати">
+                                ✎
+                            </a>
 
-                    </div>
+                            <form asp-controller="Category"
+                                  asp-action="Delete"
+                                  asp-route-id="@category.Id"
+                                  method="post"
+                                  onsubmit="return confirm('Ви впевнені, що хочете видалити цю категорію?');">
 
-                    <!-- Дії -->
-                    <div class="category-list-actions">
+                                @Html.AntiForgeryToken()
 
-                        <a asp-controller="Category"
-                           asp-action="Edit"
-                           asp-route-id="@category.Id"
-                           class="edit-category-button"
-                           title="Редагувати">
-                            ✎
-                        </a>
+                                <button type="submit"
+                                        class="delete-specification"
+                                        title="Видалити">
+                                    ×
+                                </button>
 
-                        <form asp-controller="Category"
-                              asp-action="Delete"
-                              asp-route-id="@category.Id"
-                              method="post"
-                              onsubmit="return confirm('Ви впевнені, що хочете видалити цю категорію?');">
+                            </form>
 
-                            @Html.AntiForgeryToken()
-
-                            <button type="submit"
-                                    class="delete-specification"
-                                    title="Видалити">
-                                ×
-                            </button>
-
-                        </form>
+                        </div>
 
                     </div>
-
-                </div>
+                }
             }
-        }
-        else
-        {
-            <p class="empty-specifications">
-                Категорій поки немає. Створіть першу категорію.
-            </p>
-        }
+            else
+            {
+                <p class="empty-specifications">
+                    Категорій поки немає. Створіть першу категорію.
+                </p>
+            }
 
-    </div>
+        </div>
 
-</section>
+    </section>
+
 </div>
