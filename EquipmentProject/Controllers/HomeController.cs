@@ -11,6 +11,8 @@ namespace EquipmentProject.Controllers
     public class HomeController : Controller
     {
         private ApplicationDbContext _context;
+        private bool isDeleted;
+
         public HomeController(ApplicationDbContext context)
         {
             _context = context;
@@ -18,7 +20,7 @@ namespace EquipmentProject.Controllers
         public IActionResult Index()
         {
             var category = _context.SiteSettings.OrderByDescending(s => s.Id).First();
-            var news = _context.Products.Where(p => p.IsNew == true).ToList();
+            var news = _context.Products.Where(x => !x.IsDeleted).ToList();
 
 
 
