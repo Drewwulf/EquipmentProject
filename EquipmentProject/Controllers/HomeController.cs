@@ -11,6 +11,8 @@ namespace EquipmentProject.Controllers
     public class HomeController : Controller
     {
         private ApplicationDbContext _context;
+        private bool isDeleted;
+
         public HomeController(ApplicationDbContext context)
         {
             _context = context;
