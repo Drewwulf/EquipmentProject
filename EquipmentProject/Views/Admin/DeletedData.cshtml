@@ -1,0 +1,260 @@
+﻿@model EquipmentProject.Models.ViewModels.DeletedDataViewModel
+
+@{
+    ViewData["Title"] = "Видалені дані";
+}
+
+<link rel="stylesheet" href="~/css/deleted-data.css" />
+
+<div class="deleted-data-page">
+
+    <div class="deleted-data-container">
+
+        <h1 class="deleted-data-title">
+            Видалені дані
+        </h1>
+
+        <p class="deleted-data-subtitle">
+            Тут знаходяться категорії, підкатегорії та товари,
+            які були видалені з сайту.
+        </p>
+
+
+        <!-- =========================
+             КАТЕГОРІЇ
+        ========================== -->
+
+        <section class="deleted-section">
+
+            <div class="deleted-section-header">
+
+                <div>
+                    <h2>Видалені категорії</h2>
+
+                    <span class="deleted-count">
+                        @Model.Categories.Count
+                    </span>
+                </div>
+
+            </div>
+
+
+            @if (Model.Categories.Any())
+            {
+                <div class="deleted-list">
+
+                    @foreach (var category in Model.Categories)
+                    {
+                        <div class="deleted-item">
+
+                            <div class="deleted-item-info">
+
+                                <h3>
+                                    @category.ProductName
+                                </h3>
+
+                                @if (!string.IsNullOrEmpty(category.ShortDescription))
+                                {
+                                    <p>
+                                        @category.ShortDescription
+                                    </p>
+                                }
+
+                            </div>
+
+                            <div class="deleted-item-actions">
+
+                                <form asp-controller="Category"
+                                      asp-action="Restore"
+                                      method="post">
+
+                                    @Html.AntiForgeryToken()
+
+                                    <input type="hidden"
+                                           name="id"
+                                           value="@category.Id" />
+
+                                    <button type="submit" class="restore-button">
+                                        Відновити
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+                    }
+
+                </div>
+            }
+            else
+            {
+                <div class="empty-deleted">
+                    Видалених категорій немає
+                </div>
+            }
+
+        </section>
+
+
+
+        <!-- =========================
+             ПІДКАТЕГОРІЇ
+        ========================== -->
+
+        <section class="deleted-section">
+
+            <div class="deleted-section-header">
+
+                <div>
+                    <h2>Видалені підкатегорії</h2>
+
+                    <span class="deleted-count">
+                        @Model.Subcategories.Count
+                    </span>
+                </div>
+
+            </div>
+
+
+            @if (Model.Subcategories.Any())
+            {
+                <div class="deleted-list">
+
+                    @foreach (var subcategory in Model.Subcategories)
+                    {
+                        <div class="deleted-item">
+
+                            <div class="deleted-item-info">
+
+                                <h3>
+                                    @subcategory.NameSubcategory
+                                </h3>
+
+                            </div>
+
+                            <form asp-controller="Subcategory"
+                                  asp-action="Restore"
+                                  method="post">
+
+                                @Html.AntiForgeryToken()
+
+                                <input type="hidden"
+                                       name="id"
+                                       value="@subcategory.Id" />
+
+                                <button type="submit" class="restore-button">
+                                    Відновити
+                                </button>
+
+                            </form>
+
+                            </div>
+
+                        
+                    }
+
+                </div>
+            }
+            else
+            {
+                <div class="empty-deleted">
+                    Видалених підкатегорій немає
+                </div>
+            }
+
+        </section>
+
+
+
+        <!-- =========================
+             ТОВАРИ
+        ========================== -->
+
+        <section class="deleted-section">
+
+            <div class="deleted-section-header">
+
+                <div>
+                    <h2>Видалені товари</h2>
+
+                    <span class="deleted-count">
+                        @Model.Products.Count
+                    </span>
+                </div>
+
+            </div>
+
+
+            @if (Model.Products.Any())
+            {
+                <div class="deleted-list">
+
+                    @foreach (var product in Model.Products)
+                    {
+                        <div class="deleted-item">
+
+                            <div class="deleted-item-product">
+
+                                @if (!string.IsNullOrEmpty(product.ImgPath))
+                                {
+                                    <img src="@product.ImgPath"
+                                         alt="@product.ProductName"
+                                         class="deleted-product-image" />
+                                }
+
+                                <div class="deleted-item-info">
+
+                                    <h3>
+                                        @product.ProductName
+                                    </h3>
+
+                                    <span class="deleted-articul">
+                                        Артикул: @product.Articul
+                                    </span>
+
+                                    <span class="deleted-price">
+                                        @product.Price грн
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="deleted-item-actions">
+
+                            <form asp-controller="Product"
+                                  asp-action="Restore"
+                                  method="post">
+
+                                @Html.AntiForgeryToken()
+
+                                <input type="hidden"
+                                       name="id"
+                                       value="@product.Id" />
+
+                                <button type="submit" class="restore-button">
+                                    Відновити
+                                </button>
+
+                            </form>
+                            </div>
+
+                        </div>
+                    }
+
+                </div>
+            }
+            else
+            {
+                <div class="empty-deleted">
+                    Видалених товарів немає
+                </div>
+            }
+
+        </section>
+
+    </div>
+
+</div>

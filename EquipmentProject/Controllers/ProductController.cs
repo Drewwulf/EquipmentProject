@@ -121,8 +121,26 @@ namespace EquipmentProject.Controllers
             return RedirectToAction("AddProduct");
 
         }
-        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Restore(int id)
+        {
+            var product = await _context.Products
+                .FirstOrDefaultAsync(x => x.Id == id);
 
-          
-}
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            product.IsDeleted = false;
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("DeletedData", "Admin");
+        }
+
+
+
+    }
 }

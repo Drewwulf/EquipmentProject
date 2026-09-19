@@ -252,6 +252,25 @@ namespace MyMvcApp.Controllers
             }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Restore(int id)
+        {
+            var category = await _context.Categories
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            category.IsDeleted = false;
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("DeletedData", "Admin"); }
+
+
         [HttpGet]
         public async Task<IActionResult> GetSubcategories(int categoryid)
         {
@@ -263,7 +282,6 @@ namespace MyMvcApp.Controllers
                     s.NameSubcategory
                 })
                 .ToListAsync();
-            return Json(subcategories);
-        }
+            return Json(subcategories);        }
     }
 }
