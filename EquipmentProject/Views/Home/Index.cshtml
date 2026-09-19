@@ -86,8 +86,60 @@
 
             </a>
         }
+  
 
     </div>
+
+</section>
+<section class="popular-categories">
+
+    <div class="categories-header">
+
+        <div>
+            <span class="categories-line"></span>
+
+            <h2>Популярні категорії</h2>
+        </div>
+
+        <a href="/catalog" class="all-categories">
+            Усі категорії
+            <span>→</span>
+        </a>
+
+    </div>
+
+
+    <div class="categories-grid">
+        @foreach (var famous in Model.Categories)
+        {
+            <a href="/catalog" style="
+                background-image:
+                linear-gradient(
+                to bottom,
+                rgba(255, 249, 225, 0.18) 0%,
+                rgba(255, 246, 210, 0.28) 35%,
+                rgba(220, 200, 150, 0.45) 68%,
+                rgba(210, 190, 130, 0.70) 100%
+                ),
+                url(' @famous.ImgPath');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;" class="category-card category-image category-gradient">
+
+                <div class="category-content">
+
+                    <h3>@famous.ProductName</h3>
+
+                    <p>Переглянути</p>
+
+                    <span class="category-arrow">→</span>
+
+                </div>
+
+            </a>
+        }
+        <!-- Картка 1 -->
+      </div>
 
 </section>
 <section class="new-products-section">
