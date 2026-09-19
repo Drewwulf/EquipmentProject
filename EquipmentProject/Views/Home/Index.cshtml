@@ -155,83 +155,21 @@
 
                 <div class="why-us-grid">
 
-                    <!-- 1 -->
-                    <div class="why-us-item">
+                    @foreach (var ww in Model.WhyWes){
+                        <div class="why-us-item">
                         <div class="why-us-icon">
-                            <img src="~/lib/\package_2_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png" />
+                            <img src=@ww.ImgPath />
                         </div>
 
-                        <h3>Широкий асортимент</h3>
+                        <h3>@ww.header</h3>
 
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                           @ww.subheader
                         </p>
                     </div>
+                    }
 
-                    <!-- 2 -->
-                    <div class="why-us-item">
-                        <div class="why-us-icon">
-                            <img src="~/lib/verified_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png" />
-                        </div>
-
-                        <h3>Гарантія якості</h3>
-
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        </p>
-                    </div>
-
-                    <!-- 3 -->
-                    <div class="why-us-item">
-                        <div class="why-us-icon">
-                            <img src="~/lib/headphones_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png" />
-                        </div>
-
-                        <h3>Технічна підтримка</h3>
-
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        </p>
-                    </div>
-
-                    <!-- 4 -->
-                    <div class="why-us-item">
-                        <div class="why-us-icon">
-                            <img src="~/lib/local_shipping_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png" />
-                        </div>
-
-                        <h3>Доставка по Україні</h3>
-
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        </p>
-                    </div>
-
-                    <!-- 5 -->
-                    <div class="why-us-item">
-                        <div class="why-us-icon">
-                            <img src="~/lib//license_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png" />
-                        </div>
-
-                        <h3>Сертифіковане обладнання</h3>
-
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        </p>
-                    </div>
-
-                    <!-- 6 -->
-                    <div class="why-us-item">
-                        <div class="why-us-icon">
-                            <img src="~/lib/build_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png" />
-                        </div>
-
-                        <h3>Сервісне обслуговування</h3>
-
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        </p>
-                    </div>
+                   
 
                 </div>
 

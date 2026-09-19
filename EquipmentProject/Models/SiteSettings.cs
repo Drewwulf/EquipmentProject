@@ -10,7 +10,11 @@
         public string? SocialFacebook { get; set; } = string.Empty;
         public string? SocialInstagram { get; set; } = string.Empty;
         public string? SocialTelegram { get; set; } = string.Empty;
+        public string? ImgPath { get; set; }
 
         public List<Contact> Contacts { get; set; }= new List<Contact>();
+        public List<WhyWe> WhyWes { get; set; } = new List<WhyWe>();
+
     }
 }
+ 
