@@ -1,5 +1,4 @@
-﻿@using EquipmentProject.Models.ViewModels
-@model EquipmentProject.Models.ViewModels.CategoryViewModel
+﻿@model EquipmentProject.Models.ViewModels.CategoryViewModel
 
 @{
     ViewData["Title"] = "Категорії";
@@ -38,10 +37,7 @@
                            id="categoryName"
                            placeholder="Наприклад: Харчове обладнання"
                            required />
-
                 </div>
-
-                <!-- Опис -->
                 <div class="product-field">
                     <label asp-for="ShortDescription">
                         Опис
@@ -99,8 +95,8 @@
                     </button>
 
                     <a asp-controller="Category"
-                           asp-action="Category"
-                           class="cancel-button">
+                       asp-action="Category"
+                       class="cancel-button">
 
                         Скасувати
 
@@ -209,10 +205,6 @@
         }
 
     </section>
-
-
-    <!-- СПИСОК КАТЕГОРІЙ -->
-
     <section class="product-section specifications-section">
 
         <div class="section-header">
@@ -222,11 +214,11 @@
         <div id="categoriesContainer">
 
             @if (Model.Categories != null &&
-                             Model.Categories.Any(x => !x.IsDeleted))
+                 Model.Categories.Any(x => !x.IsDeleted))
             {
                 @foreach (var category in Model.Categories
-                                    .Where(x => !x.IsDeleted)
-                                    .OrderBy(x => x.Order))
+                    .Where(x => !x.IsDeleted)
+                    .OrderBy(x => x.Order))
                 {
                     <div class="specification-row">
 
@@ -244,15 +236,12 @@
                         <div class="category-list-actions">
 
                             <a asp-controller="Category"
-                                   asp-action="Edit"
-                                   asp-route-id="@category.Id"
-                                   class="edit-category-button"
-                                   title="Редагувати">
-
-                    <!-- Назва та опис -->
-                    <div class="specification-content">
-
-                        
+                               asp-action="Edit"
+                               asp-route-id="@category.Id"
+                               class="edit-category-button"
+                               title="Редагувати">
+                                ✎
+                            </a>
 
                             <form asp-controller="Category"
                                   asp-action="Delete"
@@ -260,46 +249,30 @@
                                   method="post"
                                   onsubmit="return confirm('Ви впевнені, що хочете видалити цю категорію?');">
 
-                    <!-- Дії -->
-                    <div class="category-list-actions">
+                                @Html.AntiForgeryToken()
 
-                        <a asp-controller="Category"
-                           asp-action="Edit"
-                           asp-route-id="@category.Id"
-                           class="edit-category-button"
-                           title="Редагувати">
-                            ✎
-                        </a>
+                                <button type="submit"
+                                        class="delete-specification"
+                                        title="Видалити">
+                                    ×
+                                </button>
 
-                        <form asp-controller="Category"
-                              asp-action="Delete"
-                              asp-route-id="@category.Id"
-                              method="post"
-                              onsubmit="return confirm('Ви впевнені, що хочете видалити цю категорію?');">
+                            </form>
 
-                            @Html.AntiForgeryToken()
-
-                            <button type="submit"
-                                    class="delete-specification"
-                                    title="Видалити">
-                                ×
-                            </button>
-
-                        </form>
+                        </div>
 
                     </div>
-
-                </div>
+                }
             }
-        }
-        else
-        {
-            <p class="empty-specifications">
-                Категорій поки немає. Створіть першу категорію.
-            </p>
-        }
+            else
+            {
+                <p class="empty-specifications">
+                    Категорій поки немає. Створіть першу категорію.
+                </p>
+            }
 
-    </div>
+        </div>
 
-</section>
+    </section>
+
 </div>
