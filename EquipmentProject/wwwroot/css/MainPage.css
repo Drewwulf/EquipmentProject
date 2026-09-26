@@ -1591,10 +1591,12 @@
     color: #111;
 }
 
+#h2h2{
+    font-size: 1.25rem!important;
+}
 /*==================================
     RESPONSIVE
 ==================================*/
-
 @media(max-width:900px) {
 
     .product-view-details {

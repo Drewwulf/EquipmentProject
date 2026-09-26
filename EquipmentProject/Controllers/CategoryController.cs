@@ -1,4 +1,5 @@
-﻿using EquipmentProject.Data;
+﻿using EquipmentProject.Controllers;
+using EquipmentProject.Data;
 using EquipmentProject.Models;
 using EquipmentProject.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -38,7 +39,6 @@ namespace MyMvcApp.Controllers
 
             return View(model);
         }
-
 
         // POST: створення категорії
         [HttpPost]
