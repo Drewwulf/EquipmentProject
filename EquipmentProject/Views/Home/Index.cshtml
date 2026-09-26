@@ -63,7 +63,7 @@
 
         <!-- Права частина -->
         <div class="hero-image">
-            <img src="https://media.base44.com/images/public/6a514bf0d884202ac5c64fbb/fb3ce28b1_generated_fcf57e95.png"
+            <img src="@Model.ImgForHeader"
                  alt="Промислове обладнання">
         </div>
 
@@ -170,7 +170,7 @@
                             <span class="product-badge">НОВИНКА</span>
 
                             <div class="no-image">
-                                Фото відсутнє
+                                <img src="@product.ImgPath" alt="@product.ProductName" />
                             </div>
                         </div>
 
@@ -229,7 +229,7 @@
 
                     <div class="product-image-box">
                         <div class="no-image">
-                            Фото відсутнє
+                           <img src="@product.ImgPath" alt="@product.ProductName" />
                         </div>
                     </div>
 

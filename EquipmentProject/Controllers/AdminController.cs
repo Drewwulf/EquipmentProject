@@ -53,6 +53,8 @@ namespace EquipmentProject.Controllers
                 SocialFacebook = siteSettings.SocialFacebook,
                 SocialInstagram = siteSettings.SocialInstagram,
                 SocialTelegram = siteSettings.SocialTelegram,
+                ImgForHeader = siteSettings.ImgPathForHeader,
+                ImgForLogo = siteSettings.ImgPathForLogo,
                 Contacts = siteSettings.Contacts,
                 WhyWes = siteSettings.WhyWes
             };
@@ -83,6 +85,19 @@ namespace EquipmentProject.Controllers
             siteconf.SocialFacebook = siteSettings.SocialFacebook;
             siteconf.SocialInstagram = siteSettings.SocialInstagram;
             siteconf.SocialTelegram = siteSettings.SocialTelegram;
+
+            siteconf.ImgPathForLogo= await SaveImageAsync(
+                siteSettings.MainImageForLogo,
+                siteconf.ImgPathForLogo,
+                "logo"
+            );
+
+            // Фото заголовка
+            siteconf.ImgPathForHeader = await SaveImageAsync(
+                siteSettings.MainImageForHeader,
+                siteconf.ImgPathForHeader,
+                "header"
+            );
 
             siteconf.Contacts = siteSettings.Contacts;
 
@@ -141,6 +156,37 @@ namespace EquipmentProject.Controllers
             _context.SaveChanges();
             return RedirectToAction("SiteSettings");
         }
+
+        private async Task<string?> SaveImageAsync(
+            IFormFile? file,
+            string? oldPath,
+            string folder)
+        {
+            if (file == null || file.Length == 0)
+                return oldPath;
+
+            var uploadsFolder = Path.Combine(
+                Directory.GetCurrentDirectory(),
+                "wwwroot",
+                "uploads",
+                folder
+            );
+
+            Directory.CreateDirectory(uploadsFolder);
+
+            var fileName = Guid.NewGuid().ToString()
+                + Path.GetExtension(file.FileName);
+
+            var filePath = Path.Combine(uploadsFolder, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            return $"/uploads/{folder}/{fileName}";
+        }
+
         public async Task<IActionResult> DeletedData()
         {
             var model = new DeletedDataViewModel

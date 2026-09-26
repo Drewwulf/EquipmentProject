@@ -34,7 +34,8 @@ namespace MyMvcApp.Controllers
 
             var model = new CategoryViewModel
             {
-                Categories = categories
+                Categories = categories,
+                View = "Create"
             };
 
             return View(model);
@@ -45,15 +46,7 @@ namespace MyMvcApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CategoryViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                var categories = await _context.Categories.Where(x => !x.IsDeleted)
-                    .OrderBy(x => x.Order)
-                    .ToListAsync();
-
-                return View("Category", categories);
-            }
-
+         
             string? imagePath = null;
 
             var uploadsFolder = Path.Combine(
@@ -88,13 +81,14 @@ namespace MyMvcApp.Controllers
                 ProductName = model.ProductName,
                 ShortDescription = model.ShortDescription,
                 ImgPath = ImgPaths,
-                Order = model.Order
+                Order = model.Order,
+               
             };
 
             _context.Categories.Add(category);
             await _context.SaveChangesAsync();
 
-            return View("Index", model);
+            return RedirectToAction("Index");
         }
 
         private async Task<string?> SaveImage(string imgPath)
@@ -120,7 +114,8 @@ namespace MyMvcApp.Controllers
                 ShortDescription = category.ShortDescription,
                 Order = category.Order,
                 Categories = new List<Category> { category},
-                ImgPath = category.ImgPath
+                ImgPath = category.ImgPath,
+                View = "Edit"
             };
 
             ViewBag.EditMode = true;
@@ -155,7 +150,7 @@ namespace MyMvcApp.Controllers
                 ViewBag.EditMode = true;
                 ViewBag.EditCategory = model;
 
-                return View("Category", categories);
+                return View("Index", model);
             }
 
             category.ProductName = model.ProductName;

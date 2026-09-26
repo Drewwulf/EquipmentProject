@@ -4,7 +4,12 @@
 @{
     ViewData["Title"] = "Категорії";
 
-    bool editMode = ViewBag.EditMode == true;
+    bool editMode = false;
+    if (Model.View == "Edit"){
+        editMode = true;
+    }else{
+        editMode = false;
+    }
 }
 
 <div class="product-edit-page">
@@ -14,7 +19,7 @@
     </h2>
 
     <section class="product-section">
-        <form asp-controller="SubCategory"
+        <form asp-controller="Category"
               asp-action="@(editMode ? "Edit" : "Create")"
               method="post"
               enctype="multipart/form-data">
@@ -29,7 +34,7 @@
                 <!-- Назва -->
                 <div class="product-field">
                     <label for="productName">Назва *</label>
-                    <input type="text" id="productName" asp-for="@Model.Categories.First().ProductName" required />
+                    <input type="text" id="productName" asp-for="@Model.ProductName" required />
                 </div>
 
                 <!-- Опис -->
@@ -41,16 +46,21 @@
                               placeholder="Детальний опис підкатегорії"></textarea>
                 </div>
 
-                <!-- Зображення -->
+                 <!-- Зображення -->
                 <div class="product-field">
                     <label>Зображення</label>
 
                     @if (!string.IsNullOrEmpty(Model.ImgPath))
                     {
                         <div class="current-image">
-                            <img src="@Model.ImgPath" alt="@Model.Categories.First().ProductName" width="200" />
+                            <img src="@Model.ImgPath" alt="@Model.ProductName" width="200" />
                         </div>
-                    }
+                        }else
+                        {
+                        <div class="current-image">
+                            <img alt="@Model.ProductName" width="200" />
+                        </div>
+                        }
 
                     <label for="mainImage" class="outline-button">
                         <span>↥</span> Завантажити
@@ -62,7 +72,7 @@
                            accept="image/*"
                            hidden
                            required="@(!editMode)" />
-                </div>
+                </div> 
 
                 <!-- Порядок -->
                 <div class="product-field">
@@ -78,7 +88,7 @@
 
                     @if (editMode)
                     {
-                        <a asp-controller="SubCategory" asp-action="Index" class="cancel-button">
+                        <a asp-controller="Category" asp-action="Index" class="cancel-button">
                             Скасувати
                         </a>
                     }
