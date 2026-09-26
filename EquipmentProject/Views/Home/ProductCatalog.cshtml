@@ -1,0 +1,39 @@
+﻿@model EquipmentProject.Models.ViewModels.ProductViewModel
+<section>
+<div class="product-card">
+
+    @foreach (var pcatalog in Model.products){
+    <div>
+        <div class="no-image">
+            @pcatalog.ImgPath
+        </div>
+    </div>
+
+    <div class="product-content">
+        <span class="product-article">@pcatalog.Articul</span>
+
+        <h3 class="product-title">
+            @pcatalog.ProductName
+        </h3>
+
+        <p class="product-description">
+            @pcatalog.ShortDescription
+        </p>
+
+        <div class="product-bottom">
+            <span class="product-price">
+                @pcatalog.Price
+            </span>
+
+            <a asp-controller="Home"
+               asp-action="ProductInfo"
+               asp-route-id="Id" class="product-details">
+                Детальніше
+                <span>→</span>
+            </a>
+        </div>
+    </div>
+        }
+</div>
+
+</section>
