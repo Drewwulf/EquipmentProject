@@ -71,5 +71,17 @@ namespace EquipmentProject.Controllers
 
             return View(product);
         }
+
+ 
+        public async Task<IActionResult> SubcategoryCatalog(int id)
+        {
+            var catalog = _context.Subcategories.Where(c => c.CategoriesId==id).ToList();
+            var catalogs = new SubCategoryViewModel
+            {
+                Subcategories = catalog
+            };
+            return View(catalogs);
+        }
     }
 }
+

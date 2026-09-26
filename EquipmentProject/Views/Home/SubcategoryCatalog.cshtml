@@ -1,0 +1,38 @@
+﻿@model EquipmentProject.Models.ViewModels.SubCategoryViewModel
+<div>
+<h1>hhhhhhh</h1>
+<hr />
+</div>
+<section class="popular-categories">
+    <h2 id="h2h2">Підкатегорії</h2>
+    <div class="categories-grid">
+    @foreach (var catalog in Model.Subcategories){
+
+        <a href="/catalog" 
+        style=" background-image: 
+        linear-gradient( 
+        to bottom,  
+        rgba(255, 249, 225, 0.18) 0%, 
+        rgba(255, 246, 210, 0.28) 35%, 
+        rgba(220, 200, 150, 0.45) 68%, 
+        rgba(210, 190, 130, 0.70) 100% 
+        ), 
+        url('@catalog.ImgPath'); 
+        background-size: cover;     
+        background-position: center; 
+        background-repeat: no-repeat;" class="category-card category-image category-gradient"> 
+            <div class="category-content"> 
+
+                <h3>@catalog.NameSubcategory</h3> 
+
+                <p>Переглянути</p> 
+
+                <span class="category-arrow">→</span> 
+
+            </div> 
+        </a>
+    <!-- Картка 1 -->
+        }
+</div>
+
+</section>
