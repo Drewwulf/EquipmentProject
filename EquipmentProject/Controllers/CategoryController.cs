@@ -24,7 +24,7 @@ namespace MyMvcApp.Controllers
         }
 
         // GET: /Category
-        public async Task<IActionResult> Category()
+        public async Task<IActionResult> Index()
         {
             var categories = await _context.Categories
                 .Where(x => !x.IsDeleted)
@@ -94,7 +94,7 @@ namespace MyMvcApp.Controllers
             _context.Categories.Add(category);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Category));
+            return View("Index", model);
         }
 
         private async Task<string?> SaveImage(string imgPath)
@@ -104,6 +104,7 @@ namespace MyMvcApp.Controllers
 
 
         // GET: редагування
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             var category = await _context.Categories.Where(x => !x.IsDeleted)
@@ -118,6 +119,7 @@ namespace MyMvcApp.Controllers
                 ProductName = category.ProductName,
                 ShortDescription = category.ShortDescription,
                 Order = category.Order,
+                Categories = new List<Category> { category},
                 ImgPath = category.ImgPath
             };
 
@@ -129,7 +131,7 @@ namespace MyMvcApp.Controllers
 
             ViewBag.EditCategory = model;
 
-            return View("Index", categories);
+            return View("Index", model);
         }
 
 
@@ -172,7 +174,7 @@ namespace MyMvcApp.Controllers
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            return View("Index", model);
         }
 
 
