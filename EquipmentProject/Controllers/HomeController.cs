@@ -35,6 +35,8 @@ namespace EquipmentProject.Controllers
                 SocialFacebook = category.SocialFacebook,
                 SocialInstagram = category.SocialInstagram,
                 SocialTelegram = category.SocialTelegram,
+                ImgForHeader = category.ImgPathForHeader,
+                ImgForLogo = category.ImgPathForLogo,
                 WhyWes = category.WhyWes,
                 Categories = famous
             };

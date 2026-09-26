@@ -10,6 +10,10 @@
         public string SocialFacebook { get; set; }
         public string SocialInstagram { get; set; }
         public string SocialTelegram { get; set; }
+        public string ImgForLogo { get; set; }
+        public IFormFile MainImageForLogo { get; set; }
+        public string ImgForHeader { get; set; }
+        public IFormFile MainImageForHeader { get; set; }
 
         public List<Contact> Contacts { get; set; } = new List<Contact>();
         public List<Product> Products { get; set; } = new List<Product>();

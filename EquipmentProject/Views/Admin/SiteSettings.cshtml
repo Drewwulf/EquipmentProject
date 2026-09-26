@@ -70,6 +70,44 @@
 
         </section>
 
+        <section class="product-section">
+            <h3>Фото для сайту</h3>
+
+            <!-- Фото логотипу -->
+            <div class="product-field">
+                <label asp-for="MainImageForLogo">Фото для логотипу</label>
+
+                @if (!string.IsNullOrEmpty(Model.ImgForLogo))
+                {
+                    <img src="@Model.ImgForLogo"
+                         alt="Логотип"
+                         style="max-width: 200px;" />
+                }
+
+                <input type="file"
+                       asp-for="MainImageForLogo"
+                       accept="image/*" />
+            </div>
+
+            <!-- Фото заголовка -->
+            <div class="product-field">
+                <label asp-for="MainImageForHeader">
+                    Фото для заголовка на головній сторінці
+                </label>
+
+                @if (!string.IsNullOrEmpty(Model.ImgForHeader))
+                {
+                    <img src="@Model.ImgForHeader"
+                         alt="Фото заголовка"
+                         style="max-width: 400px;" />
+                }
+
+                <input type="file"
+                       asp-for="MainImageForHeader"
+                       accept="image/*" />
+            </div>
+        </section>
+
         <!-- =========================
          ТЕХНІЧНІ ХАРАКТЕРИСТИКИ
     ========================== -->
@@ -104,7 +142,7 @@
             <div class="section-header">
 
                 <h3>
-                    Додаткова інформація
+                    Чому ми ?
                 </h3>
 
                 <button type="button"
