@@ -33,7 +33,7 @@ namespace EquipmentProject.Controllers
                 SocialFacebook = category.SocialFacebook,
                 SocialInstagram = category.SocialInstagram,
                 SocialTelegram = category.SocialTelegram,
-                WhyWes = category.WhyWes
+                WhyWes = category.WhyWes,
                 Categories = famous
             };
             ViewBag.Categories = _context.Categories
