@@ -19,7 +19,7 @@
 
         public List<TechnicalCharacteristic> TechnicalCharacteristics { get; set; } = new List<TechnicalCharacteristic>();
 
-
+        public List<Product> products { get; set; } = new List<Product>();
         public List<Category> Categories { get; set; } = new List<Category>();
     }
 }

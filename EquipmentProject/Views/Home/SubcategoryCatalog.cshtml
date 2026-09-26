@@ -8,7 +8,9 @@
     <div class="categories-grid">
     @foreach (var catalog in Model.Subcategories){
 
-        <a href="/catalog" 
+            <a asp-controller="Home"
+               asp-action="ProductCatalog"
+               asp-route-id="@catalog.Id"
         style=" background-image: 
         linear-gradient( 
         to bottom,  

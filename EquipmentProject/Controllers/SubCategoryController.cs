@@ -186,10 +186,11 @@ namespace EquipmentProject.Controllers
             {
                 NameSubcategory = model.NameSubcategory,
                 CategoriesId = model.CategoryId,
+                SubcategoryId = model.SubcategoryId,
                 ShortDescription = model.ShortDescription,
                 Order = model.Order,
                 ImgPath = ImgPaths,
-                IsDeleted =false
+                IsDeleted = false
             };
 
             _context.Subcategories.Add(subcategory);
