@@ -76,8 +76,8 @@
 
         @foreach (var category in ViewBag.Categories)
         {
-            <a asp-controller="Home" 
-                   asp-action="SubcategoryCatalog"
+            <a asp-controller="Product" 
+                   asp-action="Category"
                    asp-route-id="@category.Id">
 
                 <span></span>
@@ -112,10 +112,7 @@
     <div class="categories-grid">
         @foreach (var famous in Model.Categories)
         {
-            <a asp-controller="Home"
-               asp-action="SubcategoryCatalog" 
-               asp-route-id="@famous.Id"
-                style="
+            <a href="/catalog" style="
                 background-image:
                 linear-gradient(
                 to bottom,
@@ -229,7 +226,7 @@
 
                     <div class="product-image-box">
                         <div class="no-image">
-                           <img src="@product.ImgPath" alt="@product.ProductName" />
+                                        <img src="@product.ImgPath" alt="@product.ProductName" />
                         </div>
                     </div>
 

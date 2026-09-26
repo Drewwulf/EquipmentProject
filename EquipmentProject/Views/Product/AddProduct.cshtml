@@ -370,50 +370,66 @@
 
     });
 
-    document.getElementById('category').addEventListener('change', async function() {
-        const categoryId = this.value;
-        const subcategorySelect = document.getElementById('subcategory');
+    async function loadSubcategories(categoryId) {
 
-        subcategorySelect.innerHTML = '';
+    const subcategorySelect = document.getElementById('subcategory');
 
-        if (!categoryId) {
-            return;
+    subcategorySelect.innerHTML = '';
+
+    if (!categoryId) {
+        return;
+    }
+
+    try {
+        const response = await fetch(
+            `/Category/GetSubcategories?categoryId=${categoryId}`
+        );
+
+        if (!response.ok) {
+            const errorText = await response.text();
+
+            console.error("HTTP статус:", response.status);
+            console.error("Відповідь сервера:", errorText);
+
+            throw new Error(`HTTP ${response.status}: ${errorText}`);
         }
 
-        try {
-            const response = await fetch(`/Category/GetSubcategories?categoryId=${categoryId}`);
+        const subcategories = await response.json();
 
-            if (!response.ok) {
-                const errorText = await response.text();
+        subcategories.forEach((sub, index) => {
 
-                console.error("HTTP статус:", response.status);
-                console.error("Відповідь сервера:", errorText);
+            const option = document.createElement('option');
 
-                throw new Error(`HTTP ${response.status}: ${errorText}`);
+            option.value = sub.id;
+            option.textContent = sub.nameSubcategory;
+
+            if (index === 0) {
+                option.selected = true;
             }
 
-            const subcategories = await response.json();
+            subcategorySelect.appendChild(option);
+        });
 
-            
-            let j  =0
-            subcategories.forEach(sub => {
-                
-                const option = document.createElement('option');
-                if(j==0){ option.selected=true}
-                option.value = sub.id;    
-                option.textContent = sub.nameSubcategory 
-                subcategorySelect.appendChild(option);
-                j++;
-            });
+    } catch (error) {
+        console.error("Помилка:", error);
+    }
+}
 
-      
-              
-            
 
-        } catch (error) {
-            console.error('Не вдалося завантажити підкатегорії:', error);
-        }
+    document.getElementById('category').addEventListener('change', async function() {
+        const categoryId = this.value;
+        loadSubcategories(categoryId) 
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+    const categorySelect = document.getElementById('category');
+
+    if (categorySelect.value) {
+        loadSubcategories(categorySelect.value);
+    }
+
+});
 
 </script>
 
