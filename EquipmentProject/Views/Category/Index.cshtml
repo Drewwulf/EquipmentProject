@@ -14,7 +14,7 @@
     </h2>
 
     <section class="product-section">
-        <form asp-controller="SubCategory"
+        <form asp-controller="Category"
               asp-action="@(editMode ? "Edit" : "Create")"
               method="post"
               enctype="multipart/form-data">
@@ -78,7 +78,7 @@
 
                     @if (editMode)
                     {
-                        <a asp-controller="SubCategory" asp-action="Index" class="cancel-button">
+                        <a asp-controller="Category" asp-action="Index" class="cancel-button">
                             Скасувати
                         </a>
                     }

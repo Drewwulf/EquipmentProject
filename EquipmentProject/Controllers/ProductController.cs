@@ -69,7 +69,11 @@ namespace EquipmentProject.Controllers
                 TechnicalCharacteristics = p.TechnicalCharacteristics
                 ,
                 Categories = _context.Categories.Where(x => !x.IsDeleted).ToList()
-
+                ,
+                        Products = _context.Products
+                        .Where(x => !x.IsDeleted)
+                        .Take(10)
+                        .ToList()
 
 
             };
