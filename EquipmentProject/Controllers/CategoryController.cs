@@ -192,7 +192,7 @@ namespace MyMvcApp.Controllers
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Category));
+            return RedirectToAction(nameof(Index));
         }
 
 
