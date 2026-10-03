@@ -468,6 +468,16 @@
     margin-bottom: 24px;
 }
 
+    /* Фото / логотип всередині помаранчевої рамки */
+    .why-us-icon img {
+        max-width: 70%;
+        max-height: 70%;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        display: block;
+    }
+
     .why-us-icon i {
         color: #ffffff;
         font-size: 23px;
@@ -1140,7 +1150,7 @@
     background: #0d1523;
 }
 
-```css
+
 /* =====================================================
    PRODUCT VIEW PAGE
 ===================================================== */
