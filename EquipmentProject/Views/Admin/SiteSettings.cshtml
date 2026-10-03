@@ -387,6 +387,9 @@
     for (let i = 0; i < wws.length; i++) {
 
         const whyWe = wws[i];
+        if (whyWe.isDeleted === true) {
+            continue;
+        }
 
         const specification = document.createElement("div");
 
@@ -451,6 +454,12 @@
                         accept="image/*" />
 
                 </div>
+
+                <a
+                    href="/Admin/DeleteWW/${whyWe.id}"
+                    class="delete-specification">
+                    ×
+                </a>
 
             </section>
         `;
