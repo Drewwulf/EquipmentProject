@@ -65,6 +65,7 @@ namespace EquipmentProject.Controllers
                 IsDeleted = p.IsDeleted,
 
                 ImgPath = p.ImgPath,
+                View = "Home",
 
                 TechnicalCharacteristics = p.TechnicalCharacteristics
                 ,
@@ -144,7 +145,31 @@ namespace EquipmentProject.Controllers
             return RedirectToAction("DeletedData", "Admin");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var product = await _context.Products.Where(x => !x.IsDeleted)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
+            if (product == null)
+                return NotFound();
 
+            var model = new ProductViewModel
+            {
+                products = new List<Product>() {product} ,
+                View = "Edit"
+            };
+
+            ViewBag.EditMode = true;
+
+            var categories = await _context.Products.Where(x => !x.IsDeleted)
+                .ToListAsync();
+
+            ViewBag.EditCategory = model;
+
+            return View("AddProduct", model);
+        }
+
+       
     }
 }

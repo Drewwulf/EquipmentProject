@@ -1,9 +1,18 @@
 ﻿@model EquipmentProject.Models.ViewModels.ProductViewModel
 @{
     ViewData["Title"] = "Редагувати товар";
+    bool IsEdit = false;
+    if (Model.View == "Edit")
+    {
+        IsEdit = true;
+    }
+    else
+    {
+        IsEdit = false;
+    }
 }
 
-<form asp-controller="Product" asp-action="StartProduct" method="post" enctype="multipart/form-data">
+<form asp-controller="Product" asp-action="@(IsEdit ? "Edit" : "StartProduct")" method="post" enctype="multipart/form-data">
 
 <div class="product-edit-page">
 
@@ -181,13 +190,15 @@
             <!-- Зображення -->
             <div class="product-field">
                 <label>Зображення</label>
-
-                @if (!string.IsNullOrEmpty(Model.ImgPath))
+                @if (IsEdit && !string.IsNullOrEmpty(Model.ImgPath))
                 {
                     <div class="current-image">
-                        <img src="@Model.ImgPath" alt="@Model.ProductName" width="200" />
+                        <img src="@Model.ImgPath"
+                             alt="@Model.ProductName"
+                             width="200" />
                     </div>
                 }
+
 
                 <label for="mainImage" class="outline-button">
                     <span>↥</span> Завантажити
@@ -278,6 +289,13 @@
             Зберегти товар
 
         </button>
+
+                @if (IsEdit)
+                {
+                    <a class="save-button" asp-controller="Product" asp-action="AddProduct">
+                        Скасувати
+                    </a>
+                }
 
     </div>
 
