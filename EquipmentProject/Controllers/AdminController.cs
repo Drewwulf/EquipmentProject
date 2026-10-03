@@ -157,6 +157,15 @@ namespace EquipmentProject.Controllers
             return RedirectToAction("SiteSettings");
         }
 
+        public IActionResult DeleteWW(int id)
+        {
+            var wyWe = _context.WhyWe.Find(id);
+            wyWe.isDeleted = true;
+            _context.SaveChanges();
+            return RedirectToAction("SiteSettings");
+
+        }
+
         private async Task<string?> SaveImageAsync(
             IFormFile? file,
             string? oldPath,
