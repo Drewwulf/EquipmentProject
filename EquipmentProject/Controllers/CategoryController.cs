@@ -186,13 +186,12 @@ namespace MyMvcApp.Controllers
 
             // М'яке видалення
             category.IsDeleted = true;
-
-            // Позначаємо об'єкт як змінений
+            
             _context.Categories.Update(category);
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Category));
+            return RedirectToAction(nameof(Index));
         }
 
 
