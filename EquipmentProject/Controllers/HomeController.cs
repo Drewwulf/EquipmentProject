@@ -87,10 +87,11 @@ namespace EquipmentProject.Controllers
 
         public async Task<IActionResult> ProductCatalog(int id)
         {
-            var pcatalog = _context.Products.Where(p => p.SubcategoryId == id).ToList();
+            var pcatalog = _context.Products.Where(p => p.SubcategoryId == id).Include(s=>s.Subcategory).ToList();
             var pcatalogs = new ProductViewModel
             {
-                products = pcatalog
+                products = pcatalog,
+                SubCategoryName = pcatalog.Select(s => s.Subcategory).FirstOrDefault(s => s != null)?.NameSubcategory
             };
             return View(pcatalogs);
         }

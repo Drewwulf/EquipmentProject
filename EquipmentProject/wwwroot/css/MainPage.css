@@ -483,9 +483,11 @@
         font-size: 23px;
     }
 
+.detailsColor{
+    
+}
 
 /* Заголовок */
-
 .why-us-item h3 {
     margin: 0 0 12px 0;
     color: #111827;
@@ -674,7 +676,7 @@
 
     .product-details:hover {
         gap: 13px;
-        color: #003ac7;
+        color: #a6540c;
     }
 
 /* Планшет */
