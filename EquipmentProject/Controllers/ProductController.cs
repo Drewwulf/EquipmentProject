@@ -164,7 +164,7 @@ namespace EquipmentProject.Controllers
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(AllProducts));
+            return RedirectToAction(nameof(AddProduct));
         }
 
 
