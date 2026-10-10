@@ -146,5 +146,17 @@ namespace EquipmentProject.Controllers
 
 
 
+        public async Task<IActionResult> AllProducts()
+        {
+            var products = await _context.Products
+                .Where(x => !x.IsDeleted)
+                .OrderBy(x => x.Id)
+                .ToListAsync();
+
+            return View(products);
+        }
+
+
+
     }
 }
