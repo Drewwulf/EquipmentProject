@@ -87,7 +87,7 @@ namespace EquipmentProject.Controllers
 
         public async Task<IActionResult> ProductCatalog(int id)
         {
-            var pcatalog = _context.Products.Where(p => p.SubcategoryId == id).Include(s=>s.Subcategory).ToList();
+            var pcatalog = _context.Products.Where(p => p.SubcategoryId == id).Where(s=>s.IsDeleted == false).Include(s=>s.Subcategory).ToList();
             var pcatalogs = new ProductViewModel
             {
                 products = pcatalog,
