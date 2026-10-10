@@ -146,6 +146,28 @@ namespace EquipmentProject.Controllers
         }
 
 
+        // POST: видалення товару
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var product = await _context.Products
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            // М'яке видалення
+            product.IsDeleted = true;
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(AllProducts));
+        }
+
+
 
         public async Task<IActionResult> AllProducts()
         {
