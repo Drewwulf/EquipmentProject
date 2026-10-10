@@ -15,6 +15,8 @@
         public bool IsRecomended { get; set; }
         public bool IsDeleted { get; set; }
         public string ImgPath { get; set; }
+        public string SubCategoryName { get; set; }
+
         public IFormFile MainImage { get; set; }
 
         public List<TechnicalCharacteristic> TechnicalCharacteristics { get; set; } = new List<TechnicalCharacteristic>();
