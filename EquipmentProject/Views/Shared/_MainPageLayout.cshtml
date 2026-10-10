@@ -41,14 +41,15 @@
             </div>
 
             <div class="links">
-                <a href="#">Головна</a>
+                <a asp-controller="Home"
+                   asp-action="Index">Головна</a>
                 <a href="#">Про компанію</a>
 
-                <a href="#" class="catalog">
+                <a href="#new" class="catalog">
                     Каталог
                 </a>
 
-                <a href="#" class="contacts">
+                <a href="#footer" class="contacts">
                     Контакти
                 </a>
             </div>
@@ -59,7 +60,7 @@
             @RenderBody()
         </main>
     </div>
-    <footer class="site-footer">
+    <footer class="site-footer" id="footer">
        
         <!-- Консультація -->
         <div class="footer-consultation">
@@ -90,9 +91,9 @@
             <!-- Магазин -->
             <div class="footer-column footer-brand">
 
-                <div class="footer-logo">
-                    <div class="footer-logo-icon">
-                        <img src="/lib/developer_board_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png" />
+                <div class="brand">
+                    <div class="brand-icon">
+                       <img src="@siteSettings.ImgPathForLogo" />
                     </div>
 
                     <span>@siteSettings.ShopName</span>
@@ -110,8 +111,9 @@
 
                 <h3>НАВІГАЦІЯ</h3>
 
-                <a href="#">Головна</a>
-                <a href="#">Каталог</a>
+                <a asp-controller="Home"
+                   asp-action="Index">>Головна</a>
+                <a href="#new">Каталог</a>
                 <a href="#">Про компанію</a>
                 <a href="#">Контакти</a>
 

@@ -17,10 +17,7 @@ html {
     min-height: 100%;
 }
 
-body {
-    margin-bottom: 60px;
-    
-}
+
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
     color: var(--bs-secondary-color);
@@ -776,7 +773,7 @@ body {
 
     .specification-input:focus {
         border-color: #315a91;
-        background-color: #23344f;
+        background-color: #f8eec7;
     }
 
 

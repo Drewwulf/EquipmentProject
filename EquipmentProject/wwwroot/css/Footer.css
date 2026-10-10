@@ -187,7 +187,7 @@
 }
 
     .footer-column > a:hover {
-        color: #4380ff;
+        color: #a6540c;
     }
 
 
@@ -208,7 +208,7 @@
     .footer-info i {
         width: 17px;
         flex-shrink: 0;
-        color: #d3dae4;
+        color: #101828;
         font-size: 15px;
     }
 
