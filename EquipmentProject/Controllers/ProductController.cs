@@ -111,6 +111,7 @@ namespace EquipmentProject.Controllers
                 ProductName = Model.ProductName,
                 Articul = Model.Articul,
                 CategoryId = Model.CategoryId,
+                SubcategoryId = Model.SubcategoryId,
                 Price = Model.Price,
                 ShortDescription = Model.ShortDescription,
                 FullDescription = Model.FullDescription,
