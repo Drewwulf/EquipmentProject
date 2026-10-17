@@ -21,7 +21,7 @@ namespace EquipmentProject.Controllers
         {
             var category = _context.SiteSettings.OrderByDescending(s => s.Id).Include(site=>site.WhyWes).First();
             var news = _context.Products.Where(p => p.IsDeleted == false).ToList();
-            var famous = _context.Categories.Where(s => s.IsDeleted==false).ToList();
+            var famous = _context.Categories.Where(s => s.IsDeleted==false).Take(6).ToList();
 
 
 
@@ -41,7 +41,7 @@ namespace EquipmentProject.Controllers
                 Categories = famous
             };
             ViewBag.Categories = _context.Categories
-     .Where(x => !x.IsDeleted)
+     .Where(x => !x.IsDeleted).Take(6)
      .OrderBy(x => x.Order)
      .ToList();
             return View(categories);
@@ -94,6 +94,14 @@ namespace EquipmentProject.Controllers
                 SubCategoryName = pcatalog.Select(s => s.Subcategory).FirstOrDefault(s => s != null)?.NameSubcategory
             };
             return View(pcatalogs);
+        }
+        public async Task<IActionResult> AllCategories()
+        {
+            var categories = await _context.Categories
+                .OrderBy(c => c.ProductName)
+                .ToListAsync();
+
+            return View(categories);
         }
     }
 }

@@ -1,0 +1,55 @@
+﻿@model List<EquipmentProject.Models.Category>
+
+@{
+    ViewData["Title"] = "Усі категорії";
+}
+
+<section class="popular-categories all-categories-page">
+
+    <div class="categories-header">
+        <div>
+            <span class="categories-line"></span>
+            <h2>Усі категорії</h2>
+        </div>
+
+        <a asp-controller="Home" asp-action="Index" class="all-categories">
+            <span>←</span>
+            На головну
+        </a>
+    </div>
+
+    @if (Model.Any())
+    {
+        <div class="categories-grid">
+            @foreach (var category in Model)
+            {
+                <a asp-controller="Home"
+                   asp-action="SubcategoryCatalog"
+                   asp-route-id="@category.Id"
+                   class="category-card category-image category-gradient"
+                   style="background-image:
+                    linear-gradient(to bottom,
+                    rgba(255, 249, 225, 0.18) 0%,
+                    rgba(255, 246, 210, 0.28) 35%,
+                    rgba(220, 200, 150, 0.45) 68%,
+                    rgba(210, 190, 130, 0.70) 100%),
+                    url('@category.ImgPath');
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;">
+
+                    <div class="category-content">
+                        <h3>@category.ProductName</h3>
+                        <p>Переглянути</p>
+                        <span class="category-arrow">→</span>
+                    </div>
+                </a>
+            }
+        </div>
+    }
+    else
+    {
+        <p class="categories-empty">Категорій поки немає.</p>
+    }
+
+</section>
