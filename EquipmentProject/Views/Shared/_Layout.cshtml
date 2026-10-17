@@ -9,11 +9,20 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/nav.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/EquipmentProject.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=settings" />
+    <!-- було -->
+<link rel="stylesheet" href="~/https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined..." />
 </head>
 <body>
+     <div class="mobile-topbar">
+        <button type="button" class="burger-btn" id="burgerBtn" aria-label="Меню">
+            <span></span><span></span><span></span>
+        </button>
+        <span class="mobile-topbar-title">Адмін-панель</span>
+    </div>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
     <header>
-        <aside class="admin-sidebar"> <!-- Logo --> 
+        <aside class="admin-sidebar" id="adminSidebar"> <!-- Logo --> 
             <div class="sidebar-header">
                 
                 <div class="sidebar-logo"> 
@@ -65,6 +74,26 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+    (function () {
+        const sidebar = document.getElementById('adminSidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const burger  = document.getElementById('burgerBtn');
+
+        function toggle(open) {
+            sidebar.classList.toggle('open', open);
+            overlay.classList.toggle('show', open);
+            document.body.classList.toggle('no-scroll', open);
+        }
+
+        burger.addEventListener('click', () => toggle(!sidebar.classList.contains('open')));
+        overlay.addEventListener('click', () => toggle(false));
+
+        // закривати меню після кліку по пункту
+        sidebar.querySelectorAll('a').forEach(a =>
+            a.addEventListener('click', () => toggle(false)));
+    })();
+</script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
