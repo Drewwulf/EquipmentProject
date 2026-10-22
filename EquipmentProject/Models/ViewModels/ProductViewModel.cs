@@ -4,7 +4,7 @@
     {
        
         public string ProductName { get; set; }
-        public int Id
+        public int Id { get; set; }
         public int Articul { get; set; }
         public int Price { get; set; }  
 
