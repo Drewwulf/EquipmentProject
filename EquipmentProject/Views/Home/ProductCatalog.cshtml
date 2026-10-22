@@ -1,39 +1,58 @@
 ﻿@model EquipmentProject.Models.ViewModels.ProductViewModel
-<section>
-<div class="product-card">
 
+<section class="new-products-section detailsColor ">
+
+    <div class="new-products-container">
+
+        <div class="section-heading">
+            <div class="section-line"></div>
+            <h2>@Model.SubCategoryName</h2>
+        </div>
+
+        <div class="products-grid">
     @foreach (var pcatalog in Model.products){
-    <div>
-        <div class="no-image">
-            @pcatalog.ImgPath
-        </div>
-    </div>
+            <div class="product-card">
 
-    <div class="product-content">
-        <span class="product-article">@pcatalog.Articul</span>
+                <div class="product-image-box">
+                    <div class="no-image">
+                        <img src="@pcatalog.ImgPath" alt="@pcatalog.ProductName" />
+                    </div>
+                </div>
 
-        <h3 class="product-title">
-            @pcatalog.ProductName
-        </h3>
+                <div class="product-content">
+                    <span class="product-article">Арт.@pcatalog.Articul</span>
 
-        <p class="product-description">
-            @pcatalog.ShortDescription
-        </p>
+                    <h3 class="product-title">
+                        @pcatalog.ProductName
+                    </h3>
 
-        <div class="product-bottom">
-            <span class="product-price">
-                @pcatalog.Price
-            </span>
+                    <p class="product-description">
+                        @pcatalog.ShortDescription
+                    </p>
 
-            <a asp-controller="Home"
-               asp-action="ProductInfo"
-               asp-route-id="Id" class="product-details">
-                Детальніше
-                <span>→</span>
-            </a>
-        </div>
-    </div>
+                    <div class="product-bottom">
+                        <span class="product-price">
+                            @pcatalog.Price
+                        </span>
+
+                        <a asp-controller="Home"
+                           asp-action="ProductInfo"
+                           asp-route-id="@pcatalog.Id" class="product-details">
+                            Детальніше
+                            <span>→</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
         }
-</div>
+
+        </div>
+
+    </div>
 
 </section>
+
+
+
+        

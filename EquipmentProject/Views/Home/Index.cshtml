@@ -35,7 +35,7 @@
 
                 <div class="hero-buttons">
 
-                    <a href="/catalog" class="hero-btn hero-btn-primary">
+                    <a href="#new" class="hero-btn hero-btn-primary">
                         Переглянути каталог
 
                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +52,7 @@
                         </svg>
                     </a>
 
-                    <a href="/contacts" class="hero-btn hero-btn-outline">
+                    <a href="#footer" class="hero-btn hero-btn-outline">
                         Зв'язатися з нами
                     </a>
 
@@ -76,8 +76,8 @@
 
         @foreach (var category in ViewBag.Categories)
         {
-            <a asp-controller="Product" 
-                   asp-action="Category"
+            <a asp-controller="Home" 
+                   asp-action="SubcategoryCatalog"
                    asp-route-id="@category.Id">
 
                 <span></span>
@@ -101,7 +101,7 @@
             <h2>Популярні категорії</h2>
         </div>
 
-        <a href="/catalog" class="all-categories">
+        <a asp-controller="Home" asp-action="AllCategories" class="all-categories">
             Усі категорії
             <span>→</span>
         </a>
@@ -112,7 +112,10 @@
     <div class="categories-grid">
         @foreach (var famous in Model.Categories)
         {
-            <a href="/catalog" style="
+            <a asp-controller="Home"
+               asp-action="SubcategoryCatalog"
+               asp-route-id="@famous.Id"
+                style="
                 background-image:
                 linear-gradient(
                 to bottom,
@@ -142,7 +145,7 @@
       </div>
 
 </section>
-<section class="new-products-section">
+<section class="new-products-section" id="new">
     
     <div class="new-products-container">
 

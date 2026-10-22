@@ -468,14 +468,26 @@
     margin-bottom: 24px;
 }
 
+    /* Фото / логотип всередині помаранчевої рамки */
+    .why-us-icon img {
+        max-width: 70%;
+        max-height: 70%;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        display: block;
+    }
+
     .why-us-icon i {
         color: #ffffff;
         font-size: 23px;
     }
 
+.detailsColor{
+    
+}
 
 /* Заголовок */
-
 .why-us-item h3 {
     margin: 0 0 12px 0;
     color: #111827;
@@ -664,7 +676,7 @@
 
     .product-details:hover {
         gap: 13px;
-        color: #003ac7;
+        color: #a6540c;
     }
 
 /* Планшет */
@@ -1140,7 +1152,7 @@
     background: #0d1523;
 }
 
-```css
+
 /* =====================================================
    PRODUCT VIEW PAGE
 ===================================================== */
