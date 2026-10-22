@@ -1,0 +1,45 @@
+name: Deploy to MonsterASP.NET
+
+on:
+  push:
+    branches:
+      - test
+
+  workflow_dispatch:
+
+jobs:
+  build_and_deploy:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore EquipmentProject.slnx
+
+      - name: Build
+        run: dotnet build EquipmentProject.slnx --configuration Release --no-restore
+
+      - name: Publish Web application
+        run: >
+          dotnet publish EquipmentProject/EquipmentProject.csproj
+          --configuration Release
+          --framework net10.0
+          --runtime win-x86
+          --self-contained false
+          --output ./publish
+
+      - name: Deploy to Monster TEST
+        uses: rasmusbuchholdt/simply-web-deploy@2.2.0
+        with:
+          website-name: ${{ secrets.WEBSITE_NAME }}
+          server-computer-name: ${{ secrets.SERVER_COMPUTER_NAME }}
+          server-username: ${{ secrets.SERVER_USERNAME }}
+          server-password: ${{ secrets.SERVER_PASSWORD }}
+          source-path: '\publish\'
