@@ -65,6 +65,7 @@ namespace EquipmentProject.Controllers
                 IsDeleted = p.IsDeleted,
 
                 ImgPath = p.ImgPath,
+                View = "Home",
 
                 TechnicalCharacteristics = p.TechnicalCharacteristics
                 ,
@@ -145,41 +146,122 @@ namespace EquipmentProject.Controllers
             return RedirectToAction("DeletedData", "Admin");
         }
 
-
-        // POST: видалення товару
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id)
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
         {
             var product = await _context.Products
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .Include(p => p.TechnicalCharacteristics)
+                .FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
 
             if (product == null)
-            {
                 return NotFound();
+
+            var categories = await _context.Categories
+                .Where(x => !x.IsDeleted)
+                .OrderBy(x => x.Order)
+                .ToListAsync();
+
+            var products = await _context.Products
+                .Where(x => !x.IsDeleted)
+                .Take(10)
+                .ToListAsync();
+
+            var model = new ProductViewModel
+            {
+                Id = product.Id,
+                ProductName = product.ProductName,
+                Articul = product.Articul,
+                Price = product.Price,
+                CategoryId = product.CategoryId.GetValueOrDefault(),
+                SubcategoryId = product.SubcategoryId.GetValueOrDefault(),
+                ShortDescription = product.ShortDescription,
+                FullDescription = product.FullDescription,
+                IsNew = product.IsNew,
+                IsRecomended = product.IsRecomended,
+                IsDeleted = product.IsDeleted,
+                ImgPath = product.ImgPath,
+                Categories = categories,
+                Products = products,
+                TechnicalCharacteristics = product.TechnicalCharacteristics
+                    ?? new List<TechnicalCharacteristic>(),
+                View = "Edit"
+            };
+
+            return View("AddProduct", model);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(ProductViewModel Model)
+        {
+            var product = await _context.Products
+                .Include(p => p.TechnicalCharacteristics)
+                .FirstOrDefaultAsync(x => x.Id == Model.Id && !x.IsDeleted);
+
+            if (product == null)
+                return NotFound();
+
+            product.ProductName = Model.ProductName;
+            product.Articul = Model.Articul;
+            product.Price = Model.Price;
+            product.CategoryId = Model.CategoryId;
+            product.SubcategoryId = Model.SubcategoryId;
+            product.ShortDescription = Model.ShortDescription;
+            product.FullDescription = Model.FullDescription;
+            product.IsNew = Model.IsNew;
+            product.IsRecomended = Model.IsRecomended;
+
+            if (Model.MainImage != null && Model.MainImage.Length > 0)
+            {
+                var uploadsFolder = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "wwwroot",
+                    "uploads",
+                    "product"
+                );
+
+                Directory.CreateDirectory(uploadsFolder);
+
+                var fileName = Guid.NewGuid().ToString() +
+                               Path.GetExtension(Model.MainImage.FileName);
+
+                var filePath = Path.Combine(uploadsFolder, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await Model.MainImage.CopyToAsync(stream);
+                }
+
+                product.ImgPath = "/uploads/product/" + fileName;
             }
 
-            // М'яке видалення
-            product.IsDeleted = true;
+            _context.Set<TechnicalCharacteristic>()
+                .RemoveRange(product.TechnicalCharacteristics);
+
+            product.TechnicalCharacteristics = new List<TechnicalCharacteristic>();
+
+            if (Model.TechnicalCharacteristics != null)
+            {
+                foreach (var characteristic in Model.TechnicalCharacteristics)
+                {
+                    if (string.IsNullOrWhiteSpace(characteristic.ParamentName) &&
+                        string.IsNullOrWhiteSpace(characteristic.ParamentValue))
+                        continue;
+
+                    product.TechnicalCharacteristics.Add(new TechnicalCharacteristic
+                    {
+                        ProductId = product.Id,
+                        ParamentName = characteristic.ParamentName,
+                        ParamentValue = characteristic.ParamentValue
+                    });
+                }
+            }
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(AddProduct));
+            return RedirectToAction("Edit", new { id = product.Id });
         }
-
-
-
-        public async Task<IActionResult> AllProducts()
-        {
-            var products = await _context.Products
-                .Where(x => !x.IsDeleted)
-                .OrderBy(x => x.Id)
-                .ToListAsync();
-
-            return View(products);
-        }
-
-
 
     }
 }

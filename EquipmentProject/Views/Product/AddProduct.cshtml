@@ -1,19 +1,26 @@
 ﻿@model EquipmentProject.Models.ViewModels.ProductViewModel
 @{
-    ViewData["Title"] = "Редагувати товар";
+    ViewData["Title"] = Model.View == "Edit" ? "Редагувати товар" : "Створити товар";
+    bool IsEdit = Model.View == "Edit";
+    string mainImageRequired = IsEdit ? null : "required";
 }
 
-<form asp-controller="Product" asp-action="StartProduct" method="post" enctype="multipart/form-data">
+<form asp-controller="Product" asp-action="@(IsEdit ? "Edit" : "StartProduct")" method="post" enctype="multipart/form-data">
+    @if (IsEdit)
+    {
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="ImgPath" />
+    }
 
-<div class="product-edit-page">
+    <div class="product-edit-page">
 
-    <!-- Заголовок -->
-    <h2 class="product-edit-title">Редагувати товар</h2>
+        <!-- Заголовок -->
+        <h2 class="product-edit-title">@(IsEdit ? "Редагувати товар" : "Створити товар")</h2>
 
 
-    <!-- =========================
-         ОСНОВНА ІНФОРМАЦІЯ
-    ========================== -->
+        <!-- =========================
+             ОСНОВНА ІНФОРМАЦІЯ
+        ========================== -->
         <section class="product-section">
             <h3>Основна інформація</h3>
 
@@ -55,6 +62,7 @@
 
                     <input asp-for="Price"
                            type="number"
+                           step="0.01"
                            id="price"
                            required />
 
@@ -72,22 +80,17 @@
                         Категорія *
                     </label>
 
-
-                    
-                    
-                               
                     <select id="category"
                             asp-for="CategoryId"
                             required>
-                        @foreach (var category in Model.Categories)
+                        <option value="">Оберіть категорію</option>
+                        @if (Model.Categories != null)
                         {
-                            <option value="@category.Id">@category.ProductName</option>
-
+                            @foreach (var category in Model.Categories)
+                            {
+                                <option value="@category.Id">@category.ProductName</option>
+                            }
                         }
-
-                   
-                       
-
                     </select>
 
                 </div>
@@ -100,7 +103,7 @@
                     </label>
 
                     <select id="subcategory"
-                            name="SubcategoryId"
+                            asp-for="SubcategoryId"
                             required>
 
                         <option value="">Спочатку оберіть категорію</option>
@@ -168,26 +171,27 @@
 
         </section>
 
-    <!-- =========================
-         ЗОБРАЖЕННЯ
-    ========================== -->
+        <!-- =========================
+             ЗОБРАЖЕННЯ
+        ========================== -->
 
-    <section class="product-section">
+        <section class="product-section">
 
-        <h3>Зображення</h3>
+            <h3>Зображення</h3>
 
 
-        <!-- Основне фото -->
-            <!-- Зображення -->
+            <!-- Основне фото -->
             <div class="product-field">
                 <label>Зображення</label>
-
-                @if (!string.IsNullOrEmpty(Model.ImgPath))
+                @if (IsEdit && !string.IsNullOrEmpty(Model.ImgPath))
                 {
                     <div class="current-image">
-                        <img src="@Model.ImgPath" alt="@Model.ProductName" width="200" />
+                        <img src="@Model.ImgPath"
+                             alt="@Model.ProductName"
+                             width="200" />
                     </div>
                 }
+
 
                 <label for="mainImage" class="outline-button">
                     <span>↥</span> Завантажити
@@ -198,90 +202,97 @@
                        asp-for="MainImage"
                        accept="image/*"
                        hidden
-                       required />
+                       required="@mainImageRequired" />
             </div>
 
 
-        <!-- Галерея -->
-        <div class="image-block">
+            <!-- Галерея -->
+            <div class="image-block">
 
-            <label>
-                Галерея фотографій
-            </label>
+                <label>
+                    Галерея фотографій
+                </label>
 
-            <label for="galleryImages"
-                   class="outline-button">
+                <label for="galleryImages"
+                       class="outline-button">
 
-                <span>▧</span>
-                Додати фото
+                    <span>▧</span>
+                    Додати фото
 
-            </label>
+                </label>
 
-            <input type="file"
-                   id="galleryImages"
-                   name="GalleryImages"
-                   accept="image/*"
-                   multiple
-                   hidden />
+                <input type="file"
+                       id="galleryImages"
+                       name="GalleryImages"
+                       accept="image/*"
+                       multiple
+                       hidden />
 
-        </div>
+            </div>
 
-    </section>
+        </section>
 
 
 
-    <!-- =========================
-         ТЕХНІЧНІ ХАРАКТЕРИСТИКИ
-    ========================== -->
+        <!-- =========================
+             ТЕХНІЧНІ ХАРАКТЕРИСТИКИ
+        ========================== -->
 
-    <section class="product-section specifications-section">
+        <section class="product-section specifications-section">
 
-        <div class="section-header">
+            <div class="section-header">
 
-            <h3>
-                Технічні характеристики
-            </h3>
+                <h3>
+                    Технічні характеристики
+                </h3>
 
-            <button type="button"
-                    class="add-button"
-                    id="addSpecification">
+                <button type="button"
+                        class="add-button"
+                        id="addSpecification">
 
-                + Додати
+                    + Додати
+
+                </button>
+
+            </div>
+
+
+            <div id="specificationsContainer">
+
+                <p class="empty-specifications">
+                    Характеристик поки немає. Додайте першу.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             КНОПКИ
+        ========================== -->
+
+        <div class="product-actions">
+
+            <button type="submit"
+                    class="save-button">
+
+                <span>▣</span>
+                Зберегти товар
 
             </button>
 
-        </div>
-
-
-        <div id="specificationsContainer">
-
-            <p class="empty-specifications">
-                Характеристик поки немає. Додайте першу.
-            </p>
+            @if (IsEdit)
+            {
+                <a class="save-button" asp-controller="Product" asp-action="AddProduct">
+                    Скасувати
+                </a>
+            }
 
         </div>
-
-    </section>
-
-
-
-    <!-- =========================
-         КНОПКИ
-    ========================== -->
-
-    <div class="product-actions">
-
-        <button  type="submit" method="posts"
-                class="save-button">
-
-            <span>▣</span>
-            Зберегти товар
-
-        </button>
 
     </div>
-
-</div>
 </form>
 
 
@@ -294,6 +305,8 @@
         </div>
     </div>
 
+    @if (Model.Products != null)
+    {
         @foreach (var product in Model.Products.Take(10))
         {
 
@@ -350,164 +363,115 @@
 
             </div>
 
-          
+        }
 
-       }
-    @if (Model.Products.Count() == 10)
-    {
-        <div class="show-all-products"> <a asp-controller="Product" asp-action="AllProducts" class="save-button"> Показати всі товари </a> </div>
+        @if (Model.Products.Count() == 10)
+        {
+            <div class="show-all-products"> <a asp-controller="Product" asp-action="Index" class="save-button"> Показати всі товари </a> </div>
+        }
     }
-  
 
 </div>
 
 <script>
-   
     let siteind = 0;
-    const addSpecificationButton =
-        document.getElementById("addSpecification");
+    const addSpecificationButton = document.getElementById("addSpecification");
+    const specificationsContainer = document.getElementById("specificationsContainer");
 
-    const specificationsContainer =
-        document.getElementById("specificationsContainer");
+        const existingCharacteristics = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(
+                Model.TechnicalCharacteristics?.Select(tc => new
+                {
+                        tc.ParamentName,
+                        tc.ParamentValue
+                }) ?? Enumerable.Empty<object>()
+        ));
 
-     // for (let i = 0; i < tcs.length; i++) {
-     //    const tc = tcs[i];
-        
-     //    specification.className =
-     //        "specification-row";
-
-
-     //    specification.innerHTML = `
-
-     //        <input type="text"
-     //               class="specification-input"
-     //               value = "${tc.ParameterName ?? ''}"
-     //               placeholder="Назва характеристики">
-
-
-     //        <input type="text"
-     //               class="specification-input"
-     //               value = "${tc.ParameterValue ?? ''}"
-     //               placeholder="Значення">
-
-
-     //        <button type="button"
-     //                class="delete-specification">
-     //            ×
-     //        </button>
-
-     //    `;
-
-
-     //    specificationsContainer.appendChild(specification);
-
-     // }
-
-    addSpecificationButton.addEventListener("click", function () {
-
-        const emptyMessage =
-            specificationsContainer.querySelector(".empty-specifications");
-
+    function addSpecificationRow(name = '', value = '') {
+        const emptyMessage = specificationsContainer.querySelector(".empty-specifications");
         if (emptyMessage) {
             emptyMessage.remove();
         }
 
-
-        const specification =
-            document.createElement("div");
-
-        specification.className =
-            "specification-row";
-
+        const specification = document.createElement("div");
+        specification.className = "specification-row";
 
         specification.innerHTML = `
-
             <input type="text"
                    class="specification-input"
                    name="TechnicalCharacteristics[${siteind}].ParamentName"
+                   value="${name}"
                    placeholder="Назва характеристики">
-
 
             <input type="text"
                    class="specification-input"
                    name="TechnicalCharacteristics[${siteind}].ParamentValue"
+                   value="${value}"
                    placeholder="Значення">
 
-
-            <button type="button"
-                    class="delete-specification">
-                ×
-            </button>
-
+            <button type="button" class="delete-specification">×</button>
         `;
 
-
-        specificationsContainer.appendChild(specification);
-
-        siteind++;
-
-    });
-
-    async function loadSubcategories(categoryId) {
-
-    const subcategorySelect = document.getElementById('subcategory');
-
-    subcategorySelect.innerHTML = '';
-
-    if (!categoryId) {
-        return;
-    }
-
-    try {
-        const response = await fetch(
-            `/Category/GetSubcategories?categoryId=${categoryId}`
-        );
-
-        if (!response.ok) {
-            const errorText = await response.text();
-
-            console.error("HTTP статус:", response.status);
-            console.error("Відповідь сервера:", errorText);
-
-            throw new Error(`HTTP ${response.status}: ${errorText}`);
-        }
-
-        const subcategories = await response.json();
-
-        subcategories.forEach((sub, index) => {
-
-            const option = document.createElement('option');
-
-            option.value = sub.id;
-            option.textContent = sub.nameSubcategory;
-
-            if (index === 0) {
-                option.selected = true;
+        specification.querySelector(".delete-specification").addEventListener("click", function() {
+            specification.remove();
+            if (specificationsContainer.children.length === 0) {
+                specificationsContainer.innerHTML = '<p class="empty-specifications">Характеристик поки немає. Додайте першу.</p>';
             }
-
-            subcategorySelect.appendChild(option);
         });
 
-    } catch (error) {
-        console.error("Помилка:", error);
+        specificationsContainer.appendChild(specification);
+        siteind++;
     }
-}
 
+    if (existingCharacteristics && existingCharacteristics.length > 0) {
+        existingCharacteristics.forEach(tc => {
+            addSpecificationRow(tc.ParamentName || tc.ParameterName || '', tc.ParamentValue || tc.ParameterValue || '');
+        });
+    }
 
-    document.getElementById('category').addEventListener('change', async function() {
-        const categoryId = this.value;
-        loadSubcategories(categoryId) 
+    addSpecificationButton.addEventListener("click", function () {
+        addSpecificationRow();
+    });
+
+    async function loadSubcategories(categoryId, selectedSubcategoryId = null) {
+        const subcategorySelect = document.getElementById('subcategory');
+        subcategorySelect.innerHTML = '<option value="">Оберіть підкатегорію</option>';
+
+        if (!categoryId) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`/Category/GetSubcategories?categoryId=${categoryId}`);
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`HTTP ${response.status}: ${errorText}`);
+            }
+
+            const subcategories = await response.json();
+
+            let optionsHtml = '<option value="">Оберіть підкатегорію</option>';
+            subcategories.forEach(sub => {
+                const isSelected = (selectedSubcategoryId && sub.id == selectedSubcategoryId) ? 'selected' : '';
+                optionsHtml += `<option value="${sub.id}" ${isSelected}>${sub.nameSubcategory}</option>`;
+            });
+            subcategorySelect.innerHTML = optionsHtml;
+
+        } catch (error) {
+            console.error("Помилка:", error);
+        }
+    }
+
+    document.getElementById('category').addEventListener('change', function() {
+        loadSubcategories(this.value);
     });
 
     document.addEventListener('DOMContentLoaded', function () {
+        const categorySelect = document.getElementById('category');
+        const initialSubcategoryId = '@Model.SubcategoryId';
 
-    const categorySelect = document.getElementById('category');
-
-    if (categorySelect.value) {
-        loadSubcategories(categorySelect.value);
-    }
-
-});
-
+        if (categorySelect.value) {
+            loadSubcategories(categorySelect.value, initialSubcategoryId);
+        }
+    });
 </script>
-

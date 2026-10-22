@@ -4,6 +4,7 @@
     {
        
         public string ProductName { get; set; }
+        public int Id { get; set; }
         public int Articul { get; set; }
         public int Price { get; set; }  
 
@@ -18,6 +19,8 @@
         public string SubCategoryName { get; set; }
 
         public IFormFile MainImage { get; set; }
+
+        public string View { get; set; }
 
         public List<TechnicalCharacteristic> TechnicalCharacteristics { get; set; } = new List<TechnicalCharacteristic>();
 
