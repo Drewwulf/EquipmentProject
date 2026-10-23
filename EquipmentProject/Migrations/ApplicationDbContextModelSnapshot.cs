@@ -17,7 +17,7 @@ namespace EquipmentProject.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.10")
+                .HasAnnotation("ProductVersion", "10.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -31,7 +31,6 @@ namespace EquipmentProject.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ImgPath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -48,12 +47,61 @@ namespace EquipmentProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SubcategoryId")
+                    b.Property<int>("SubCategoryID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("EquipmentProject.Models.Contact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Schedule")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SiteSettingsId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isdeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SiteSettingsId");
+
+                    b.ToTable("Contacts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Adress",
+                            Email = "Compane@company.com",
+                            PhoneNumber = "+380123456789",
+                            Schedule = "Schedule",
+                            SiteSettingsId = 1,
+                            isdeleted = false
+                        });
                 });
 
             modelBuilder.Entity("EquipmentProject.Models.Product", b =>
@@ -71,7 +119,6 @@ namespace EquipmentProject.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("FullDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImgPath")
@@ -106,6 +153,65 @@ namespace EquipmentProject.Migrations
                     b.HasIndex("SubcategoryId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("EquipmentProject.Models.SiteSettings", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("HeaderInfo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImgPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImgPathForHeader")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImgPathForLogo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShopDesc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShopName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SocialFacebook")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SocialInstagram")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SocialTelegram")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SubHeaderInfo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SiteSettings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            HeaderInfo = "Header Info",
+                            ShopDesc = "Shop Description",
+                            ShopName = "shop",
+                            SocialFacebook = "",
+                            SocialInstagram = "",
+                            SocialTelegram = "",
+                            SubHeaderInfo = "SubHeader Info"
+                        });
                 });
 
             modelBuilder.Entity("EquipmentProject.Models.Subcategory", b =>
@@ -171,6 +277,79 @@ namespace EquipmentProject.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("TechnicalCharacteristics");
+                });
+
+            modelBuilder.Entity("EquipmentProject.Models.WhyWe", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImgPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SiteSettingsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("header")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("sitesettingId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("subheader")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SiteSettingsId");
+
+                    b.ToTable("WhyWe");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityPasskeyData", b =>
+                {
+                    b.Property<byte[]>("AttestationObject")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("ClientDataJson")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsBackedUp")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsBackupEligible")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsUserVerified")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("PublicKey")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<long>("SignCount")
+                        .HasColumnType("bigint");
+
+                    b.PrimitiveCollection<string>("Transports")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable("IdentityPasskeyData");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -371,6 +550,15 @@ namespace EquipmentProject.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("EquipmentProject.Models.Contact", b =>
+                {
+                    b.HasOne("EquipmentProject.Models.SiteSettings", null)
+                        .WithMany("Contacts")
+                        .HasForeignKey("SiteSettingsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("EquipmentProject.Models.Product", b =>
                 {
                     b.HasOne("EquipmentProject.Models.Subcategory", "Subcategory")
@@ -400,6 +588,13 @@ namespace EquipmentProject.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("EquipmentProject.Models.WhyWe", b =>
+                {
+                    b.HasOne("EquipmentProject.Models.SiteSettings", null)
+                        .WithMany("WhyWes")
+                        .HasForeignKey("SiteSettingsId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -461,6 +656,13 @@ namespace EquipmentProject.Migrations
             modelBuilder.Entity("EquipmentProject.Models.Product", b =>
                 {
                     b.Navigation("TechnicalCharacteristics");
+                });
+
+            modelBuilder.Entity("EquipmentProject.Models.SiteSettings", b =>
+                {
+                    b.Navigation("Contacts");
+
+                    b.Navigation("WhyWes");
                 });
 
             modelBuilder.Entity("EquipmentProject.Models.Subcategory", b =>
