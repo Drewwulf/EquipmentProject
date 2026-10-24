@@ -28,12 +28,12 @@
     <nav class="navbar">
         <div class="navbar-content">
 
-            <div class="brand">
+          <a href="/Home/Index" style="text-decoration:none;"> <div class="brand">
                 <div class="brand-icon">
                     <img src="@siteSettings.ImgPathForLogo" />
                 </div>
                 <span>@siteSettings.ShopName</span>
-            </div>
+            </div></a> 
 
             <div class="search">
                 <i class="bi bi-search"></i>
@@ -112,7 +112,7 @@
                 <h3>НАВІГАЦІЯ</h3>
 
                 <a asp-controller="Home"
-                   asp-action="Index">>Головна</a>
+                   asp-action="Index">Головна</a>
                 <a href="#new">Каталог</a>
                 <a href="#">Про компанію</a>
                 <a href="#">Контакти</a>

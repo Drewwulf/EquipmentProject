@@ -1479,10 +1479,16 @@
     .product-view-image {
         height: 400px;
     }
+    
 }
 
 
 @media (max-width: 500px) {
+    .hero-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 70vh;
+    }
 
     .product-view-breadcrumbs {
         padding: 0 15px;
@@ -1614,6 +1620,8 @@
     .product-view-details {
         grid-template-columns: 1fr;
         gap: 40px;
+        padding:10px;
+        
     }
 }
 
