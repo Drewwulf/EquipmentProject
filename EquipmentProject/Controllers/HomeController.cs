@@ -62,7 +62,7 @@ namespace EquipmentProject.Controllers
         public IActionResult ProductInfo(int id)
         {
             var product = _context.Products
-                .Include(x => x.Subcategory)
+                .Include(x => x.Subcategory).ThenInclude(x=>x.Categories)
                 .Include(x => x.TechnicalCharacteristics)
                 .FirstOrDefault(x => x.Id == id && !x.IsDeleted);
 
@@ -77,10 +77,11 @@ namespace EquipmentProject.Controllers
  
         public async Task<IActionResult> SubcategoryCatalog(int id)
         {
-            var catalog = _context.Subcategories.Where(c => c.CategoriesId==id).ToList();
+            var catalog = _context.Subcategories.Where(c => c.CategoriesId==id).Include(c=>c.Categories).ToList();
             var catalogs = new SubCategoryViewModel
             {
-                Subcategories = catalog
+                Subcategories = catalog,
+                CategoryName = catalog.First().Categories.ProductName
             };
             return View(catalogs);
         }
