@@ -160,7 +160,7 @@
 }
 
     .brand-icon img {
-        width: 70%;
+        width: 100%;
     }
 
 
@@ -173,6 +173,7 @@
     align-items: center;
     background: #f0f3f7;
     padding: 0 13px;
+    margin-top: 15px;
 }
 
     .search i {
@@ -278,13 +279,13 @@
     .navbar-content {
         padding: 15px 20px;
         flex-wrap: wrap;
-        gap: 15px;
+       
     }
 
     .brand {
         width: auto;
     }
-
+    
     .search {
         order: 3;
         width: 100%;

@@ -7,6 +7,7 @@
         public int CategoryId { get; set; }
 
         public int SubcategoryId { get; set; }
+        public string CategoryName { get; set; } 
 
         public string NameSubcategory { get; set; }
 

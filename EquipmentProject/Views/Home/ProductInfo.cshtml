@@ -20,26 +20,23 @@
 
         <span>›</span>
 
-        <a asp-controller="Product"
-           asp-action="Index">
-            Каталог
-        </a>
+       
 
-        <span>›</span>
-
-        <a asp-controller="Product"
-           asp-action="Category"
+        <a asp-controller="Home"
+           asp-action="SubcategoryCatalog"
            asp-route-id="@Model.CategoryId">
-            Категорія
+          @Model.Subcategory.Categories.ProductName
         </a>
 
         @if (Model.Subcategory != null)
         {
             <span>›</span>
-            /*
-            <span>
-                @Model.Subcategory.ProductName
-            </span>*/
+            
+            <a asp-controller="Home"
+            asp-action="ProductCatalog"
+             asp-route-id="@Model.CategoryId"> 
+                @Model.Subcategory.NameSubcategory
+            </a>
         }
 
         <span>›</span>
