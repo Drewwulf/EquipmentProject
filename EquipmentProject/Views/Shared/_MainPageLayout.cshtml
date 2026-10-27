@@ -2,14 +2,18 @@
 <html lang="en">
 @{
     var siteSettings = Context.SiteSettings.Include(site => site.Contacts)
-.OrderByDescending(s => s.Id)
-.First();
-    var product =await Context.Products.ToListAsync();
-    var category =await Context.Categories.ToListAsync();
-    var options = new JsonSerializerOptions
-    {
-        ReferenceHandler = ReferenceHandler.IgnoreCycles
-    };
+        .OrderByDescending(s => s.Id)
+        .First();
+
+    var product = await Context.Products
+        .Where(p => !p.IsDeleted)
+        .Select(p => new { p.Id, p.ProductName, p.ShortDescription, p.ImgPath, p.Price, p.Articul })
+        .ToListAsync();
+
+    var category = await Context.Categories
+        .Where(c => !c.IsDeleted)
+        .Select(c => new { c.Id, c.ProductName, c.ShortDescription, c.ImgPath })
+        .ToListAsync();
 }
 
 
@@ -210,76 +214,96 @@
 
     </footer>
     <script>
-            const categories = @Html.Raw(JsonSerializer.Serialize(category));
-            const products = @Html.Raw(JsonSerializer.Serialize(product));
-            const searchedBox = document.getElementById("searchedBox");
+        const categories = @Html.Raw(JsonSerializer.Serialize(category));
+        const products = @Html.Raw(JsonSerializer.Serialize(product));
 
-            let height = document.getElementById("div1").offsetHeight;
-            let width =  document.getElementById("div1").offsetWidth;
-            searchedBox.style.top = height + 5 +"px";
-            
+        const productUrl = "@Url.Content("~/Home/ProductInfo")";
+        const subcategoryUrl = "@Url.Content("~/Home/SubcategoryCatalog")";
 
-            const searchBar = document.getElementById("searchBar");
+        const searchedBox = document.getElementById("searchedBox");
+        const searchBar = document.getElementById("searchBar");
 
-            
-            searchBar.addEventListener("input", function () {
-                const searchV = this.value.trim().toLowerCase();
+        const height = document.getElementById("div1").offsetHeight;
+        const width = document.getElementById("div1").offsetWidth;
+        searchedBox.style.top = height + 5 + "px";
+        searchedBox.style.width = width + "px";
+        searchedBox.style.transform = "translate(-13px)";
 
-                searchedBox.innerHTML = "";
+        searchBar.addEventListener("input", function () {
+            const searchV = this.value.trim().toLowerCase();
 
-                if (!searchV) {
-                    searchedBox.style.display = "none";
-                    return;
-                }
+            searchedBox.innerHTML = "";
 
-                const foundCategories = categories.filter(element =>
-                    (element.ProductName ?? "").toLowerCase().includes(searchV) ||
-                    (element.ShortDescription ?? "").toLowerCase().includes(searchV)
-                );
+            if (!searchV) {
+                searchedBox.style.display = "none";
+                return;
+            }
 
-                const foundProducts = products.filter(p =>
-                    (p.ProductName ?? "").toLowerCase().includes(searchV)
-                );
+            const foundCategories = categories
+                .filter(c =>
+                    (c.ProductName ?? "").toLowerCase().includes(searchV) ||
+                    (c.ShortDescription ?? "").toLowerCase().includes(searchV)
+                )
+                .map(c => ({ ...c, type: "category" }));
 
-                const found = [...foundCategories, ...foundProducts];
+            const foundProducts = products
+                .filter(p =>
+                    (p.ProductName ?? "").toLowerCase().includes(searchV) ||
+                    String(p.Articul ?? "").toLowerCase().includes(searchV)
+                )
+                .map(p => ({ ...p, type: "product" }));
 
-                console.log(found);
+            const found = [...foundCategories, ...foundProducts];
 
-                if (found.length > 0) {
-                    searchedBox.style.display = "block";
+            searchedBox.style.display = "block";
 
-                    found.forEach(item => {
-                        const specification = document.createElement("a");
-                        searchedBox.style.transform = "translate(-13px)"
-            
-                        specification.innerHTML = `
-                            <div class="searchDivFounded"
-                                 style="height: 30px; width: ${width}px;">
-                                ${item.ProductName ?? ""}
-                            </div>
-                        `;
+            if (found.length === 0) {
+                searchedBox.innerHTML = `
+                    <div class="searchDivNotFounded">Нічого не знайдено</div>
+                `;
+                return;
+            }
 
-                        searchedBox.appendChild(specification);
-                    });
-                } else {
-                    searchedBox.style.display = "block";
+            found.forEach(item => {
+                const link = document.createElement("a");
 
-                    const specification = document.createElement("div");
+                link.href = item.type === "product"
+                    ? `${productUrl}/${item.Id}`
+                    : `${subcategoryUrl}/${item.Id}`;
 
-                    specification.innerHTML = `
-                        <div class="searchDivNotFounded">
-                            Нічого не знайдено
+                const img = item.ImgPath
+                    ? `<img src="${item.ImgPath}" alt="" class="searchItemImg">`
+                    : `<div class="searchItemImg searchItemNoImg"></div>`;
+
+                const shortDesc = item.ShortDescription
+                    ? `<div class="searchItemDesc">${item.ShortDescription}</div>`
+                    : "";
+
+                const articul = item.Articul !== undefined && item.Articul !== null
+                    ? `<div class="searchItemArticul">Артикул: ${item.Articul}</div>`
+                    : "";
+
+                const price = item.Price !== undefined && item.Price !== null
+                    ? `<div class="searchItemPrice">${item.Price} грн</div>`
+                    : "";
+
+                link.innerHTML = `
+                    <div class="searchDivFounded">
+                        ${img}
+                        <div class="searchItemInfo">
+                            <div class="searchItemName">${item.ProductName}</div>
+                            ${shortDesc}
+                            ${articul}
                         </div>
-                    `;
+                        ${price}
+                    </div>
+                `;
 
-                    searchedBox.appendChild(specification);
-                }
+                searchedBox.appendChild(link);
             });
-
-
-            
-
-        </script>
+        });
+    </script>
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
