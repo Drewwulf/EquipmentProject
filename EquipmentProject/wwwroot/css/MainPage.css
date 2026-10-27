@@ -20,7 +20,7 @@
 }
 
 .hero-text {
-    max-width: 580px;=
+    max-width: 580px;
 }
 
 
@@ -1629,3 +1629,166 @@
 .recommended-bg {
     background-color: #f7e7d3; /* Новий м'який бежево-персиковий фон */
 }
+/* Контейнер результатів пошуку */
+.searchDiv {
+    position: absolute;
+    z-index: 1000;
+    display: none;
+    background: #ffffff;
+    border: 1px solid #dfe4ea;
+    border-radius: 3px;
+    box-shadow: 0 8px 24px rgba(6, 27, 58, 0.12);
+    max-height: 380px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    box-sizing: border-box;
+    animation: searchBoxAppear 0.18s ease-out;
+}
+
+/* Один знайдений товар / категорія */
+.searchDivFounded {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 14px;
+    min-height: 72px;
+    padding: 10px 16px;
+    margin-bottom: 3px;
+    background: #ffffff;
+    color: #061b3a;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+    .searchDivFounded:hover {
+        background: #f3f6f9;
+        border-color: #dfe4ea;
+        color: #a6540c;
+    }
+
+    .searchDivFounded:focus-visible {
+        outline: 2px solid #e77713;
+        outline-offset: -2px;
+    }
+
+/* Фото */
+.searchItemImg {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    object-fit: cover;
+    border-radius: 3px;
+    border: 1px solid #dfe4ea;
+    background: #f3f6f9;
+}
+
+.searchItemNoImg {
+    display: block;
+}
+
+/* Текстовий блок */
+.searchItemInfo {
+    flex: 1;
+    min-width: 0; /* потрібно, щоб працював text-overflow у flex */
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.searchItemName {
+    font-size: 14px;
+    font-weight: 600;
+    color: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.searchItemDesc {
+    font-size: 13px;
+    font-weight: 400;
+    color: #6b7280;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.searchItemArticul {
+    font-size: 12px;
+    font-weight: 400;
+    color: #9aa3af;
+}
+
+/* Ціна */
+.searchItemPrice {
+    flex-shrink: 0;
+    margin-left: auto;
+    padding-left: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #e77713;
+    white-space: nowrap;
+}
+
+/* Якщо нічого не знайдено */
+.searchDivNotFounded {
+    padding: 20px 15px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f3f6f9;
+    color: #6b7280;
+    border: 1px solid #dfe4ea;
+    border-radius: 3px;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+/* Анімація появи */
+@keyframes searchBoxAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Смужка прокручування для Chrome та Edge */
+.searchDiv::-webkit-scrollbar {
+    width: 5px;
+}
+
+.searchDiv::-webkit-scrollbar-thumb {
+    background: #cbd3df;
+    border-radius: 5px;
+}
+
+    .searchDiv::-webkit-scrollbar-thumb:hover {
+        background: #e77713;
+    }
+
+/* Смужка прокручування для Firefox */
+.searchDiv {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd3df #ffffff;
+}
+    .searchDiv a {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+    }
