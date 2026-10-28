@@ -30,6 +30,9 @@ namespace EquipmentProject.Controllers
                     SocialFacebook = "",
                     SocialInstagram = "",
                     SocialTelegram = "",
+                    SocialYouTube = "",
+                    SocialTikTok = "",
+                    SocialWhatsApp = "",
                     Contacts = new List<Contact>(),
                     WhyWes = new List<WhyWe>()
                 };
@@ -53,6 +56,9 @@ namespace EquipmentProject.Controllers
                 SocialFacebook = siteSettings.SocialFacebook,
                 SocialInstagram = siteSettings.SocialInstagram,
                 SocialTelegram = siteSettings.SocialTelegram,
+                SocialTikTok = siteSettings.SocialTikTok,
+                SocialWhatsApp = siteSettings.SocialWhatsApp,
+                SocialYouTube = siteSettings.SocialYouTube,
                 ImgForHeader = siteSettings.ImgPathForHeader,
                 ImgForLogo = siteSettings.ImgPathForLogo,
                 Contacts = siteSettings.Contacts,
@@ -81,6 +87,10 @@ namespace EquipmentProject.Controllers
             siteconf.ShopDesc = siteSettings.ShopDesc;
             siteconf.HeaderInfo = siteSettings.HeaderInfo;
             siteconf.SubHeaderInfo = siteSettings.SubHeaderInfo;
+
+            siteconf.SocialTikTok = siteSettings.SocialTikTok;
+            siteconf.SocialWhatsApp = siteSettings.SocialWhatsApp;
+            siteconf.SocialYouTube = siteSettings.SocialYouTube;
 
             siteconf.SocialFacebook = siteSettings.SocialFacebook;
             siteconf.SocialInstagram = siteSettings.SocialInstagram;
