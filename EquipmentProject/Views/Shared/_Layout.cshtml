@@ -50,15 +50,12 @@
                     <img src="/lib/restore_from_trash_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png" />
                     <span>Видалені дані</span>
                 </a>
-                <form class="form-inline sidebar-link" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                    <button type="submit" class="sidebar-link btn btn-link text-dark">Вийти</button>
-                </form>
             </nav> <!-- Bottom --> 
-            <div class="sidebar-bottom"> 
-                <a href="/" class="sidebar-link"> 
-                    <img src="/lib/open_in_new_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png" /><span>Переглянути сайт</span>
-                </a> 
+            <form class="sidebar-link" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+            <div class="sidebar-bottom>
+                    <button type="submit" class="sidebar-link btn btn-link text-dark">Вийти</button>
             </div>
+            </form>
         </aside>
     </header>
     <div>
