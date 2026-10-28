@@ -2,9 +2,21 @@
 <html lang="en">
 @{
     var siteSettings = Context.SiteSettings.Include(site => site.Contacts)
-.OrderByDescending(s => s.Id)
-.First();
+        .OrderByDescending(s => s.Id)
+        .First();
+
+    var product = await Context.Products
+        .Where(p => !p.IsDeleted)
+        .Select(p => new { p.Id, p.ProductName, p.ShortDescription, p.ImgPath, p.Price, p.Articul })
+        .ToListAsync();
+
+    var category = await Context.Categories
+        .Where(c => !c.IsDeleted)
+        .Select(c => new { c.Id, c.ProductName, c.ShortDescription, c.ImgPath })
+        .ToListAsync();
 }
+
+
 
 <head>
     <meta charset="utf-8" />
@@ -19,8 +31,10 @@
     <link rel="stylesheet" href="~/css/MainPage.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/EquipmentProject.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=settings" />
-        @using Microsoft.EntityFrameworkCore
-    @using EquipmentProject.Data
+        @using System.Text.Json
+@using System.Text.Json.Serialization
+@using EquipmentProject.Data
+@using Microsoft.EntityFrameworkCore
     @inject ApplicationDbContext Context
 
 </head>
@@ -35,9 +49,10 @@
                 <span>@siteSettings.ShopName</span>
             </div></a> 
 
-            <div class="search">
+            <div class="search" id="div1" style="position:relative">
                 <i class="bi bi-search"></i>
-                <input type="text" placeholder="Пошук обладнання...">
+                <input id="searchBar" type="text" placeholder="Пошук обладнання..."> <!-- -->
+                <div class = "searchDiv" id="searchedBox" ></div>
             </div>
 
             <div class="links">
@@ -195,7 +210,100 @@
             </span>
         </div>
 
+        
+
     </footer>
+    <script>
+        const categories = @Html.Raw(JsonSerializer.Serialize(category));
+        const products = @Html.Raw(JsonSerializer.Serialize(product));
+
+        const productUrl = "@Url.Content("~/Home/ProductInfo")";
+        const subcategoryUrl = "@Url.Content("~/Home/SubcategoryCatalog")";
+
+        const searchedBox = document.getElementById("searchedBox");
+        const searchBar = document.getElementById("searchBar");
+
+        const height = document.getElementById("div1").offsetHeight;
+        const width = document.getElementById("div1").offsetWidth;
+        searchedBox.style.top = height + 5 + "px";
+        searchedBox.style.width = width + "px";
+        searchedBox.style.transform = "translate(-13px)";
+
+        searchBar.addEventListener("input", function () {
+            const searchV = this.value.trim().toLowerCase();
+
+            searchedBox.innerHTML = "";
+
+            if (!searchV) {
+                searchedBox.style.display = "none";
+                return;
+            }
+
+            const foundCategories = categories
+                .filter(c =>
+                    (c.ProductName ?? "").toLowerCase().includes(searchV) ||
+                    (c.ShortDescription ?? "").toLowerCase().includes(searchV)
+                )
+                .map(c => ({ ...c, type: "category" }));
+
+            const foundProducts = products
+                .filter(p =>
+                    (p.ProductName ?? "").toLowerCase().includes(searchV) ||
+                    String(p.Articul ?? "").toLowerCase().includes(searchV)
+                )
+                .map(p => ({ ...p, type: "product" }));
+
+            const found = [...foundCategories, ...foundProducts];
+
+            searchedBox.style.display = "block";
+
+            if (found.length === 0) {
+                searchedBox.innerHTML = `
+                    <div class="searchDivNotFounded">Нічого не знайдено</div>
+                `;
+                return;
+            }
+
+            found.forEach(item => {
+                const link = document.createElement("a");
+
+                link.href = item.type === "product"
+                    ? `${productUrl}/${item.Id}`
+                    : `${subcategoryUrl}/${item.Id}`;
+
+                const img = item.ImgPath
+                    ? `<img src="${item.ImgPath}" alt="" class="searchItemImg">`
+                    : `<div class="searchItemImg searchItemNoImg"></div>`;
+
+                const shortDesc = item.ShortDescription
+                    ? `<div class="searchItemDesc">${item.ShortDescription}</div>`
+                    : "";
+
+                const articul = item.Articul !== undefined && item.Articul !== null
+                    ? `<div class="searchItemArticul">Артикул: ${item.Articul}</div>`
+                    : "";
+
+                const price = item.Price !== undefined && item.Price !== null
+                    ? `<div class="searchItemPrice">${item.Price} грн</div>`
+                    : "";
+
+                link.innerHTML = `
+                    <div class="searchDivFounded">
+                        ${img}
+                        <div class="searchItemInfo">
+                            <div class="searchItemName">${item.ProductName}</div>
+                            ${shortDesc}
+                            ${articul}
+                        </div>
+                        ${price}
+                    </div>
+                `;
+
+                searchedBox.appendChild(link);
+            });
+        });
+    </script>
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
