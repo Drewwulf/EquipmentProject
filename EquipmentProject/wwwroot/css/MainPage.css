@@ -459,19 +459,18 @@
 /* Іконка */
 
 .why-us-icon {
-    width: 48px;
-    height: 48px;
+    width: 100%;
     background-color: #e77713;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 24px;
+    border-radius: 15px;
 }
 
     /* Фото / логотип всередині помаранчевої рамки */
     .why-us-icon img {
-        max-width: 70%;
-        max-height: 70%;
+        max-width: 85%;
         width: auto;
         height: auto;
         object-fit: contain;
