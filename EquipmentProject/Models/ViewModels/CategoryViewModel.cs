@@ -9,7 +9,7 @@
         public string? ImgPath { get; set; }
         public IFormFile MainImage { get; set; }
         public int Order { get; set; }
-        public int Id { get; internal set; }
+        public int Id { get; set; }
         public string View { get; set; }
 
         public List<Category> Categories { get; set; } = new List<Category>();
