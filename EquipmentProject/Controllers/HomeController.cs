@@ -77,7 +77,7 @@ namespace EquipmentProject.Controllers
  
         public async Task<IActionResult> SubcategoryCatalog(int id)
         {
-            var catalog = _context.Subcategories.Where(c => c.CategoriesId==id).Include(c=>c.Categories).ToList();
+            var catalog = _context.Subcategories.Where(c => c.CategoriesId==id ).Include(c=>c.Categories).ToList();
             var catalogs = new SubCategoryViewModel
             {
                 Subcategories = catalog,
@@ -99,6 +99,7 @@ namespace EquipmentProject.Controllers
         public async Task<IActionResult> AllCategories()
         {
             var categories = await _context.Categories
+                .Where(c => c.IsDeleted != true)
                 .OrderBy(c => c.ProductName)
                 .ToListAsync();
 
