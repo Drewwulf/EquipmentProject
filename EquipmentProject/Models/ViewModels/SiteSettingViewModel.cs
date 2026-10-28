@@ -10,6 +10,9 @@
         public string SocialFacebook { get; set; }
         public string SocialInstagram { get; set; }
         public string SocialTelegram { get; set; }
+        public string SocialTikTok { get; set; }
+        public string SocialYouTube { get; set; }
+        public string SocialWhatsApp { get; set; }
         public string ImgForLogo { get; set; }
         public IFormFile MainImageForLogo { get; set; }
         public string ImgForHeader { get; set; }
