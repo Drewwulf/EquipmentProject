@@ -82,7 +82,7 @@
 }
 .new-products-section {
     width: 100%;
-    background: #FFF3C4;
+    background: #ff9007;
     padding: 90px 20px 100px;
 }
 
@@ -663,7 +663,7 @@
     align-items: center;
     gap: 8px;
     text-decoration: none;
-    color: #e77713;
+    color: #061b3a;
     font-size: 14px;
     transition: gap 0.25s ease, color 0.25s ease;
 }
@@ -1162,10 +1162,12 @@
 .product-view-page {
     width: 100%;
     min-height: 100vh;
-    background: #FFF4C7;
+    background: #f1c44e;
     color: #171717;
     font-family: Arial, sans-serif;
     box-sizing: border-box;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
 }
 
 .product-view-page *,
@@ -1313,9 +1315,9 @@
 
 .product-view-separator {
     width: 100%;
-    height: 1px;
-    background: #171717;
-    opacity: 0.18;
+    height: 3px;
+    background: #e77713;
+    opacity: 0.5;
     margin: 18px 0;
 }
 
@@ -1381,13 +1383,13 @@
 ===================================================== */
 
 .product-view-button-main {
-    background: #F6C94C;
+    background: #e77713;
     color: #171717;
     border: 1px solid #171717;
 }
 
     .product-view-button-main:hover {
-        background: #171717;
+        background: #a6540c;
         color: #F6C94C;
     }
 
@@ -1552,7 +1554,7 @@
         left: 0;
         width: 90px;
         height: 3px;
-        background: #F6C94C;
+        background: #e77713;
     }
 
 /*==================================
@@ -1630,7 +1632,7 @@
 
 /* Перевизначає колір фону саме для секції рекомендованих товарів */
 .recommended-bg {
-    background-color: #f7e7d3; /* Новий м'який бежево-персиковий фон */
+    background-color: #f1c44e; /* Новий м'який бежево-персиковий фон */
 }
 /* Контейнер результатів пошуку */
 .searchDiv {
