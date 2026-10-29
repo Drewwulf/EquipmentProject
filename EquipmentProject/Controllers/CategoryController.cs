@@ -71,9 +71,9 @@ namespace MyMvcApp.Controllers
             var ImgPaths = "/uploads/subcategories/" + fileName;
 
 
-            if (model.ImgPath != null)
+            if (model.MainImage != null)
             {
-                imagePath = await SaveImage(model.ImgPath);
+                imagePath = await SaveImage(model.MainImage);
             }
 
             var category = new Category
@@ -91,10 +91,7 @@ namespace MyMvcApp.Controllers
             return RedirectToAction("Index");
         }
 
-        private async Task<string?> SaveImage(string imgPath)
-        {
-            throw new NotImplementedException();
-        }
+
 
 
         // GET: редагування
@@ -157,12 +154,12 @@ namespace MyMvcApp.Controllers
             category.ShortDescription = model.ShortDescription;
             category.Order = model.Order;
 
-            // Якщо користувач завантажив нову картинку
-            if (model.ImgPath != null)
+    
+            if (model.MainImage != null)
             {
                 DeleteImage(category.ImgPath);
 
-                category.ImgPath = await SaveImage(model.ImgPath);
+                category.ImgPath = await SaveImage(model.MainImage);
             }
 
             _context.Categories.Update(category);
