@@ -103,11 +103,25 @@ namespace EquipmentProject.Controllers
             );
 
             // Фото заголовка
-            siteconf.ImgPathForHeader = await SaveImageAsync(
-                siteSettings.MainImageForHeader,
+            /*siteconf.ImgPathForHeader = await SaveImageAsync(
+                siteSettings.Images,
                 siteconf.ImgPathForHeader,
                 "header"
-            );
+            );*/
+            foreach (var image in siteSettings.Images)
+            {
+                var imagePath = await SaveImageAsync(
+                    image,
+                   null,
+                    "header"
+                );
+                var imageI = new Images()
+                {
+                    ImgPath = imagePath
+                };
+
+                siteconf.Images.Add(imageI);
+            }
 
             siteconf.Contacts = siteSettings.Contacts;
 

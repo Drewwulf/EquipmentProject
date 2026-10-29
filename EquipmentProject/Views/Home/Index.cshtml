@@ -62,9 +62,18 @@
         </div>
 
         <!-- Права частина -->
-        <div class="hero-image">
-            <img src="@Model.ImgForHeader"
-                 alt="Промислове обладнання">
+        <div class="image-slider">
+            <div class="slider-images">
+                @foreach (var image in Model.Images)
+                {
+                    <img src="@image" class="slide" alt="Зображення банера">
+                }
+            </div>
+
+            <button class="slider-btn prev" type="button">&#10094;</button>
+            <button class="slider-btn next" type="button">&#10095;</button>
+
+            <div class="slider-dots"></div>
         </div>
 
     </div>
@@ -301,3 +310,75 @@
             </div>
 
         </section>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const slider = document.querySelector(".image-slider");
+
+                if (!slider) return;
+
+                const track = slider.querySelector(".slider-images");
+                const slides = slider.querySelectorAll(".slide");
+                const prevBtn = slider.querySelector(".prev");
+                const nextBtn = slider.querySelector(".next");
+                const dotsContainer = slider.querySelector(".slider-dots");
+
+                if (slides.length === 0) return;
+
+                let currentIndex = 0;
+                let timer;
+
+                slides.forEach((_, index) => {
+                    const dot = document.createElement("button");
+
+                    dot.type = "button";
+                    dot.className = "slider-dot";
+                    dot.setAttribute("aria-label", `Зображення ${index + 1}`);
+
+                    dot.addEventListener("click", () => {
+                        showSlide(index);
+                        restartTimer();
+                    });
+
+                    dotsContainer.appendChild(dot);
+                });
+
+                const dots = dotsContainer.querySelectorAll(".slider-dot");
+
+                function showSlide(index) {
+                    currentIndex = (index + slides.length) % slides.length;
+
+                    track.style.transform =
+                        `translateX(-${currentIndex * 100}%)`;
+
+                    dots.forEach((dot, i) => {
+                        dot.classList.toggle("active", i === currentIndex);
+                    });
+                }
+
+                function nextSlide() {
+                    showSlide(currentIndex + 1);
+                }
+
+                function prevSlide() {
+                    showSlide(currentIndex - 1);
+                }
+
+                function restartTimer() {
+                    clearInterval(timer);
+                    timer = setInterval(nextSlide, 4000);
+                }
+
+                nextBtn.addEventListener("click", () => {
+                    nextSlide();
+                    restartTimer();
+                });
+
+                prevBtn.addEventListener("click", () => {
+                    prevSlide();
+                    restartTimer();
+                });
+
+                showSlide(0);
+                restartTimer();
+            });
+        </script>
