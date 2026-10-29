@@ -51,9 +51,10 @@
                     <span>Видалені дані</span>
                 </a>
             </nav> <!-- Bottom --> 
-            <form class="sidebar-link" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-            <div class="sidebar-bottom>
-                    <button type="submit" class="sidebar-link btn btn-link text-dark">Вийти</button>
+            <form class="sidebar-link-form" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+            <div class="sidebar-bottom">
+                
+                    <button type="submit" class="sidebar-link btn btn-link text-dark"><img src="/lib/logout_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.png" class="img"/>Вийти</button>
             </div>
             </form>
         </aside>
