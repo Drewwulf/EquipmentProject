@@ -19,7 +19,7 @@ namespace EquipmentProject.Controllers
         }
         public IActionResult Index()
         {
-            var category = _context.SiteSettings.OrderByDescending(s => s.Id).Include(site=>site.WhyWes).First();
+            var category = _context.SiteSettings.OrderByDescending(s => s.Id).Include(site=>site.WhyWes).Include(site => site.Images).First();
             var news = _context.Products.Where(p => p.IsDeleted == false).ToList();
             var famous = _context.Categories.Where(s => s.IsDeleted==false).Take(6).ToList();
 
@@ -36,7 +36,7 @@ namespace EquipmentProject.Controllers
                 SocialInstagram = category.SocialInstagram,
                 SocialTelegram = category.SocialTelegram,
                 ImgForHeader = category.ImgPathForHeader,
-                Images = category.Images,
+                Images = category.Images.Where(i => !i.IsDeleted).ToList(),
                 ImgForLogo = category.ImgPathForLogo,
                 WhyWes = category.WhyWes,
                 Categories = famous
