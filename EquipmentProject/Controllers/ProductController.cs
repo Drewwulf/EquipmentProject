@@ -193,6 +193,16 @@ namespace EquipmentProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            var product = _context.Products.Where(p => p.Id == id).FirstOrDefault();
+            product.IsDeleted = true;
+            _context.SaveChanges();
+            return RedirectToAction("AddProduct");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(ProductViewModel Model)
         {
             var product = await _context.Products
