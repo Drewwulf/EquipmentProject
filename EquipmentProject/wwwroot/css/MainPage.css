@@ -1801,7 +1801,7 @@
 .image-slider {
     position: relative;
     width: 100%;
-    height: 450px;
+    height: 900px;
     overflow: hidden;
 }
 
@@ -1813,7 +1813,7 @@
 }
 
 .slide {
-    min-width: 100%;
+    width: 100%;
     height: 100%;
     object-fit: cover;
     flex-shrink: 0;
