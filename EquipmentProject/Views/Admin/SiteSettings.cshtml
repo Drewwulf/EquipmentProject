@@ -278,21 +278,13 @@
     const contacts = @Html.Raw(Json.Serialize(Model.Contacts));
     const wws = @Html.Raw(Json.Serialize(Model.WhyWes));
 
-
     let siteind = contacts.length;
     let siteindfwws = wws.length;
 
-
-
-    const addSpecificationButton =
-        document.getElementById("addSpecification");
-
-    const specificationsContainer =
-        document.getElementById("specificationsContainer");
-
+    const addSpecificationButton = document.getElementById("addSpecification");
+    const specificationsContainer = document.getElementById("specificationsContainer");
 
     for (let i = 0; i < contacts.length; i++) {
-
         const contact = contacts[i];
 
         if (contact.isdeleted === true) {
@@ -300,214 +292,101 @@
         }
 
         const specification = document.createElement("div");
-
         specification.className = "specification-row";
 
         specification.innerHTML = `
             <section class="product-section">
-
                 <h3>Контактна інформація</h3>
-
                 <div class="product-field">
                     <label>Адреса</label>
-
-                    <input
-                        type="text"
-                        name="Contacts[${i}].Address"
-                        value="${contact.address ?? ''}"
-                        required />
+                    <input type="text" name="Contacts[${i}].Address" value="${contact.address ?? ''}" required />
                 </div>
-
-
                 <div class="product-field">
                     <label>Номер телефону</label>
-
-                    <input
-                        type="text"
-                        name="Contacts[${i}].PhoneNumber"
-                        value="${contact.phoneNumber ?? ''}"
-                        required />
+                    <input type="text" name="Contacts[${i}].PhoneNumber" value="${contact.phoneNumber ?? ''}" required />
                 </div>
-
-
                 <div class="product-field">
                     <label>Email</label>
-
-                    <input
-                        type="text"
-                        name="Contacts[${i}].Email"
-                        value="${contact.email ?? ''}"
-                        required />
+                    <input type="text" name="Contacts[${i}].Email" value="${contact.email ?? ''}" required />
                 </div>
-
-
                 <div class="product-field">
                     <label>Графік роботи</label>
-
-                    <textarea
-                        name="Contacts[${i}].Schedule"
-                        class="full-description"
-                        required>${contact.schedule ?? ''}</textarea>
+                    <textarea name="Contacts[${i}].Schedule" class="full-description" required>${contact.schedule ?? ''}</textarea>
                 </div>
-
-
-                <a
-                    href="/Admin/DeleteContacts/${contact.id}"
-                    class="delete-specification">
-                    ×
-                </a>
-
+                <a href="/Admin/DeleteContacts/${contact.id}" class="delete-specification">×</a>
             </section>
         `;
 
         specificationsContainer.appendChild(specification);
     }
 
-
     addSpecificationButton.addEventListener("click", function () {
-
         const specification = document.createElement("div");
-
         specification.className = "specification-row";
 
         specification.innerHTML = `
             <section class="product-section">
-
                 <h3>Контактна інформація</h3>
-
                 <div class="product-field">
                     <label>Адреса</label>
-
-                    <input
-                        type="text"
-                        name="Contacts[${siteind}].Address"
-                        required />
+                    <input type="text" name="Contacts[${siteind}].Address" required />
                 </div>
-
-
                 <div class="product-field">
                     <label>Номер телефону</label>
-
-                    <input
-                        type="text"
-                        name="Contacts[${siteind}].PhoneNumber"
-                        required />
+                    <input type="text" name="Contacts[${siteind}].PhoneNumber" required />
                 </div>
-
-
                 <div class="product-field">
                     <label>Email</label>
-
-                    <input
-                        type="text"
-                        name="Contacts[${siteind}].Email"
-                        required />
+                    <input type="text" name="Contacts[${siteind}].Email" required />
                 </div>
-
-
                 <div class="product-field">
                     <label>Графік роботи</label>
-
-                    <textarea
-                        name="Contacts[${siteind}].Schedule"
-                        class="full-description"
-                        required></textarea>
+                    <textarea name="Contacts[${siteind}].Schedule" class="full-description" required></textarea>
                 </div>
-
+                <a href="#" class="delete-specification delete-dynamic-row">×</a>
             </section>
         `;
 
         specificationsContainer.appendChild(specification);
-
         siteind++;
     });
 
-
-
-    const addSpecificationButtonForWWS =
-        document.getElementById("addSpecificationForWWS");
-
-    const specificationsContainerForWWS =
-        document.getElementById("specificationsContainerForWWS");
-
+    const addSpecificationButtonForWWS = document.getElementById("addSpecificationForWWS");
+    const specificationsContainerForWWS = document.getElementById("specificationsContainerForWWS");
 
     for (let i = 0; i < wws.length; i++) {
-
         const whyWe = wws[i];
         if (whyWe.isDeleted === true) {
             continue;
         }
 
         const specification = document.createElement("div");
-
         specification.className = "specification-row";
 
-
         let imageHtml = "";
-
         if (whyWe.imgPath) {
-
             imageHtml = `
-                <img
-                    src="${whyWe.imgPath}"
-                    style="
-                        max-width: 200px;
-                        max-height: 150px;
-                        object-fit: contain;
-                        display: block;
-                        margin-bottom: 10px;
-                    "
-                />
+                <img src="${whyWe.imgPath}" style="max-width: 200px; max-height: 150px; object-fit: contain; display: block; margin-bottom: 10px;" />
             `;
         }
 
-
         specification.innerHTML = `
             <section class="product-section">
-
                 <h3>Why We</h3>
-
-
                 <div class="product-field">
                     <label>Заголовок</label>
-
-                    <input
-                        type="text"
-                        name="WhyWes[${i}].header"
-                        value="${whyWe.header ?? ''}"
-                        required />
+                    <input type="text" name="WhyWes[${i}].header" value="${whyWe.header ?? ''}" required />
                 </div>
-
-
                 <div class="product-field">
                     <label>Опис</label>
-
-                    <textarea
-                        name="WhyWes[${i}].subheader"
-                        class="full-description"
-                        required>${whyWe.subheader ?? ''}</textarea>
+                    <textarea name="WhyWes[${i}].subheader" class="full-description" required>${whyWe.subheader ?? ''}</textarea>
                 </div>
-
-
                 <div class="product-field">
-
                     <label>Зображення</label>
-
                     ${imageHtml}
-
-                    <input
-                        type="file"
-                        name="WhyWes[${i}].MainImage"
-                        accept="image/*" />
-
+                    <input type="file" name="WhyWes[${i}].MainImage" accept="image/*" />
                 </div>
-
-                <a
-                    href="/Admin/DeleteWW/${whyWe.id}"
-                    class="delete-specification">
-                    ×
-                </a>
-
+                <a href="/Admin/DeleteWW/${whyWe.id}" class="delete-specification">×</a>
             </section>
         `;
 
@@ -515,57 +394,39 @@
     }
 
     addSpecificationButtonForWWS.addEventListener("click", function () {
-
         const specification = document.createElement("div");
-
         specification.className = "specification-row";
-
 
         specification.innerHTML = `
             <section class="product-section">
-
                 <h3>Why We</h3>
-
-
                 <div class="product-field">
                     <label>Заголовок</label>
-
-                    <input
-                        type="text"
-                        name="WhyWes[${siteindfwws}].header"
-                        required />
+                    <input type="text" name="WhyWes[${siteindfwws}].header" required />
                 </div>
-
-
                 <div class="product-field">
                     <label>Опис</label>
-
-                    <textarea
-                        name="WhyWes[${siteindfwws}].subheader"
-                        class="full-description"
-                        required></textarea>
+                    <textarea name="WhyWes[${siteindfwws}].subheader" class="full-description" required></textarea>
                 </div>
-
-
                 <div class="product-field">
-
                     <label>Зображення</label>
-
-                    <input
-                        type="file"
-                        name="WhyWes[${siteindfwws}].MainImage"
-                        accept="image/*"
-                        required />
-
+                    <input type="file" name="WhyWes[${siteindfwws}].MainImage" accept="image/*" required />
                 </div>
-
+                <a href="#" class="delete-specification delete-dynamic-row">×</a>
             </section>
         `;
 
-
         specificationsContainerForWWS.appendChild(specification);
-
         siteindfwws++;
     });
 
+    document.addEventListener("click", function (e) {
+        if (e.target.classList.contains("delete-dynamic-row")) {
+            e.preventDefault();
+            const row = e.target.closest(".specification-row");
+            if (row) {
+                row.remove();
+            }
+        }
+    });
 </script>
