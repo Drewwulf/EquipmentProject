@@ -100,6 +100,17 @@
         </div>
 
 
+  <!-- Гарелея фото-->
+                     <div>
+                         @{
+                            foreach (var imgs in Model.Images)
+                            {
+                                <img src="@imgs.ImgPath"
+                                alt="@Model.ProductName">
+                            }
+                        }
+                     </div>
+
         <!-- ІНФОРМАЦІЯ -->
 
         <div class="product-view-info">

@@ -65,6 +65,7 @@ namespace EquipmentProject.Controllers
             var product = _context.Products
                 .Include(x => x.Subcategory).ThenInclude(x=>x.Categories)
                 .Include(x => x.TechnicalCharacteristics)
+                .Include(x => x.Images)
                 .FirstOrDefault(x => x.Id == id && !x.IsDeleted);
 
             if (product == null)
