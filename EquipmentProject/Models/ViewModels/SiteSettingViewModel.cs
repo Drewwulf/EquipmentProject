@@ -18,6 +18,8 @@
         public string ImgForHeader { get; set; }
         public IFormFile MainImageForHeader { get; set; }
 
+        public List<IFormFile> ImagesIFormFile { get; set; } = new();
+        public List<Images> Images { get; set; } = new();
         public List<Contact> Contacts { get; set; } = new List<Contact>();
         public List<Product> Products { get; set; } = new List<Product>();
         public List<WhyWe> WhyWes { get; set; } = new List<WhyWe>();

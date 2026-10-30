@@ -104,8 +104,24 @@
                 }
 
                 <input type="file"
-                       asp-for="MainImageForHeader"
-                       accept="image/*" />
+                       asp-for="ImagesIFormFile"
+                       accept="image/*"
+                       />
+            </div>
+
+            <div class="images-container">
+                    <label class="images-title">Фото на сторінці</label>
+
+                    <div class="images-gallery">
+                        @foreach (var image in Model.Images)
+                        {
+                            <div class="image-card">
+                            <a asp-controller="Admin" asp-action="DeleteImage" method="post" asp-route-id="@image.Id" type="button" class="image-delete-btn">×</a>
+
+                                <img src="@image.ImgPath" alt="Зображення банера">
+                            </div>
+                        }
+                    </div>
             </div>
         </section>
 
