@@ -18,6 +18,9 @@
         public string ImgPath { get; set; }
         public string SubCategoryName { get; set; }
 
+        public IFormFileCollection GalleryImages { get; set; }
+        public List<Images> Images { get; set; } = new();
+
         public IFormFile MainImage { get; set; }
 
         public string View { get; set; }

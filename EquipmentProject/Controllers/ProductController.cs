@@ -1,22 +1,30 @@
-﻿using EquipmentProject.Data;
+﻿using AspNetCoreGeneratedDocument;
+using EquipmentProject.Data;
 using EquipmentProject.Models;
 using EquipmentProject.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol.Resources;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace EquipmentProject.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class ProductController : Controller
     {
-        
-        private ApplicationDbContext _context;
-        public ProductController(ApplicationDbContext context)
+
+        private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _environment;
+
+        public ProductController(
+            ApplicationDbContext context,
+            IWebHostEnvironment environment)
         {
             _context = context;
+            _environment = environment;
         }
+
         public IActionResult Index()
         {
             return View();
@@ -85,27 +93,7 @@ namespace EquipmentProject.Controllers
         [HttpPost]
         public async Task<IActionResult> StartProduct(ProductViewModel Model)
         {
-            var uploadsFolder = Path.Combine(
-                    Directory.GetCurrentDirectory(),
-                    "wwwroot",
-                    "uploads",
-                    "product"
-                );
-
-            Directory.CreateDirectory(uploadsFolder);
-
-            var fileName = Guid.NewGuid().ToString() + 
-                           Path.GetExtension(Model.MainImage.FileName);
-
-            var filePath = Path.Combine(uploadsFolder, fileName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await Model.MainImage.CopyToAsync(stream);
-            }
-
-            var ImgPaths = "/uploads/product/" + fileName;
-
+            var ImgPaths = await SaveImageAsync(Model.MainImage, null, "products");
 
             var product = new Product
             {
@@ -122,10 +110,35 @@ namespace EquipmentProject.Controllers
                 TechnicalCharacteristics = Model.TechnicalCharacteristics
             };
 
-            _context.Add(product);
-            _context.SaveChanges();
-            return RedirectToAction("AddProduct");
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync();
 
+            if (Model.GalleryImages != null)
+            {
+                foreach (var img in Model.GalleryImages)
+                {
+                    if (img == null || img.Length == 0)
+                        continue;
+
+                    var imagePath = await SaveImageAsync(
+                        img,
+                        null,
+                        "products"
+                    );
+
+                    var imageI = new Images()
+                    {
+                        ImgPath = imagePath,
+                        ProductId = product.Id
+                    };
+
+                    _context.Images.Add(imageI);
+                }
+
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("AddProduct");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -151,6 +164,7 @@ namespace EquipmentProject.Controllers
         {
             var product = await _context.Products
                 .Include(p => p.TechnicalCharacteristics)
+                .Include(p => p.Images)
                 .FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
 
             if (product == null)
@@ -180,6 +194,7 @@ namespace EquipmentProject.Controllers
                 IsRecomended = product.IsRecomended,
                 IsDeleted = product.IsDeleted,
                 ImgPath = product.ImgPath,
+                Images = product.Images.Where(p => !p.IsDeleted).ToList(),
                 Categories = categories,
                 Products = products,
                 TechnicalCharacteristics = product.TechnicalCharacteristics
@@ -198,7 +213,7 @@ namespace EquipmentProject.Controllers
             var product = _context.Products.Where(p => p.Id == id).FirstOrDefault();
             product.IsDeleted = true;
             _context.SaveChanges();
-            return RedirectToAction("AddProduct");
+            return RedirectToAction("Edit", new { id = product.Id });
         }
 
         [HttpPost]
@@ -268,10 +283,93 @@ namespace EquipmentProject.Controllers
                 }
             }
 
+            if (Model.GalleryImages != null)
+            {
+                foreach (var img in Model.GalleryImages)
+                {
+                    if (img == null || img.Length == 0)
+                        continue;
+
+                    var imagePath = await SaveImageAsync(
+                        img,
+                        null,
+                        "products"
+                    );
+
+                    var imageI = new Images()
+                    {
+                        ImgPath = imagePath,
+                        ProductId = product.Id
+                    };
+
+                    _context.Images.Add(imageI);
+                }
+
+                await _context.SaveChangesAsync();
+            }
+
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Edit", new { id = product.Id });
         }
 
+        private async Task<string?> SaveImageAsync(
+            IFormFile? file,
+            string? oldPath,
+            string folder)
+        {
+            if (file == null || file.Length == 0)
+                return oldPath;
+
+            var uploadsFolder = Path.Combine(
+                Directory.GetCurrentDirectory(),
+                "wwwroot",
+                "uploads",
+                folder
+            );
+
+            Directory.CreateDirectory(uploadsFolder);
+
+            var fileName = Guid.NewGuid().ToString()
+                + Path.GetExtension(file.FileName);
+
+            var filePath = Path.Combine(uploadsFolder, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            return $"/uploads/{folder}/{fileName}";
+        }
+
+        public IActionResult DeleteImage(int id)
+        {
+            var image = _context.Images.Where(i => i.Id == id).FirstOrDefault();
+            image.IsDeleted = true;
+            _context.SaveChanges();
+            DeleteImage(image.ImgPath);
+            return RedirectToAction("AddProduct");
+        }
+
+        private void DeleteImage(string? imagePath)
+        {
+            if (string.IsNullOrEmpty(imagePath))
+                return;
+
+            string fileName = Path.GetFileName(imagePath);
+
+            string filePath = Path.Combine(
+                _environment.WebRootPath,
+                "uploads",
+                "header",
+                fileName
+            );
+
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
+        }
     }
 }
