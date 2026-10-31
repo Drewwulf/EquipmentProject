@@ -82,7 +82,7 @@
 }
 .new-products-section {
     width: 100%;
-    background: #ff9007;
+    background: #FF9F43;
     padding: 90px 20px 100px;
     margin-top: 3vh;
     margin-bottom: 3vh;
@@ -1232,13 +1232,14 @@
 }
 
 
+
 /* =====================================================
    IMAGE
 ===================================================== */
 
 .product-view-image {
     width: 645px;
-    height: 483px;
+
     background: #F6C94C;
     overflow: hidden;
     display: flex;
@@ -1247,8 +1248,8 @@
 }
 
     .product-view-image img {
-        width: 100%;
-        height: 100%;
+       
+        
         display: block;
         object-fit: contain;
     }
@@ -1590,11 +1591,11 @@
 .product-view-spec-table {
     width: 100%;
     border-collapse: collapse;
-    border: 1px solid #d8dce5;
+    border: 1px solid #a6540c;
 }
 
     .product-view-spec-table tr:nth-child(odd) {
-        background: #eef3fb;
+        background: #e77713;
     }
 
     .product-view-spec-table tr:nth-child(even) {
@@ -1603,12 +1604,12 @@
 
     .product-view-spec-table td {
         padding: 15px 18px;
-        border-bottom: 1px solid #d8dce5;
+        border-bottom: 1px solid #a6540c;
         font-size: 15px;
     }
 
 .product-view-spec-name {
-    color: #666;
+    color: #1b1b1b;
     width: 70%;
 }
 
@@ -1734,7 +1735,7 @@
         object-fit: contain;
         object-position: center;
         display: block;
-        background-color: #ff9a1d;
+        background-color: #F6C94C;
     }
 
 
@@ -1899,3 +1900,47 @@
         transform: scale(1.3);
     }
 
+.product-view-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Головне фото */
+.mainImg {
+    width: 100%;
+    max-width: 600px;
+    height: 400px;
+    object-fit: contain;
+    display: block;
+}
+
+/* Галерея */
+.galleryDiv {
+    display: flex;
+    background-color: #f1c44e;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+/* Маленькі фото */
+.galleryImg {
+    width:25%;
+    height: 158px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid transparent;
+    box-sizing: border-box;
+}
+
+    /* Перше фото вибране */
+ 
+
+    /* Наведення */
+    .galleryImg:active {
+        border: 2px solid #e77713s;
+    }
