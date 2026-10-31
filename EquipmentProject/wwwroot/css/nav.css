@@ -577,6 +577,7 @@ sidebar-link-form::after hover {
     .sidebar-overlay {
         display: none;
     }
+}
 
     /* ----- Планшети та телефони ----- */
     @media (max-width: 991.98px) {
@@ -668,3 +669,185 @@ sidebar-link-form::after hover {
         }
     }
 
+
+/* wwwroot/css/dashboard.css
+   Кольори взяті зі скріншота сайту. Якщо в site.css є свої змінні
+   (наприклад --primary, --accent), підставте їх у блок нижче. */
+:root {
+    --sidebar-w: 248px; /* ширина вашого сайдбара */
+    --dash-bg: #fdf0c4; /* кремовий фон сторінки */
+    --dash-card: rgb(241, 196, 78);
+    --dash-card-hover: #fff8e1;
+    --dash-border: #efd994; /* рамки */
+    --dash-border-hover: #e8761a;
+    --dash-text: #231a0a; /* основний текст */
+    --dash-muted: #7a6a45; /* другорядний текст */
+    --dash-accent: #e8761a; /* оранжевий акцент (логотип) */
+    --dash-yellow: #f2c44f; /* жовтий (сайдбар) */
+    --dash-icon-bg: #fdf0c4;
+}
+
+/* ---- Позиціонування ---- */
+body:has(.dash) {
+    background: var(--dash-bg);
+}
+
+*:has(> .dash) {
+    background: var(--dash-bg) !important;
+    min-height: 100vh;
+    margin: 0 !important;
+    padding: 24px 32px 32px calc(var(--sidebar-w) + 32px) !important;
+    box-sizing: border-box;
+}
+
+.dash {
+    max-width: 1090px;
+    padding: 4px 0 40px;
+    color: var(--dash-text);
+}
+
+.dash-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--dash-text);
+}
+
+.dash-subtitle {
+    color: var(--dash-muted);
+    font-size: .875rem;
+    margin: 2px 0 28px;
+}
+
+/* ---- Картки статистики ---- */
+.dash-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.dash-stat {
+    position: relative;
+    display: block;
+    padding: 24px;
+    background: var(--dash-card);
+    border: 1px solid var(--dash-border);
+    color: inherit;
+    text-decoration: none;
+    transition: border-color .15s, transform .15s, box-shadow .15s;
+}
+
+    .dash-stat:hover {
+        border-color: var(--dash-border-hover);
+        color: inherit;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(232, 118, 26, .12);
+    }
+
+.dash-stat-icon {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--dash-icon-bg);
+    font-size: 1.1rem;
+}
+
+.dash-stat-icon--blue {
+    color: var(--dash-accent);
+}
+
+.dash-stat-icon--green {
+    color: #b8860b;
+}
+
+.dash-stat-icon--orange {
+    color: #8a4b0f;
+}
+
+.dash-stat-arrow {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    color: var(--dash-muted);
+    font-size: .9rem;
+}
+
+.dash-stat-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-top: 24px;
+    line-height: 1.1;
+}
+
+.dash-stat-label {
+    color: var(--dash-muted);
+    font-size: .875rem;
+    margin-top: 6px;
+}
+
+/* ---- Швидкі дії ---- */
+.dash-panel {
+    background: var(--dash-card);
+    border: 1px solid var(--dash-border);
+    padding: 24px;
+}
+
+.dash-panel-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 24px;
+}
+
+.dash-actions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.dash-action {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: var(--dash-card);
+    border: 1px solid var(--dash-border);
+    color: inherit;
+    text-decoration: none;
+    transition: border-color .15s, background .15s;
+}
+
+    .dash-action:hover {
+        border-color: var(--dash-border-hover);
+        background: var(--dash-card-hover);
+        color: inherit;
+    }
+
+    .dash-action > i {
+        color: var(--dash-accent);
+        font-size: 1.15rem;
+    }
+
+.dash-action-title {
+    font-size: .875rem;
+    font-weight: 600;
+}
+
+.dash-action-desc {
+    color: var(--dash-muted);
+    font-size: .75rem;
+    margin-top: 2px;
+}
+
+/* ---- Мобільні ---- */
+@media (max-width: 900px) {
+    *:has(> .dash) {
+        padding: 16px !important;
+    }
+
+    .dash-stats, .dash-actions {
+        grid-template-columns: 1fr;
+    }
+}

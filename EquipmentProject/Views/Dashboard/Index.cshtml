@@ -1,0 +1,68 @@
+﻿@model DashboardViewModel
+@{
+    ViewData["Title"] = "Дашборд";
+}
+
+<link rel="stylesheet" href="~/css/dashboard.css" asp-append-version="true" />
+
+<div class="dash">
+    <h1 class="dash-title">Дашборд</h1>
+    <p class="dash-subtitle">Огляд стану каталогу обладнання</p>
+
+    <div class="dash-stats">
+        <a class="dash-stat" asp-controller="Category" asp-action="Index">
+           <span class="dash-stat-icon dash-stat-icon--blue"><img src="/lib/filter_plus_24dp_2854C5_FILL0_wght400_GRAD0_opsz24.png" /> </span>
+            <i class="bi bi-arrow-right dash-stat-arrow"></i>
+            <div class="dash-stat-value">@Model.CategoriesCount</div>
+            <div class="dash-stat-label">Категорії</div>
+        </a>
+
+        <a class="dash-stat" asp-controller="SubCategory" asp-action="Index">
+            <span class="dash-stat-icon dash-stat-icon--green"><img src="/lib/account_tree_24dp_F19E39_FILL0_wght400_GRAD0_opsz24.png" /></span>
+            <i class="bi bi-arrow-right dash-stat-arrow"></i>
+            <div class="dash-stat-value">@Model.SubcategoriesCount</div>
+            <div class="dash-stat-label">Підкатегорії</div>
+        </a>
+
+        <a class="dash-stat" asp-controller="Product" asp-action="AddProduct">
+            <span class="dash-stat-icon dash-stat-icon--orange"><img src="/lib/package_2_24dp_D16D6A_FILL0_wght400_GRAD0_opsz24.png" />  </span>
+            <i class="bi bi-arrow-right dash-stat-arrow"></i>
+            <div class="dash-stat-value">@Model.ProductsCount</div>
+            <div class="dash-stat-label">Товари</div>
+        </a>
+    </div>
+
+    <section class="dash-panel">
+        <h2 class="dash-panel-title">Швидкі дії</h2>
+        <div class="dash-actions">
+            <a class="dash-action" asp-controller="Product" asp-action="AddProduct">
+                <i class="bi bi-box-seam"></i>
+                <div>
+                    <div class="dash-action-title">Додати товар</div>
+                    <div class="dash-action-desc">Створити новий товар у каталозі</div>
+                </div>
+            </a>
+            <a class="dash-action" asp-controller="Category" asp-action="Index">
+                <i class="bi bi-diagram-3"></i>
+                <div>
+                    <div class="dash-action-title">Додати категорію</div>
+                    <div class="dash-action-desc">Створити нову категорію обладнання</div>
+                </div>
+            </a>
+            <a class="dash-action" asp-controller="Subcategories" asp-action="Index">
+                <i class="bi bi-diagram-2"></i>
+                <div>
+                    <div class="dash-action-title">Додати підкатегорію</div>
+                    <div class="dash-action-desc">Створити нову підкатегорію</div>
+                </div>
+            </a>
+            <a class="dash-action" asp-controller="Admin" asp-action="SiteSettings">
+                <i class="bi bi-gear"></i>
+                <div>
+                    <div class="dash-action-title">Редагувати сайт</div>
+                    <div class="dash-action-desc">Оновити контактну інформацію</div>
+                </div>
+            </a>
+        </div>
+    </section>
+</div>
