@@ -104,6 +104,35 @@ namespace EquipmentProject.Migrations
                         });
                 });
 
+            modelBuilder.Entity("EquipmentProject.Models.Images", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImgPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SiteSettingsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("SiteSettingsId");
+
+                    b.ToTable("Images");
+                });
+
             modelBuilder.Entity("EquipmentProject.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -193,6 +222,15 @@ namespace EquipmentProject.Migrations
                     b.Property<string>("SocialTelegram")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SocialTikTok")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SocialWhatsApp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SocialYouTube")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SubHeaderInfo")
                         .HasColumnType("nvarchar(max)");
 
@@ -210,6 +248,9 @@ namespace EquipmentProject.Migrations
                             SocialFacebook = "",
                             SocialInstagram = "",
                             SocialTelegram = "",
+                            SocialTikTok = "",
+                            SocialWhatsApp = "",
+                            SocialYouTube = "",
                             SubHeaderInfo = "SubHeader Info"
                         });
                 });
@@ -559,6 +600,17 @@ namespace EquipmentProject.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("EquipmentProject.Models.Images", b =>
+                {
+                    b.HasOne("EquipmentProject.Models.Product", null)
+                        .WithMany("Images")
+                        .HasForeignKey("ProductId");
+
+                    b.HasOne("EquipmentProject.Models.SiteSettings", null)
+                        .WithMany("Images")
+                        .HasForeignKey("SiteSettingsId");
+                });
+
             modelBuilder.Entity("EquipmentProject.Models.Product", b =>
                 {
                     b.HasOne("EquipmentProject.Models.Subcategory", "Subcategory")
@@ -655,12 +707,16 @@ namespace EquipmentProject.Migrations
 
             modelBuilder.Entity("EquipmentProject.Models.Product", b =>
                 {
+                    b.Navigation("Images");
+
                     b.Navigation("TechnicalCharacteristics");
                 });
 
             modelBuilder.Entity("EquipmentProject.Models.SiteSettings", b =>
                 {
                     b.Navigation("Contacts");
+
+                    b.Navigation("Images");
 
                     b.Navigation("WhyWes");
                 });
