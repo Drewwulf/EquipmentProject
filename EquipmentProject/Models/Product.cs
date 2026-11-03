@@ -17,9 +17,9 @@
         public Subcategory Subcategory { get; set; }
         public List<TechnicalCharacteristic>TechnicalCharacteristics { get; set; }
 
-        
+        public List<Images> Images { get; set; }
 
-       
+
 
 
 

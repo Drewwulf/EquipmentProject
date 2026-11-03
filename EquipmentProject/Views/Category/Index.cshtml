@@ -21,12 +21,14 @@
     <section class="product-section">
         <form asp-controller="Category"
               asp-action="@(editMode ? "Edit" : "Create")"
+             
               method="post"
               enctype="multipart/form-data">
 
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="SubcategoryId" />
             <input type="hidden" asp-for="ImgPath" />
+            <input type="hidden" asp-for="View"/>
 
             <section class="product-section">
 

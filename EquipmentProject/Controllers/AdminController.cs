@@ -4,18 +4,22 @@ using EquipmentProject.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace EquipmentProject.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _environment;
 
-        
-        public AdminController(ApplicationDbContext context)
+        public AdminController(
+            ApplicationDbContext context,
+            IWebHostEnvironment environment)
         {
             _context = context;
+            _environment = environment;
         }
         public IActionResult SiteSettings()
         {
@@ -30,6 +34,9 @@ namespace EquipmentProject.Controllers
                     SocialFacebook = "",
                     SocialInstagram = "",
                     SocialTelegram = "",
+                    SocialYouTube = "",
+                    SocialTikTok = "",
+                    SocialWhatsApp = "",
                     Contacts = new List<Contact>(),
                     WhyWes = new List<WhyWe>()
                 };
@@ -39,7 +46,7 @@ namespace EquipmentProject.Controllers
 
 
                 return RedirectToAction("SiteSettings");
-            }var siteSettings = _context.SiteSettings.Include(site=>site.Contacts).Include(site=>site.WhyWes)
+            }var siteSettings = _context.SiteSettings.Include(site=>site.Contacts).Include(site=>site.WhyWes).Include(site => site.Images)
     .OrderByDescending(s => s.Id)
     .First();
 
@@ -53,8 +60,12 @@ namespace EquipmentProject.Controllers
                 SocialFacebook = siteSettings.SocialFacebook,
                 SocialInstagram = siteSettings.SocialInstagram,
                 SocialTelegram = siteSettings.SocialTelegram,
+                SocialTikTok = siteSettings.SocialTikTok,
+                SocialWhatsApp = siteSettings.SocialWhatsApp,
+                SocialYouTube = siteSettings.SocialYouTube,
                 ImgForHeader = siteSettings.ImgPathForHeader,
                 ImgForLogo = siteSettings.ImgPathForLogo,
+                Images = siteSettings.Images.Where(i => !i.IsDeleted).ToList(),
                 Contacts = siteSettings.Contacts,
                 WhyWes = siteSettings.WhyWes
             };
@@ -82,6 +93,10 @@ namespace EquipmentProject.Controllers
             siteconf.HeaderInfo = siteSettings.HeaderInfo;
             siteconf.SubHeaderInfo = siteSettings.SubHeaderInfo;
 
+            siteconf.SocialTikTok = siteSettings.SocialTikTok;
+            siteconf.SocialWhatsApp = siteSettings.SocialWhatsApp;
+            siteconf.SocialYouTube = siteSettings.SocialYouTube;
+
             siteconf.SocialFacebook = siteSettings.SocialFacebook;
             siteconf.SocialInstagram = siteSettings.SocialInstagram;
             siteconf.SocialTelegram = siteSettings.SocialTelegram;
@@ -93,11 +108,25 @@ namespace EquipmentProject.Controllers
             );
 
             // Фото заголовка
-            siteconf.ImgPathForHeader = await SaveImageAsync(
-                siteSettings.MainImageForHeader,
+            /*siteconf.ImgPathForHeader = await SaveImageAsync(
+                siteSettings.Images,
                 siteconf.ImgPathForHeader,
                 "header"
-            );
+            );*/
+            foreach (var image in siteSettings.ImagesIFormFile)
+            {
+                var imagePath = await SaveImageAsync(
+                    image,
+                   null,
+                    "header"
+                );
+                var imageI = new Images()
+                {
+                    ImgPath = imagePath
+                };
+
+                siteconf.Images.Add(imageI);
+            }
 
             siteconf.Contacts = siteSettings.Contacts;
 
@@ -214,6 +243,41 @@ namespace EquipmentProject.Controllers
             };
 
             return View(model);
+    
+        
+        
         }
+
+
+        public IActionResult DeleteImage(int id)
+        {
+            var image = _context.Images.Where(i => i.Id == id).FirstOrDefault();
+            image.IsDeleted = true;
+            _context.SaveChanges();
+            DeleteImage(image.ImgPath);
+            return RedirectToAction("SiteSettings");
+        }
+
+        private void DeleteImage(string? imagePath)
+        {
+            if (string.IsNullOrEmpty(imagePath))
+                return;
+
+            string fileName = Path.GetFileName(imagePath);
+
+            string filePath = Path.Combine(
+                _environment.WebRootPath,
+                "uploads",
+                "header",
+                fileName
+            );
+
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
+        }
+
     }
+
 }

@@ -19,7 +19,7 @@ namespace EquipmentProject.Controllers
         }
         public IActionResult Index()
         {
-            var category = _context.SiteSettings.OrderByDescending(s => s.Id).Include(site=>site.WhyWes).First();
+            var category = _context.SiteSettings.OrderByDescending(s => s.Id).Include(site=>site.WhyWes).Include(site => site.Images).First();
             var news = _context.Products.Where(p => p.IsDeleted == false).ToList();
             var famous = _context.Categories.Where(s => s.IsDeleted==false).Take(6).ToList();
 
@@ -36,6 +36,7 @@ namespace EquipmentProject.Controllers
                 SocialInstagram = category.SocialInstagram,
                 SocialTelegram = category.SocialTelegram,
                 ImgForHeader = category.ImgPathForHeader,
+                Images = category.Images.Where(i => !i.IsDeleted).ToList(),
                 ImgForLogo = category.ImgPathForLogo,
                 WhyWes = category.WhyWes,
                 Categories = famous
@@ -64,6 +65,7 @@ namespace EquipmentProject.Controllers
             var product = _context.Products
                 .Include(x => x.Subcategory).ThenInclude(x=>x.Categories)
                 .Include(x => x.TechnicalCharacteristics)
+                .Include(x => x.Images)
                 .FirstOrDefault(x => x.Id == id && !x.IsDeleted);
 
             if (product == null)
@@ -77,7 +79,7 @@ namespace EquipmentProject.Controllers
  
         public async Task<IActionResult> SubcategoryCatalog(int id)
         {
-            var catalog = _context.Subcategories.Where(c => c.CategoriesId==id).Include(c=>c.Categories).ToList();
+            var catalog = _context.Subcategories.Where(c => c.CategoriesId==id ).Include(c=>c.Categories).ToList();
             var catalogs = new SubCategoryViewModel
             {
                 Subcategories = catalog,
@@ -99,6 +101,7 @@ namespace EquipmentProject.Controllers
         public async Task<IActionResult> AllCategories()
         {
             var categories = await _context.Categories
+                .Where(c => c.IsDeleted != true)
                 .OrderBy(c => c.ProductName)
                 .ToListAsync();
 
