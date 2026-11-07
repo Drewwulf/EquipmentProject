@@ -781,20 +781,22 @@ html {
    ВИДАЛЕННЯ ХАРАКТЕРИСТИКИ*/
 
 .delete-specification {
-    height: 32px;
-    width: 32px!important;
-    border: 1px solid #3a465a;
+    height: 42px;
+    width: 42px!important;
     background-color: #e77713;
     color: #1b0f0d;
     font-size: 20px;
     cursor: pointer;
     transition: 0.15s;
     text-decoration: none;
+    padding:3px 50px ;
+    border-radius:9px;
+    border:0!important;
 }
 
     .delete-specification:hover {
         background-color: #a6540c!important;
-        border-color: #a6540c;
+       
         color: #1b0f0d;
     }
 
