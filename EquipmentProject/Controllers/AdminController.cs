@@ -37,6 +37,7 @@ namespace EquipmentProject.Controllers
                     SocialYouTube = "",
                     SocialTikTok = "",
                     SocialWhatsApp = "",
+                    SocialViber = "",
                     Contacts = new List<Contact>(),
                     WhyWes = new List<WhyWe>()
                 };
@@ -63,6 +64,7 @@ namespace EquipmentProject.Controllers
                 SocialTikTok = siteSettings.SocialTikTok,
                 SocialWhatsApp = siteSettings.SocialWhatsApp,
                 SocialYouTube = siteSettings.SocialYouTube,
+                SocialViber = siteSettings.SocialViber,
                 ImgForHeader = siteSettings.ImgPathForHeader,
                 ImgForLogo = siteSettings.ImgPathForLogo,
                 Images = siteSettings.Images.Where(i => !i.IsDeleted).ToList(),
@@ -100,6 +102,7 @@ namespace EquipmentProject.Controllers
             siteconf.SocialFacebook = siteSettings.SocialFacebook;
             siteconf.SocialInstagram = siteSettings.SocialInstagram;
             siteconf.SocialTelegram = siteSettings.SocialTelegram;
+            siteconf.SocialViber = siteSettings.SocialViber;
 
             siteconf.ImgPathForLogo= await SaveImageAsync(
                 siteSettings.MainImageForLogo,
