@@ -14,6 +14,7 @@
         public string SocialYouTube { get; set; }
         public string SocialWhatsApp { get; set; }
         public string ImgForLogo { get; set; }
+        public string SocialViber { get; set; }
         public IFormFile MainImageForLogo { get; set; }
         public string ImgForHeader { get; set; }
         public IFormFile MainImageForHeader { get; set; }
@@ -24,5 +25,6 @@
         public List<Product> Products { get; set; } = new List<Product>();
         public List<WhyWe> WhyWes { get; set; } = new List<WhyWe>();
         public List<Category> Categories { get; set; } = new List<Category>();
+       
     }
 }
