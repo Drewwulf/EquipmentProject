@@ -1239,8 +1239,7 @@
 
 .product-view-image {
     width: 645px;
-
-    background: #F6C94C;
+    background: #f1c44e;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -1723,7 +1722,7 @@
     height: 325px;
     position: relative;
     overflow: hidden;
-    background: #f6f7f8;
+    background: #FF9F43;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1735,10 +1734,13 @@
         object-fit: contain;
         object-position: center;
         display: block;
-        background-color: #F6C94C;
+        background-color: transparent;
     }
 
-
+#img3 {
+    background-color: #f1c44e!important;
+    
+}
 
 .searchItemName {
     font-size: 14px;
