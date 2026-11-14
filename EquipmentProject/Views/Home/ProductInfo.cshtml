@@ -54,38 +54,118 @@
 
     <div class="product-view-content">
 
-        <!-- ФОТО -->
+                <!-- ФОТО + ВІДЕО (галерея) -->
+        @{
+            // всі фото: головне + додані з адмінки
+            var slides = new List<string>();
+            if (!string.IsNullOrWhiteSpace(Model.ImgPath))
+                slides.Add(Model.ImgPath);
+
+            if (Model.Images != null)
+                slides.AddRange(Model.Images
+                    .Where(i => !string.IsNullOrWhiteSpace(i.ImgPath))
+                    .Select(i => i.ImgPath));
+
+                      // Відео: YouTube-посилання або файл із адмінки
+            string videoSrc = null;
+            bool isYouTube = false;
+            var rawVideo = Model.YouTubeVideo?.Trim();
+
+            if (!string.IsNullOrWhiteSpace(rawVideo))
+            {
+                if (Uri.TryCreate(rawVideo, UriKind.Absolute, out var yt)
+                    && (yt.Host.Contains("youtube.com") || yt.Host.Contains("youtu.be")))
+                {
+                    var vid = System.Web.HttpUtility.ParseQueryString(yt.Query)["v"]
+                              ?? yt.Segments.Last().Trim('/');
+                    videoSrc = $"https://www.youtube.com/embed/{vid}";
+                    isYouTube = true;
+                }
+                else
+                {
+                    // шлях до файлу на сервері
+                    videoSrc = rawVideo.StartsWith("~/") ? Url.Content(rawVideo) : rawVideo;
+                }
+            }
+
+            var total = slides.Count + (videoSrc != null ? 1 : 0);
+            var videoFirst = slides.Count == 0;
+           
+        }
 
         <div class="product-view-image">
 
-    @if (!string.IsNullOrWhiteSpace(Model.ImgPath))
-    {
-        <img src="@Model.ImgPath"
-             alt="@Model.ProductName"
-             class="mainImg">
-    }
-    else
-    {
-        <div class="product-view-no-photo">
-            <span>Фото відсутнє</span>
+            @if (total == 0)
+            {
+                <div class="product-view-no-photo">
+                    <span>Фото відсутнє</span>
+                </div>
+            }
+            else
+            {
+                <div id="productGallery" class="carousel slide product-gallery" data-bs-interval="false">
+
+                    <div class="carousel-inner">
+
+                        @for (int i = 0; i < slides.Count; i++)
+                        {
+                            <div class="carousel-item @(i == 0 ? "active" : "")">
+                                <img src="@slides[i]" alt="@Model.ProductName" />
+                            </div>
+                        }
+
+                                               @if (videoSrc != null)
+                        {
+                            <div class="carousel-item @(videoFirst ? "active" : "")">
+
+                                @if (isYouTube)
+                                {
+                                    <iframe data-src="@videoSrc"
+                                            src="@(videoFirst ? videoSrc : null)"
+                                            title="YouTube video player"
+                                            frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            referrerpolicy="strict-origin-when-cross-origin"
+                                            allowfullscreen></iframe>
+                                }
+                                else
+                                {
+                                    <video src="@videoSrc"
+                                           controls
+                                           preload="metadata"
+                                           playsinline></video>
+                                }
+
+                            </div>
+                        }
+
+                    </div>
+
+                    @if (total > 1)
+                    {
+                        <button class="carousel-control-prev" type="button"
+                                data-bs-target="#productGallery" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button"
+                                data-bs-target="#productGallery" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+
+                        <div class="carousel-indicators">
+                            @for (int i = 0; i < total; i++)
+                            {
+                                <button type="button"
+                                        data-bs-target="#productGallery"
+                                        data-bs-slide-to="@i"
+                                        class="@(i == 0 ? "active" : "")"></button>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+
         </div>
-    }
-
-    <!-- Галерея фото -->
-    <div class="galleryDiv">
-        @foreach (var imgs in Model.Images)
-        {
-            <img src="@imgs.ImgPath"
-                 alt="@Model.ProductName"
-                 class="galleryImg">
-        }
-    </div>
-
-</div>
-
-  <!-- Гарелея фото-->
-                    
-
         <!-- ІНФОРМАЦІЯ -->
 
         <div class="product-view-info">
@@ -232,3 +312,26 @@
 
     </div>
 }
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var gallery = document.getElementById('productGallery');
+    if (!gallery) return;
+
+    gallery.addEventListener('slid.bs.carousel', function () {
+        // YouTube: підвантажити на своєму слайді, прибрати на інших
+        gallery.querySelectorAll('iframe').forEach(function (f) {
+            var active = f.closest('.carousel-item').classList.contains('active');
+            if (active && !f.getAttribute('src')) {
+                f.setAttribute('src', f.dataset.src);
+            } else if (!active && f.getAttribute('src')) {
+                f.removeAttribute('src');
+            }
+        });
+
+        // Відеофайл: поставити на паузу, коли слайд неактивний
+        gallery.querySelectorAll('video').forEach(function (v) {
+            if (!v.closest('.carousel-item').classList.contains('active')) v.pause();
+        });
+    });
+});
+</script>
