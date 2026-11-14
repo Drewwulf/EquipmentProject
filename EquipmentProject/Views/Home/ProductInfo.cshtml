@@ -68,6 +68,7 @@
 
                       // Відео: YouTube-посилання або файл із адмінки
             string videoSrc = null;
+            string ytId = null;
             bool isYouTube = false;
             var rawVideo = Model.YouTubeVideo?.Trim();
 
@@ -78,6 +79,7 @@
                 {
                     var vid = System.Web.HttpUtility.ParseQueryString(yt.Query)["v"]
                               ?? yt.Segments.Last().Trim('/');
+                    ytId = vid;
                     videoSrc = $"https://www.youtube.com/embed/{vid}";
                     isYouTube = true;
                 }
@@ -90,6 +92,25 @@
 
             var total = slides.Count + (videoSrc != null ? 1 : 0);
             var videoFirst = slides.Count == 0;
+
+
+
+                        var lightboxItems = slides
+                .Select(s => new { type = "img", src = s, thumb = s })
+                .ToList();
+
+            var lightboxAll = lightboxItems.Cast<object>().ToList();
+            if (videoSrc != null)
+            {
+                lightboxAll.Add(new
+                {
+                    type = isYouTube ? "youtube" : "video",
+                    src = videoSrc,
+                    thumb = isYouTube ? $"https://img.youtube.com/vi/{ytId}/mqdefault.jpg" : ""
+                });
+            }
+
+            var lightboxJson = System.Text.Json.JsonSerializer.Serialize(lightboxAll);
            
         }
 
@@ -110,7 +131,7 @@
                         @for (int i = 0; i < slides.Count; i++)
                         {
                             <div class="carousel-item @(i == 0 ? "active" : "")">
-                                <img src="@slides[i]" alt="@Model.ProductName" />
+                               <img src="@slides[i]" alt="@Model.ProductName" class="gallery-zoom" data-index="@i" />
                             </div>
                         }
 
@@ -312,6 +333,118 @@
 
     </div>
 }
+<div id="lightbox" class="lb" hidden>
+    <div class="lb-dialog">
+        <div class="lb-header">
+            <span class="lb-title">@Model.ProductName</span>
+            <button type="button" class="lb-close" aria-label="Закрити">&times;</button>
+        </div>
+
+        <div class="lb-body">
+            <div class="lb-thumbs" id="lbThumbs"></div>
+
+            <div class="lb-stage">
+                <button type="button" class="lb-nav lb-prev" aria-label="Назад">&#10094;</button>
+                <div class="lb-media" id="lbMedia"></div>
+                <button type="button" class="lb-nav lb-next" aria-label="Далі">&#10095;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function () {
+    var items = @Html.Raw(lightboxJson);
+    var lb = document.getElementById('lightbox');
+    if (!lb || !items.length) return;
+
+    var media = document.getElementById('lbMedia');
+    var thumbs = document.getElementById('lbThumbs');
+    var current = 0;
+
+    // мініатюри
+    items.forEach(function (it, i) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'lb-thumb' + (it.type === 'video' ? ' lb-thumb-video-only' : '');
+        if (it.thumb) {
+            var im = document.createElement('img');
+            im.src = it.thumb;
+            b.appendChild(im);
+        }
+        if (it.type !== 'img') {
+            var p = document.createElement('span');
+            p.className = 'lb-thumb-play';
+            p.innerHTML = '&#9658;';
+            b.appendChild(p);
+        }
+        b.addEventListener('click', function () { show(i); });
+        thumbs.appendChild(b);
+    });
+
+    function show(i) {
+        current = (i + items.length) % items.length;
+        var it = items[current];
+        media.innerHTML = '';   // це ж зупиняє попереднє відео
+
+        var el;
+        if (it.type === 'img') {
+            el = document.createElement('img');
+            el.src = it.src;
+        } else if (it.type === 'youtube') {
+            el = document.createElement('iframe');
+            el.src = it.src;
+            el.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+            el.allowFullscreen = true;
+        } else {
+            el = document.createElement('video');
+            el.src = it.src;
+            el.controls = true;
+            el.playsInline = true;
+        }
+        media.appendChild(el);
+
+        thumbs.querySelectorAll('.lb-thumb').forEach(function (t, idx) {
+            t.classList.toggle('active', idx === current);
+        });
+    }
+
+    function open(i) {
+        lb.hidden = false;
+        document.body.style.overflow = 'hidden';
+        show(i);
+    }
+
+    function close() {
+        lb.hidden = true;
+        media.innerHTML = '';
+        document.body.style.overflow = '';
+    }
+
+    // клік по фото в галереї
+    document.querySelectorAll('.gallery-zoom').forEach(function (img) {
+        img.addEventListener('click', function () {
+            open(parseInt(img.dataset.index, 10) || 0);
+        });
+    });
+
+    lb.querySelector('.lb-prev').addEventListener('click', function () { show(current - 1); });
+    lb.querySelector('.lb-next').addEventListener('click', function () { show(current + 1); });
+    lb.querySelector('.lb-close').addEventListener('click', close);
+
+    // клік по затемненому фону
+    lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+
+    // клавіатура
+    document.addEventListener('keydown', function (e) {
+        if (lb.hidden) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft') show(current - 1);
+        if (e.key === 'ArrowRight') show(current + 1);
+    });
+})();
+</script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     var gallery = document.getElementById('productGallery');
