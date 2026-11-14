@@ -1909,40 +1909,49 @@
     width: 100%;
 }
 
-/* Головне фото */
-.mainImg {
+
+
+
+
+
+.product-view-image {
     width: 100%;
-    max-width: 600px;
-    height: 400px;
-    object-fit: contain;
-    display: block;
 }
 
-/* Галерея */
-.galleryDiv {
-    display: flex;
-    background-color: #f1c44e;
-    align-items: center;
-    gap: 6px;
+.product-gallery {
     width: 100%;
-    margin-top: 15px;
-    flex-wrap: wrap;
+    overflow: hidden;
 }
 
-/* Маленькі фото */
-.galleryImg {
-    width:25%;
-    height: 158px;
-    object-fit: cover;
-    cursor: pointer;
-    border: 2px solid transparent;
-    box-sizing: border-box;
-}
+    .product-gallery .carousel-item {
+        aspect-ratio: 16 / 10; /* однакова висота для всіх слайдів */
+    }
 
-    /* Перше фото вибране */
- 
+        .product-gallery .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* великі фото/іконки вміщаються в блок */
+            display: block;
+        }
 
-    /* Наведення */
-    .galleryImg:active {
-        border: 2px solid #e77713s;
+        .product-gallery .carousel-item iframe,
+        .product-gallery .carousel-item video {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            background: #000;
+            object-fit: contain;
+        }
+
+    .product-gallery .carousel-control-prev-icon,
+    .product-gallery .carousel-control-next-icon {
+        background-color: rgba(0, 0, 0, .45);
+        border-radius: 50%;
+        background-size: 50%;
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .product-gallery .carousel-indicators button {
+        background-color: #000;
     }

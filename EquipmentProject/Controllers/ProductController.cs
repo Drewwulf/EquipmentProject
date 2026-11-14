@@ -107,7 +107,8 @@ namespace EquipmentProject.Controllers
                 IsNew = Model.IsNew,
                 IsRecomended = Model.IsRecomended,
                 ImgPath = ImgPaths,
-                TechnicalCharacteristics = Model.TechnicalCharacteristics
+                TechnicalCharacteristics = Model.TechnicalCharacteristics,
+                YouTubeVideo = Model.YouTubeVideo
             };
 
             _context.Products.Add(product);
@@ -194,6 +195,7 @@ namespace EquipmentProject.Controllers
                 IsRecomended = product.IsRecomended,
                 IsDeleted = product.IsDeleted,
                 ImgPath = product.ImgPath,
+                YouTubeVideo = product.YouTubeVideo,
                 Images = product.Images.Where(p => !p.IsDeleted).ToList(),
                 Categories = categories,
                 Products = products,
@@ -236,6 +238,9 @@ namespace EquipmentProject.Controllers
             product.FullDescription = Model.FullDescription;
             product.IsNew = Model.IsNew;
             product.IsRecomended = Model.IsRecomended;
+            product.YouTubeVideo = string.IsNullOrWhiteSpace(Model.YouTubeVideo)
+                ? null
+                : Model.YouTubeVideo.Trim();
 
             if (Model.MainImage != null && Model.MainImage.Length > 0)
             {
