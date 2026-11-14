@@ -79,27 +79,7 @@
     </div>
 </section>
 
-<section class="category-bar">
 
-    <div class="category-container">
-
-        @foreach (var category in ViewBag.Categories)
-        {
-            <a asp-controller="Home" 
-                   asp-action="SubcategoryCatalog"
-                   asp-route-id="@category.Id">
-
-                <span></span>
-
-                @category.ProductName
-
-            </a>
-        }
-  
-
-    </div>
-    
-</section>
 <section class="popular-categories">
 
     <div class="categories-header">
