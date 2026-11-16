@@ -79,27 +79,7 @@
     </div>
 </section>
 
-<section class="category-bar">
 
-    <div class="category-container">
-
-        @foreach (var category in ViewBag.Categories)
-        {
-            <a asp-controller="Home" 
-                   asp-action="SubcategoryCatalog"
-                   asp-route-id="@category.Id">
-
-                <span></span>
-
-                @category.ProductName
-
-            </a>
-        }
-  
-
-    </div>
-    
-</section>
 <section class="popular-categories">
 
     <div class="categories-header">
@@ -237,7 +217,7 @@
                     <div class="product-card">
 
                     <div class="product-image-box">
-                        <div class="no-image">
+                        <div class="no-image" id="img3">
                                         <img src="@product.ImgPath" alt="@product.ProductName" />
                         </div>
                     </div>

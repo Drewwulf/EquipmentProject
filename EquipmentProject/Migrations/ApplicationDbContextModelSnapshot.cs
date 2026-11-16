@@ -225,6 +225,9 @@ namespace EquipmentProject.Migrations
                     b.Property<string>("SocialTikTok")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SocialViber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SocialWhatsApp")
                         .HasColumnType("nvarchar(max)");
 
@@ -249,6 +252,7 @@ namespace EquipmentProject.Migrations
                             SocialInstagram = "",
                             SocialTelegram = "",
                             SocialTikTok = "",
+                            SocialViber = "",
                             SocialWhatsApp = "",
                             SocialYouTube = "",
                             SubHeaderInfo = "SubHeader Info"

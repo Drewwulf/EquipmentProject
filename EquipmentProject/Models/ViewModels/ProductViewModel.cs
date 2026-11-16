@@ -17,6 +17,7 @@
         public bool IsDeleted { get; set; }
         public string ImgPath { get; set; }
         public string SubCategoryName { get; set; }
+        public string? YouTubeVideo { get; set; }
 
         public IFormFileCollection GalleryImages { get; set; }
         public List<Images> Images { get; set; } = new();

@@ -10,6 +10,7 @@
         public int? SubcategoryId {  get; set; }
         public string ShortDescription { get; set; }
         public  string? FullDescription { get; set; }
+        public string? YouTubeVideo { get; set; }
         public bool IsNew { get; set; }
         public bool IsRecomended { get; set; }
         public bool IsDeleted { get; set; }
