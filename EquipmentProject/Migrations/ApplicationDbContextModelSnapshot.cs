@@ -177,6 +177,9 @@ namespace EquipmentProject.Migrations
                     b.Property<int?>("SubcategoryId")
                         .HasColumnType("int");
 
+                    b.Property<string>("YouTubeVideo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SubcategoryId");
