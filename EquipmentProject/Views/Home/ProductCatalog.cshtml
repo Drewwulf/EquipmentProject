@@ -13,6 +13,10 @@
 
             @foreach (var pcatalog in Model.products)
             {
+                    <a style="text-decoration:none"; asp-controller="Home"
+                               asp-action="ProductInfo"
+                               asp-route-id="@pcatalog.Id"
+                              >
                 <div class="product-card">
 
                     <div class="product-image-box">
@@ -39,22 +43,20 @@
                         <div class="product-bottom">
 
                             <span class="product-price">
-                                @pcatalog.Price
+                                @pcatalog.Price ₴
                             </span>
 
-                            <a asp-controller="Home"
-                               asp-action="ProductInfo"
-                               asp-route-id="@pcatalog.Id"
-                               class="product-details">
-                                Детальніше
-                                <span>→</span>
-                            </a>
+                        
+                              
+                                <span  class="product-details">  Детальніше</span>
+                           
 
                         </div>
 
                     </div>
 
                 </div>
+                 </a>
             }
 
         </div>

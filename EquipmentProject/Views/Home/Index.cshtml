@@ -152,7 +152,9 @@
                 {
 
 
-
+                                        <a asp-controller="Home" 
+                                        asp-action="ProductInfo"
+                                        asp-route-id="@product.Id" style="text-decoration:none;">
                     <div class="product-card">
 
                         <div class="product-image-box" >
@@ -176,19 +178,19 @@
 
                             <div class="product-bottom">
                                 <span class="product-price">
-                                    @product.Price
+                                    @product.Price ₴
                                 </span>
 
-                                <a asp-controller="Home" 
-                                asp-action="ProductInfo"
-                                asp-route-id="@product.Id" class="product-details">
-                                    Детальніше
-                                    <span>→</span>
-                                </a>
+                              
+                                   
+                                    <span class="product-details"> Детальніше</span>
+                                
                             </div>
                         </div>
 
                     </div>
+                    </a>
+
                 }
             }
           
@@ -212,7 +214,9 @@
                 if (product.IsRecomended == true)
                 {
 
-
+                            <a style="text-decoration:none;" asp-controller="Home"
+                               asp-action="ProductInfo"
+                               asp-route-id="@product.Id" >
 
                     <div class="product-card">
 
@@ -235,19 +239,17 @@
 
                         <div class="product-bottom">
                             <span class="product-price">
-                                @product.Price
+                                @product.Price ₴
                             </span>
 
-                            <a asp-controller="Home" 
-                               asp-action="ProductInfo"
-                               asp-route-id="@product.Id" class="product-details">
-                                Детальніше
-                                <span>→</span>
-                            </a>
+                         
+                                <span class="product-details">Детальніше</span>
+                         
                         </div>
                     </div>
 
-                </div>
+                </div
+                   </a>
                 }
             }
 
